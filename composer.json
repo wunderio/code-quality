@@ -2,6 +2,11 @@
     "name": "wunderio/code-quality",
     "description": "Code Quality checker wrapper for GrumPHP",
     "type": "project",
+    "license": "MIT",
+    "homepage": "https://github.com/wunderio/code-quality",
+    "keywords": [
+        "git","hooks","quality"
+    ],
     "authors": [
         {
             "name": "Hannes Kirsman",
