@@ -1,0 +1,36 @@
+{
+    "name": "wunderio/code-quality",
+    "description": "Code Quality checker wrapper for GrumPHP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Hannes Kirsman",
+            "email": "hannes.kirsman@wunder.io"
+        },
+        {
+            "name": "Ragnar Kurm",
+            "email": "ragnar.kurm@wunder.io"
+        },
+        {
+            "name": "Guntis Jakovins",
+            "email": "guntis.jakovins@wunder.io"
+        },
+        {
+            "name": "Marc Galang",
+            "email": "marc.galang@wunder.io"
+        },
+        {
+            "name": "Lauris Kuznecovs",
+            "email": "lauris.kuznecovs@wunder.ioo"
+        }
+    ],
+    "require": {
+        "phpro/grumphp": "^0.15",
+        "drupal/coder": "^8",
+        "phpcompatibility/php-compatibility": "^9",
+        "wunderio/grumphp-php-compatibility": "^0.2.1",
+        "wunderio/grumphp-php-check-syntax": "^0.1.0",
+        "wunderio/grumphp-file-permissions": "^0.1.0",
+        "pheromone/phpcs-security-audit": "^2.0"
+    }
+}

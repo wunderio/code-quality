@@ -1,0 +1,28 @@
+parameters:
+  tasks:
+    php_compatibility:
+      testVersion: "7.3"
+      triggered_by:  [php, inc, module, install]
+    check_file_permissions: ~
+    php_check_syntax:
+      ignore_patterns: []
+      triggered_by:
+        - php
+        - module
+        - inc
+    phpcs:
+      standard:
+        - vendor/hkirsman/code-quality/phpcs.xml
+        - vendor/hkirsman/code-quality/phpcs-security.xml
+      ignore_patterns:
+        - cfg/
+        - libraries/
+      triggered_by:
+        - php
+        - module
+        - inc
+      report_width: 120
+  extensions:
+    - wunderio\PhpCompatibilityTask\ExtensionLoader
+    - wunderio\PhpCheckSyntaxTask\ExtensionLoader
+    - wunderio\CheckFilePermissions\ExtensionLoader
