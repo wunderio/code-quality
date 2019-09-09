@@ -12,8 +12,8 @@ parameters:
         - inc
     phpcs:
       standard:
-        - vendor/hkirsman/code-quality/phpcs.xml
-        - vendor/hkirsman/code-quality/phpcs-security.xml
+        - vendor/wunderio/code-quality/phpcs.xml
+        - vendor/wunderio/code-quality/phpcs-security.xml
       ignore_patterns:
         - cfg/
         - libraries/
