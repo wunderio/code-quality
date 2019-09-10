@@ -35,3 +35,4 @@ parameters:
     - wunderio\PhpCompatibilityTask\ExtensionLoader
     - wunderio\PhpCheckSyntaxTask\ExtensionLoader
     - wunderio\CheckFilePermissions\ExtensionLoader
+    - Wunderio\ECS\ExtensionLoader
