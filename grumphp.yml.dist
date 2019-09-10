@@ -22,6 +22,12 @@ parameters:
         - module
         - inc
       report_width: 120
+    ecs:
+      config: vendor/wunderio/code-quality/ecs.yml
+      whitelist_patterns: ['web/modules/custom', 'web/themes/custom', 'modules/custom', 'themes/custom']
+      triggered_by: [php, inc, module, install]
+      clear-cache: false
+      no-progress-bar: true
   extensions:
     - wunderio\PhpCompatibilityTask\ExtensionLoader
     - wunderio\PhpCheckSyntaxTask\ExtensionLoader

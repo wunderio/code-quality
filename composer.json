@@ -36,6 +36,8 @@
         "wunderio/grumphp-php-compatibility": "^0.2.2",
         "wunderio/grumphp-php-check-syntax": "^0.1.1",
         "wunderio/grumphp-file-permissions": "^0.1.1",
-        "pheromone/phpcs-security-audit": "^2.0"
+        "pheromone/phpcs-security-audit": "^2.0",
+        "symplify/coding-standard": "^6.0",
+        "wunderio/ecs-drupal": "^0.1.1"
     }
 }

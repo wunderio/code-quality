@@ -1,0 +1,5 @@
+# ecs.yml
+services:
+  Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff:
+    maxCognitiveComplexity: 16
+  Wunderio\CodingStandards\Finder\DrupalFileFinder: ~
