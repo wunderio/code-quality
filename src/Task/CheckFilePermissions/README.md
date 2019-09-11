@@ -1,4 +1,4 @@
-# grumphp-php-check-syntax
+# php_check_syntax
 
 Check if the file permissions match that you've required. Dont' use yet. Work in progress!!!
 

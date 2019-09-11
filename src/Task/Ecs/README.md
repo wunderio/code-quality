@@ -1,4 +1,4 @@
-# grumphp-advanced-ecs
+# ecs
 
 Easy coding standards implementation to better react on task context.
 

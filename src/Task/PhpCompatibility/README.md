@@ -1,4 +1,4 @@
-# grumphp-php-compatibility
+# php_compatibility
 
 Check if files are compatible with X version of PHP.
 
