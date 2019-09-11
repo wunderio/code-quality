@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Wunderio\GrumPHP\Task\Ecs;
 
@@ -9,7 +9,6 @@ use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use GrumPHP\Task\AbstractExternalTask;
 use GrumPHP\Runner\TaskResultInterface;
 use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 
@@ -18,30 +17,28 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
  *
  * @package Wunderio\GrumPHP\Task\Ecs
  */
-class EcsTask extends ContextFileExternalTaskBase
-{
+class EcsTask extends ContextFileExternalTaskBase {
+
   /**
    * {@inheritdoc}
    */
-  public function getName(): string
-  {
+  public function getName(): string {
     return 'ecs';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getConfigurableOptions(): OptionsResolver
-  {
+  public function getConfigurableOptions(): OptionsResolver {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       'ignore_patterns' => static::$ignorePatterns,
       'extensions' => static::$extensions,
       'run_on' => ['.'],
-      'clear-cache' => false,
-      'no-progress-bar' => true,
-      'config' => null,
-      'level' => null,
+      'clear-cache' => FALSE,
+      'no-progress-bar' => TRUE,
+      'config' => NULL,
+      'level' => NULL,
     ]);
 
     $resolver->addAllowedTypes('ignore_patterns', ['array']);
@@ -58,40 +55,33 @@ class EcsTask extends ContextFileExternalTaskBase
   /**
    * {@inheritdoc}
    */
-  public function canRunInContext(ContextInterface $context): bool
-  {
+  public function canRunInContext(ContextInterface $context): bool {
     return $context instanceof GitPreCommitContext || $context instanceof RunContext;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function run(ContextInterface $context): TaskResultInterface
-  {
+  public function run(ContextInterface $context): TaskResultInterface {
     $config = $this->getConfiguration();
-    $files = $this->getFiles($context, $config);
-    if ($files->isEmpty()) {
+    $files = $this->getFiles($context);
+    if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
     }
 
     $arguments = $this->processBuilder->createArgumentsForCommand('ecs');
     $arguments->add('check');
 
-    if ($context instanceof GitPreCommitContext) {
-      $arguments->addFiles($files);
-    }
-    else {
-      foreach ($config['run_on'] as $whitelistPattern) {
-        $arguments->add($whitelistPattern);
-      }
+    foreach ($files as $file) {
+      $arguments->add($file);
     }
 
     $arguments->addOptionalArgument('--config=%s', $config['config']);
     $arguments->addOptionalArgument('--level=%s', $config['level']);
     $arguments->addOptionalArgument('--clear-cache', $config['clear-cache']);
     $arguments->addOptionalArgument('--no-progress-bar', $config['no-progress-bar']);
-    $arguments->addOptionalArgument('--ansi', true);
-    $arguments->addOptionalArgument('--no-interaction', true);
+    $arguments->addOptionalArgument('--ansi', TRUE);
+    $arguments->addOptionalArgument('--no-interaction', TRUE);
 
     $process = $this->processBuilder->buildProcess($arguments);
     $process->run();
@@ -102,4 +92,5 @@ class EcsTask extends ContextFileExternalTaskBase
 
     return TaskResult::createPassed($this, $context);
   }
+
 }

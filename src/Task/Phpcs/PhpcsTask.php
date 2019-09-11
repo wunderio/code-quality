@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Wunderio\GrumPHP\Task\Phpcs;
 
@@ -19,29 +19,33 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpcsTask extends ContextFileExternalTaskBase
-{
-  public function getName(): string
-  {
+class PhpcsTask extends ContextFileExternalTaskBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getName(): string {
     return 'phpcs';
   }
 
-  public function getConfigurableOptions(): OptionsResolver
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfigurableOptions(): OptionsResolver {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       'standard' => [],
-      'tab_width' => null,
-      'encoding' => null,
+      'tab_width' => NULL,
+      'encoding' => NULL,
       'run_on' => [],
       'sniffs' => [],
-      'severity' => null,
-      'error_severity' => null,
-      'warning_severity' => null,
+      'severity' => NULL,
+      'error_severity' => NULL,
+      'warning_severity' => NULL,
       'ignore_patterns' => static::$ignorePatterns,
       'extensions' => static::$extensions,
       'report' => 'full',
-      'report_width' => null,
+      'report_width' => NULL,
       'exclude' => [],
     ]);
 
@@ -62,17 +66,21 @@ class PhpcsTask extends ContextFileExternalTaskBase
     return $resolver;
   }
 
-  public function canRunInContext(ContextInterface $context): bool
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function canRunInContext(ContextInterface $context): bool {
     return $context instanceof GitPreCommitContext || $context instanceof RunContext;
   }
 
-  public function run(ContextInterface $context): TaskResultInterface
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function run(ContextInterface $context): TaskResultInterface {
     /** @var array $config */
     $config = $this->getConfiguration();
-    $files = $this->getFiles($context, $config);
-    if ($files === NULL && 0 === \count($files)) {
+    $files = $this->getFiles($context);
+    if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
     }
 
@@ -80,13 +88,8 @@ class PhpcsTask extends ContextFileExternalTaskBase
     $arguments = $this->addArgumentsFromConfig($arguments, $config);
     $arguments->add('--report-json');
 
-    if ($context instanceof GitPreCommitContext) {
-      $arguments->addFiles($files);
-    }
-    else {
-      foreach ($config['run_on'] as $whitelistPattern) {
-        $arguments->add($whitelistPattern);
-      }
+    foreach ($files as $file) {
+      $arguments->add($file);
     }
 
     $process = $this->processBuilder->buildProcess($arguments);
@@ -111,6 +114,9 @@ class PhpcsTask extends ContextFileExternalTaskBase
     return TaskResult::createPassed($this, $context);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function addArgumentsFromConfig(
     ProcessArgumentsCollection $arguments,
     array $config

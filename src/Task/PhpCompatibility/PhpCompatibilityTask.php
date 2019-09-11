@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Wunderio\GrumPHP\Task\PhpCompatibility;
 
@@ -11,7 +11,6 @@ use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use GrumPHP\Task\AbstractExternalTask;
 use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 
 /**
@@ -19,21 +18,19 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpCompatibilityTask extends ContextFileExternalTaskBase
-{
+class PhpCompatibilityTask extends ContextFileExternalTaskBase {
+
   /**
    * {@inheritdoc}
    */
-  public function getName(): string
-  {
+  public function getName(): string {
     return 'php_compatibility';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getConfigurableOptions(): OptionsResolver
-  {
+  public function getConfigurableOptions(): OptionsResolver {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       'ignore_patterns' => static::$ignorePatterns,
@@ -51,19 +48,17 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase
   /**
    * {@inheritdoc}
    */
-  public function canRunInContext(ContextInterface $context): bool
-  {
+  public function canRunInContext(ContextInterface $context): bool {
     return $context instanceof GitPreCommitContext || $context instanceof RunContext;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function run(ContextInterface $context): TaskResultInterface
-  {
+  public function run(ContextInterface $context): TaskResultInterface {
     $config = $this->getConfiguration();
-    $files = $this->getFiles($context, $config);
-    if ($files->isEmpty()) {
+    $files = $this->getFiles($context);
+    if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
     }
 
@@ -71,21 +66,16 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase
     $arguments = $this->addArgumentsFromConfig($arguments, $config);
     $arguments->add('--standard=vendor/wunderio/code-quality/php-compatibility.xml');
 
-    if ($context instanceof GitPreCommitContext) {
-      $arguments->addFiles($files);
-    }
-    else {
-      foreach ($config['run_on'] as $whitelistPattern) {
-        $arguments->add($whitelistPattern);
-      }
+    foreach ($files as $file) {
+      $arguments->add($file);
     }
 
     $process = $this->processBuilder->buildProcess($arguments);
     $process->run();
 
     if (!$process->isSuccessful()) {
-        $output = $this->formatter->format($process);
-        return TaskResult::createFailed($this, $context, $output);
+      $output = $this->formatter->format($process);
+      return TaskResult::createFailed($this, $context, $output);
     }
 
     return TaskResult::createPassed($this, $context);
@@ -94,12 +84,12 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase
   /**
    * Adds arguments from configuration.
    *
-   * @param ProcessArgumentsCollection $arguments
+   * @param \GrumPHP\Collection\ProcessArgumentsCollection $arguments
    *   Current arguments.
    * @param array $config
    *   Configuration.
    *
-   * @return ProcessArgumentsCollection
+   * @return \GrumPHP\Collection\ProcessArgumentsCollection
    *   Modified arguments.
    */
   protected function addArgumentsFromConfig(ProcessArgumentsCollection $arguments, array $config): ProcessArgumentsCollection {

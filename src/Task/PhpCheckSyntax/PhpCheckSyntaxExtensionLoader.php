@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @package Wunderio\GrumPHP\Task\PhpCheckSyntaxTask
  */
-class PhpCheckSyntaxExtensionLoader implements ExtensionInterface
-{
+class PhpCheckSyntaxExtensionLoader implements ExtensionInterface {
+
   /**
    * {@inheritdoc}
    */
-  public function load(ContainerBuilder $container)
-  {
+  public function load(ContainerBuilder $container) {
     return $container->register('task.php_check_syntax', PhpCheckSyntaxTask::class)
       ->addArgument(new Reference('config'))
       ->addArgument(new Reference('process_builder'))
       ->addArgument(new Reference('formatter.raw_process'))
       ->addTag('grumphp.task', ['config' => 'php_check_syntax']);
   }
+
 }

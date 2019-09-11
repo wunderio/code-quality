@@ -2,19 +2,19 @@
 
 namespace Wunderio\GrumPHP\Task;
 
+use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Task\AbstractExternalTask;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Trait ContextFileTrait.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class ContextFileExternalTaskBase extends AbstractExternalTask
-{
+abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
 
   /**
    * Ignore patterns.
@@ -39,8 +39,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask
   /**
    * {@inheritdoc}
    */
-  public function getConfigurableOptions(): OptionsResolver
-  {
+  public function getConfigurableOptions(): OptionsResolver {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       'ignore_patterns' => static::$ignorePatterns,
@@ -53,26 +52,56 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask
     return $resolver;
   }
 
-
   /**
-   * Returns files.
+   * Return files.
    *
    * @param \GrumPHP\Task\Context\ContextInterface $context
-   * @param array $config
+   *   Current context.
+   * @param bool $useSeperateFiles
+   *   Flag to indicate if files should be separated.
    *
-   * @return \GrumPHP\Collection\FilesCollection|null
+   * @return \GrumPHP\Collection\FilesCollection|array
+   *   File collection.
    */
-  protected function getFiles(ContextInterface $context, array $config)
-  {
-    $files = $context->getFiles()
-      ->extensions($config['extensions'])
-      ->paths($config['run_on'])
-      ->notPaths($config['ignore_patterns']);
-    if (\count($config['run_on'])) {
-      $files = $files->paths($config['run_on']);
+  protected function getFiles(ContextInterface $context, $useSeperateFiles = FALSE) {
+    $config = $this->getConfiguration();
+
+    // Deal with pre commit files first.
+    if ($context instanceof GitPreCommitContext) {
+      $files = $context->getFiles()
+        ->extensions($config['extensions'])
+        ->paths($config['run_on'])
+        ->notPaths($config['ignore_patterns']);
+      if (\count($config['run_on'])) {
+        $files = $files->paths($config['run_on']);
+      }
+
+      return $files;
     }
 
-    return $files;
+    // When not in git context and no separation requested - return directories.
+    if (!$useSeperateFiles) {
+      return $config['run_on'];
+    }
 
+    // Finally find separate files from configured directories.
+    $files = Finder::create()->files();
+    foreach ($config['extensions'] as $extension) {
+      $files->name('*.' . $extension);
+    }
+    $run_on = $config['run_on'] ?? ['.'];
+    foreach ($run_on as $dir) {
+      $files->in($dir);
+    }
+    foreach ($config['ignore_patterns'] as $ignore_pattern) {
+      $files->notPath(str_replace(['*/', '/*'], '', $ignore_pattern));
+    }
+    $files_array = [];
+    foreach ($files as $file) {
+      $files_array[] = $file;
+    }
+
+    return new FilesCollection($files_array);
   }
+
 }
