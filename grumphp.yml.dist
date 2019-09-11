@@ -6,8 +6,7 @@ parameters:
     php_compatibility:
       testVersion: "7.3"
     check_file_permissions: ~
-    php_check_syntax:
-      ignore_patterns: ~
+    php_check_syntax: ~
     phpcs:
       standard:
         - vendor/wunderio/code-quality/phpcs.xml
@@ -19,7 +18,7 @@ parameters:
       report_width: 120
     ecs:
       config: vendor/wunderio/code-quality/ecs.yml
-      whitelist_patterns: ['web/modules/custom', 'web/themes/custom', 'modules/custom', 'themes/custom']
+      run_on: ['web/modules/custom', 'web/themes/custom', 'modules/custom', 'themes/custom']
       clear-cache: false
       no-progress-bar: true
   extensions:

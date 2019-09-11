@@ -7,11 +7,12 @@ Easy coding standards implementation to better react on task context.
 parameters:
     tasks:
         ecs:
-          config: ecs.yml
-          whitelist_patterns: ['web/modules/custom', 'web/themes/custom']
-          triggered_by: [php, inc, module, install]
-          clear-cache: false
-          no-progress-bar: true
+            run_on: ['.']
+            extensions: [php, inc, module, phtml, php3, php4, php5]
+            ignore_patterns: ['*/vendor/*','*/node_modules/*']
+            config: ecs.yml
+            clear-cache: false
+            no-progress-bar: true
     extensions:
         - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
 ````
