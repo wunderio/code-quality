@@ -33,23 +33,6 @@ class PhpCheckSyntaxTask extends ContextFileExternalTaskBase
   /**
    * {@inheritdoc}
    */
-  public function getConfigurableOptions(): OptionsResolver
-  {
-    $resolver = new OptionsResolver();
-    $resolver->setDefaults([
-      'ignore_patterns' => ['/vendor/','/node_modules/', '/core/', 'modules/contrib'],
-      'extensions' => ['php', 'inc', 'install', 'module'],
-      'run_on' => ['.']
-    ]);
-    $resolver->addAllowedTypes('ignore_patterns', ['array']);
-    $resolver->setAllowedTypes('extensions', 'array');
-    $resolver->setAllowedTypes('run_on', ['array']);
-    return $resolver;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function canRunInContext(ContextInterface $context): bool
   {
     return $context instanceof GitPreCommitContext || $context instanceof RunContext;
@@ -74,8 +57,8 @@ class PhpCheckSyntaxTask extends ContextFileExternalTaskBase
       foreach ($config['run_on'] as $run_on) {
         $files->in($run_on);
       }
-      foreach ($config['ignore_patterns'] as $ignore_patterns) {
-        $files->notPath($ignore_patterns);
+      foreach ($config['ignore_patterns'] as $ignore_pattern) {
+        $files->notPath(str_replace(['*/', '/*'], '', $ignore_pattern));
       }
       $files_array = [];
       foreach ($files as $file) {

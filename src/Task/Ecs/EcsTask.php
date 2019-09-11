@@ -35,7 +35,7 @@ class EcsTask extends ContextFileExternalTaskBase
   {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'ignore_patterns' => ['*/vendor/*','*/node_modules/*'],
+      'ignore_patterns' => ['*/vendor/*','*/node_modules/*', '*/core/*', '*/modules/contrib/*', '*/themes/contrib/*'],
       'extensions' => ['php', 'inc', 'module', 'install'],
       'run_on' => ['.'],
       'clear-cache' => false,

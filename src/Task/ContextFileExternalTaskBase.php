@@ -23,7 +23,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask
   {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'ignore_patterns' => ['*/vendor/*','*/node_modules/*'],
+      'ignore_patterns' => ['*/vendor/*','*/node_modules/*', '*/core/*', '*/modules/contrib/*', '*/themes/contrib/*'],
       'extensions' => ['php', 'inc', 'module', 'install'],
       'run_on' => ['.']
     ]);
@@ -46,7 +46,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask
   {
     $files = $context->getFiles()
       ->extensions($config['extensions'])
-      ->notPaths($config['ignore_patterns'])
+      ->paths($config['run_on'])
       ->notPaths($config['ignore_patterns']);
     if (\count($config['run_on'])) {
       $files = $files->paths($config['run_on']);

@@ -38,7 +38,7 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase
   {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'ignore_patterns' => ['/vendor/','/node_modules/', '/core/', 'modules/contrib'],
+      'ignore_patterns' => ['*/vendor/*','*/node_modules/*', '*/core/*', '*/modules/contrib/*', '*/themes/contrib/*'],
       'extensions' => ['sh', 'py'],
       'run_on' => ['.']
     ]);
@@ -77,8 +77,8 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase
       foreach ($config['run_on'] as $run_on) {
        $files->in($run_on);
       }
-      foreach ($config['ignore_patterns'] as $ignore_patterns) {
-       $files->notPath($ignore_patterns);
+      foreach ($config['ignore_patterns'] as $ignore_pattern) {
+       $files->notPath(str_replace(['*/', '/*'], '', $ignore_pattern));
       }
       $files_array = [];
       foreach ($files as $file) {
