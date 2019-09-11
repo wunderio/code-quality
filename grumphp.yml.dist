@@ -9,10 +9,7 @@ parameters:
     check_file_permissions: ~
     php_check_syntax:
       ignore_patterns: []
-      triggered_by:
-        - php
-        - module
-        - inc
+      triggered_by: [php, inc, module, install]
     phpcs:
       standard:
         - vendor/wunderio/code-quality/phpcs.xml
@@ -20,10 +17,7 @@ parameters:
       ignore_patterns:
         - cfg/
         - libraries/
-      triggered_by:
-        - php
-        - module
-        - inc
+      triggered_by: [php, inc, module, install]
       report_width: 120
     ecs:
       config: vendor/wunderio/code-quality/ecs.yml
@@ -32,7 +26,7 @@ parameters:
       clear-cache: false
       no-progress-bar: true
   extensions:
-    - wunderio\PhpCompatibilityTask\ExtensionLoader
-    - wunderio\PhpCheckSyntaxTask\ExtensionLoader
-    - wunderio\CheckFilePermissions\ExtensionLoader
-    - Wunderio\ECS\ExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpCompatibilityTask\PhpCompatibilityExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpCheckSyntaxTask\PhpCheckSyntaxExtensionLoader
+    - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
+    - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
