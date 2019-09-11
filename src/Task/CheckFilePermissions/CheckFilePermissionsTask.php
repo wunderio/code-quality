@@ -38,8 +38,8 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase
   {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'ignore_patterns' => ['*/vendor/*','*/node_modules/*', '*/core/*', '*/modules/contrib/*', '*/themes/contrib/*'],
-      'extensions' => ['sh', 'py'],
+      'ignore_patterns' => static::$ignorePatterns,
+      'extensions' => ['sh'],
       'run_on' => ['.']
     ]);
     $resolver->addAllowedTypes('ignore_patterns', ['array']);

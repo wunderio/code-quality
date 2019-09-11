@@ -17,15 +17,35 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask
 {
 
   /**
+   * Ignore patterns.
+   *
+   * @var array
+   */
+  protected static $ignorePatterns = [
+    '*/vendor/*',
+    '*/node_modules/*',
+    '*/core/*',
+    '*/modules/contrib/*',
+    '*/themes/contrib/*',
+  ];
+
+  /**
+   * Triggering extensions.
+   *
+   * @var array
+   */
+  protected static $extensions = ['php', 'inc', 'module', 'install'];
+
+  /**
    * {@inheritdoc}
    */
   public function getConfigurableOptions(): OptionsResolver
   {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'ignore_patterns' => ['*/vendor/*','*/node_modules/*', '*/core/*', '*/modules/contrib/*', '*/themes/contrib/*'],
-      'extensions' => ['php', 'inc', 'module', 'install'],
-      'run_on' => ['.']
+      'ignore_patterns' => static::$ignorePatterns,
+      'extensions' => static::$extensions,
+      'run_on' => ['.'],
     ]);
     $resolver->addAllowedTypes('ignore_patterns', ['array']);
     $resolver->setAllowedTypes('extensions', 'array');
