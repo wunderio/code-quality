@@ -18,7 +18,7 @@ parameters:
       report_width: 120
     ecs:
       config: vendor/wunderio/code-quality/ecs.yml
-      run_on: ['web/modules/custom', 'web/themes/custom', 'modules/custom', 'themes/custom']
+      run_on: ['.']
       clear-cache: false
       no-progress-bar: true
   extensions:
