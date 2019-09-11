@@ -10,5 +10,5 @@ parameters:
             exclude: []
             triggered_by: [php, inc, module, phtml, php3, php4, php5]
     extensions:
-        - Wunderio\GrumPHP\Task\PhpCheckSyntaxTask\PhpCheckSyntaxExtensionLoader
+        - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
 ````

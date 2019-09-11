@@ -1,6 +1,6 @@
 <?php
 
-namespace Wunderio\GrumPHP\Task\PhpCompatibilityTask;
+namespace Wunderio\GrumPHP\Task\PhpCompatibility;
 
 use GrumPHP\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

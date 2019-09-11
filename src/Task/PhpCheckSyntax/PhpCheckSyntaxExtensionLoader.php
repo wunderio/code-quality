@@ -1,6 +1,6 @@
 <?php
 
-namespace Wunderio\GrumPHP\Task\PhpCheckSyntaxTask;
+namespace Wunderio\GrumPHP\Task\PhpCheckSyntax;
 
 use GrumPHP\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Wunderio\GrumPHP\Task\PhpCompatibilityTask;
+namespace Wunderio\GrumPHP\Task\PhpCompatibility;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Runner\TaskResult;

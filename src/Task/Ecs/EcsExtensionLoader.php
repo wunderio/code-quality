@@ -19,7 +19,7 @@ class EcsExtensionLoader implements ExtensionInterface
    */
   public function load(ContainerBuilder $container)
   {
-    return $container->register('task.ecs', Ecs::class)
+    return $container->register('task.ecs', EcsTask::class)
       ->addArgument(new Reference('config'))
       ->addArgument(new Reference('process_builder'))
       ->addArgument(new Reference('formatter.raw_process'))
