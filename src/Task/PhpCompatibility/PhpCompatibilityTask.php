@@ -12,13 +12,14 @@ use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use GrumPHP\Task\AbstractExternalTask;
+use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 
 /**
  * Class PhpCompatibilityTask.
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpCompatibilityTask extends AbstractExternalTask
+class PhpCompatibilityTask extends ContextFileExternalTaskBase
 {
   /**
    * {@inheritdoc}
@@ -34,13 +35,15 @@ class PhpCompatibilityTask extends AbstractExternalTask
   public function getConfigurableOptions(): OptionsResolver
   {
     $resolver = new OptionsResolver();
-    $resolver->setDefaults(
-      [
-        'triggered_by' => ['php', 'inc', 'module', 'install'],
-        'testVersion' => '7.3',
-      ]
-    );
-    $resolver->addAllowedTypes('triggered_by', ['array']);
+    $resolver->setDefaults([
+      'ignore_patterns' => ['*/vendor/*','*/node_modules/*'],
+      'extensions' => ['php', 'inc', 'module', 'install'],
+      'run_on' => ['.'],
+      'testVersion' => '7.3',
+    ]);
+    $resolver->addAllowedTypes('ignore_patterns', ['array']);
+    $resolver->setAllowedTypes('extensions', 'array');
+    $resolver->setAllowedTypes('run_on', ['array']);
     $resolver->addAllowedTypes('testVersion', 'string');
     return $resolver;
   }
@@ -59,15 +62,23 @@ class PhpCompatibilityTask extends AbstractExternalTask
   public function run(ContextInterface $context): TaskResultInterface
   {
     $config = $this->getConfiguration();
-    $files = $context->getFiles()->extensions($config['triggered_by']);
-    if (0 === count($files)) {
+    $files = $this->getFiles($context, $config);
+    if ($files->isEmpty()) {
       return TaskResult::createSkipped($this, $context);
     }
 
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
     $arguments = $this->addArgumentsFromConfig($arguments, $config);
-    $arguments->add('--standard=vendor/wunderio/grumphp-php-compatibility/php-compatibility.xml');
-    $arguments->addFiles($files);
+    $arguments->add('--standard=vendor/wunderio/code-quality/php-compatibility.xml');
+
+    if ($context instanceof GitPreCommitContext) {
+      $arguments->addFiles($files);
+    }
+    else {
+      foreach ($config['run_on'] as $whitelistPattern) {
+        $arguments->add($whitelistPattern);
+      }
+    }
 
     $process = $this->processBuilder->buildProcess($arguments);
     $process->run();
@@ -92,7 +103,7 @@ class PhpCompatibilityTask extends AbstractExternalTask
    *   Modified arguments.
    */
   protected function addArgumentsFromConfig(ProcessArgumentsCollection $arguments, array $config): ProcessArgumentsCollection {
-    $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config['triggered_by']);
+    $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config['extensions']);
     $arguments->addSeparatedArgumentArray('--runtime-set', ['testVersion', (string) $config['testVersion']]);
     return $arguments;
   }

@@ -11,13 +11,14 @@ use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use GrumPHP\Task\AbstractExternalTask;
 use GrumPHP\Runner\TaskResultInterface;
+use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 
 /**
  * Class EcsTask.
  *
  * @package Wunderio\GrumPHP\Task\Ecs
  */
-class EcsTask extends AbstractExternalTask
+class EcsTask extends ContextFileExternalTaskBase
 {
   /**
    * {@inheritdoc}
@@ -34,20 +35,22 @@ class EcsTask extends AbstractExternalTask
   {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'whitelist_patterns' => [],
+      'ignore_patterns' => ['*/vendor/*','*/node_modules/*'],
+      'extensions' => ['php', 'inc', 'module', 'install'],
+      'run_on' => ['.'],
       'clear-cache' => false,
       'no-progress-bar' => true,
       'config' => null,
       'level' => null,
-      'triggered_by' => ['php'],
     ]);
 
-    $resolver->addAllowedTypes('whitelist_patterns', ['array']);
+    $resolver->addAllowedTypes('ignore_patterns', ['array']);
+    $resolver->setAllowedTypes('extensions', 'array');
+    $resolver->setAllowedTypes('run_on', ['array']);
     $resolver->addAllowedTypes('clear-cache', ['bool']);
     $resolver->addAllowedTypes('no-progress-bar', ['bool']);
     $resolver->addAllowedTypes('config', ['null', 'string']);
     $resolver->addAllowedTypes('level', ['null', 'string']);
-    $resolver->addAllowedTypes('triggered_by', ['array']);
 
     return $resolver;
   }
@@ -66,16 +69,8 @@ class EcsTask extends AbstractExternalTask
   public function run(ContextInterface $context): TaskResultInterface
   {
     $config = $this->getConfiguration();
-
-    /** @var array $whitelistPatterns */
-    $whitelistPatterns = $config['whitelist_patterns'];
-
-    $files = $context->getFiles()->extensions($config['triggered_by']);
-    if (\count($whitelistPatterns)) {
-      $files = $files->paths($whitelistPatterns);
-    }
-
-    if (0 === \count($files)) {
+    $files = $this->getFiles($context, $config);
+    if ($files->isEmpty()) {
       return TaskResult::createSkipped($this, $context);
     }
 
@@ -84,8 +79,9 @@ class EcsTask extends AbstractExternalTask
 
     if ($context instanceof GitPreCommitContext) {
       $arguments->addFiles($files);
-    } else {
-      foreach ($whitelistPatterns as $whitelistPattern) {
+    }
+    else {
+      foreach ($config['run_on'] as $whitelistPattern) {
         $arguments->add($whitelistPattern);
       }
     }

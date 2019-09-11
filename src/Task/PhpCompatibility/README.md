@@ -10,5 +10,5 @@ parameters:
             testVersion: "7.3"
             triggered_by:  [php, inc, module, install]
     extensions:
-        - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
+        - Wunderio\GrumPHP\Task\PhpCompatibilityTask\PhpCompatibilityExtensionLoader
 ````

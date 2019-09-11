@@ -5,11 +5,9 @@ parameters:
   tasks:
     php_compatibility:
       testVersion: "7.3"
-      triggered_by:  [php, inc, module, install]
     check_file_permissions: ~
     php_check_syntax:
-      ignore_patterns: []
-      triggered_by: [php, inc, module, install]
+      ignore_patterns: ~
     phpcs:
       standard:
         - vendor/wunderio/code-quality/phpcs.xml
@@ -22,7 +20,6 @@ parameters:
     ecs:
       config: vendor/wunderio/code-quality/ecs.yml
       whitelist_patterns: ['web/modules/custom', 'web/themes/custom', 'modules/custom', 'themes/custom']
-      triggered_by: [php, inc, module, install]
       clear-cache: false
       no-progress-bar: true
   extensions:
