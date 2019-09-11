@@ -34,7 +34,7 @@ class PhpcsTask extends ContextFileExternalTaskBase
       'tab_width' => null,
       'encoding' => null,
       'run_on' => [],
-      'ignore_patterns' => ['*/vendor/*','*/node_modules/*', '*/core/*', '*/modules/contrib/*', '*/themes/contrib/*'],
+      'ignore_patterns' => [],
       'sniffs' => [],
       'severity' => null,
       'error_severity' => null,
