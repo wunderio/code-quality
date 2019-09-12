@@ -21,7 +21,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    *
    * @var array
    */
-  protected static $ignorePatterns = [
+  public static $ignorePatterns = [
     '*/vendor/*',
     '*/node_modules/*',
     '*/core/*',
@@ -36,7 +36,14 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    *
    * @var array
    */
-  protected static $extensions = ['php', 'inc', 'module', 'install'];
+  public static $extensions = ['php', 'inc', 'module', 'install'];
+
+  /**
+   * Run on.
+   *
+   * @var array
+   */
+  public static $runOn = ['.'];
 
   /**
    * {@inheritdoc}
@@ -46,7 +53,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
     $resolver->setDefaults([
       'ignore_patterns' => static::$ignorePatterns,
       'extensions' => static::$extensions,
-      'run_on' => ['.'],
+      'run_on' => static::$extensions,
     ]);
     $resolver->addAllowedTypes('ignore_patterns', ['array']);
     $resolver->setAllowedTypes('extensions', 'array');
@@ -59,35 +66,72 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    *
    * @param \GrumPHP\Task\Context\ContextInterface $context
    *   Current context.
-   * @param bool $useSeperateFiles
+   * @param bool $useSeparateFiles
    *   Flag to indicate if files should be separated.
    *
-   * @return \GrumPHP\Collection\FilesCollection|array
+   * @return array|\GrumPHP\Collection\FilesCollection
    *   File collection.
    */
-  protected function getFiles(ContextInterface $context, $useSeperateFiles = FALSE) {
+  public function getFiles(ContextInterface $context, $useSeparateFiles = FALSE) {
     $config = $this->getConfiguration();
 
     // Deal with pre commit files first.
     if ($context instanceof GitPreCommitContext) {
-      $files = $context->getFiles()
-        ->extensions($config['extensions'])
-        ->paths($config['run_on'])
-        ->notPaths($config['ignore_patterns']);
-      if (\count($config['run_on'])) {
-        $files = $files->paths($config['run_on']);
-      }
-
-      return $files;
+      return $this->getContextFiles($context, $config);
     }
 
     // When not in git context and no separation requested - return directories.
-    if (!$useSeperateFiles) {
-      return $config['run_on'];
+    /** @var array $paths */
+    $paths = $config['run_on'];
+    if (!$useSeparateFiles) {
+      return $paths;
     }
 
     // Finally find separate files from configured directories.
-    $files = Finder::create()->files();
+    return $this->getFilesFromConfig($config);
+  }
+
+  /**
+   * Get files from current context.
+   *
+   * @param \GrumPHP\Task\Context\ContextInterface $context
+   *   Context.
+   * @param array $config
+   *   Configuration.
+   *
+   * @return \GrumPHP\Collection\FilesCollection
+   *   File collection.
+   */
+  public function getContextFiles(ContextInterface $context, array $config) {
+    $files = $context->getFiles()
+      ->extensions($config['extensions'])
+      ->paths($config['run_on'])
+      ->notPaths($config['ignore_patterns']);
+
+    return $files;
+  }
+
+  /**
+   * File finder.
+   *
+   * @return \Symfony\Component\Finder\Finder
+   *   File finder.
+   */
+  public function getFileFinder(): Finder {
+    return Finder::create()->files();
+  }
+
+  /**
+   * Searches and returns files configured in configuration.
+   *
+   * @param array $config
+   *   Configuration.
+   *
+   * @return \GrumPHP\Collection\FilesCollection
+   *   File collection.
+   */
+  public function getFilesFromConfig(array $config) {
+    $files = $this->getFileFinder();
     foreach ($config['extensions'] as $extension) {
       $files->name('*.' . $extension);
     }
@@ -98,12 +142,8 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
     foreach ($config['ignore_patterns'] as $ignore_pattern) {
       $files->notPath(str_replace(['*/', '/*'], '', $ignore_pattern));
     }
-    $files_array = [];
-    foreach ($files as $file) {
-      $files_array[] = $file;
-    }
 
-    return new FilesCollection($files_array);
+    return new FilesCollection(iterator_to_array($files->getIterator()));
   }
 
 }
