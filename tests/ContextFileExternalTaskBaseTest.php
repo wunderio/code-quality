@@ -208,17 +208,11 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
     $files->expects($this->once())->method('notPath');
     $files->expects($this->once())->method('getIterator')->willReturn(new \AppendIterator());
 
-    $stub->getFilesFromConfig([
+    $this->assertInstanceOf(FilesCollection::class, $stub->getFilesFromConfig([
       'ignore_patterns' => ['/vendor/'],
       'extensions' => ['php'],
       'run_on' => ['.'],
-    ]);
-
-//    $this->assertInstanceOf(FilesCollection::class, $stub->getFilesFromConfig([
-//      'ignore_patterns' => [],
-//      'extensions' => ['php'],
-//      'run_on' => ['.'],
-//    ]));
+    ]));
   }
 
   /**

@@ -53,7 +53,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
     $resolver->setDefaults([
       'ignore_patterns' => static::$ignorePatterns,
       'extensions' => static::$extensions,
-      'run_on' => static::$extensions,
+      'run_on' => static::$runOn,
     ]);
     $resolver->addAllowedTypes('ignore_patterns', ['array']);
     $resolver->setAllowedTypes('extensions', 'array');
