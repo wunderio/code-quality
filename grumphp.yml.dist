@@ -3,36 +3,14 @@ parameters:
     failed: ~
     succeeded: ~
   tasks:
-    php_compatibility:
-      testVersion: "7.3"
-      triggered_by:  [php, inc, module, install]
+    php_compatibility: ~
     check_file_permissions: ~
-    php_check_syntax:
-      ignore_patterns: []
-      triggered_by:
-        - php
-        - module
-        - inc
-    phpcs:
-      standard:
-        - vendor/wunderio/code-quality/phpcs.xml
-        - vendor/wunderio/code-quality/phpcs-security.xml
-      ignore_patterns:
-        - cfg/
-        - libraries/
-      triggered_by:
-        - php
-        - module
-        - inc
-      report_width: 120
-    ecs:
-      config: vendor/wunderio/code-quality/ecs.yml
-      whitelist_patterns: ['web/modules/custom', 'web/themes/custom', 'modules/custom', 'themes/custom']
-      triggered_by: [php, inc, module, install]
-      clear-cache: false
-      no-progress-bar: true
+    php_check_syntax: ~
+    phpcs: ~
+    ecs: ~
   extensions:
-    - wunderio\PhpCompatibilityTask\ExtensionLoader
-    - wunderio\PhpCheckSyntaxTask\ExtensionLoader
-    - wunderio\CheckFilePermissions\ExtensionLoader
-    - Wunderio\ECS\ExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
+    - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
+    - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
+    - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader

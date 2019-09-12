@@ -29,16 +29,19 @@
             "email": "lauris.kuznecovs@wunder.ioo"
         }
     ],
+    "bin": ["bin/check_perms"],
     "require": {
-        "phpro/grumphp": "*",
+        "phpro/grumphp": "^0.16.0",
         "drupal/coder": "^8",
-        "phpcompatibility/php-compatibility": "^9",
-        "wunderio/grumphp-php-compatibility": "^0.2.2",
-        "wunderio/grumphp-php-check-syntax": "^0.1.1",
-        "wunderio/grumphp-file-permissions": "^0.1.1",
+        "phpcompatibility/php-compatibility": "^9.3",
         "pheromone/phpcs-security-audit": "^2.0",
         "wunderio/ecs-drupal": "^0.1.2",
         "symplify/coding-standard": "^6.0",
-        "wunderio/grumphp-advanced-ecs": "^0.1.0"
+        "squizlabs/php_codesniffer": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wunderio\\GrumPHP\\": "src/"
+        }
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
-<ruleset name="Relax Drupal">
+<ruleset name="Drupal">
     <description>Drupal coding standard</description>
 
-    <config name="installed_paths" value="vendor/drupal/coder/coder_sniffer/Drupal" />
+    <config name="installed_paths" value="../../drupal/coder/coder_sniffer,../../pheromone/phpcs-security-audit,../../phpcompatibility/php-compatibility,../../slevomat/coding-standard" />
 
     <!-- exclude some Drupal files that contain issues -->
     <exclude-pattern>*default.settings.php</exclude-pattern>
@@ -24,14 +24,6 @@
 
     <!-- force short array notation - []  -->
     <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
-        <type>error</type>
-    </rule>
-
-    <rule ref="Drupal.Files.LineLength">
-        <properties>
-            <!-- Be a bit more tolerant when it comes to line lengths -->
-            <property name="lineLimit" value="110"/>
-        </properties>
         <type>error</type>
     </rule>
 </ruleset>
