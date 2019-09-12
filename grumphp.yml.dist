@@ -3,24 +3,11 @@ parameters:
     failed: ~
     succeeded: ~
   tasks:
-    php_compatibility:
-      testVersion: "7.3"
+    php_compatibility: ~
     check_file_permissions: ~
     php_check_syntax: ~
-    phpcs:
-      standard:
-        - vendor/wunderio/code-quality/phpcs.xml
-        - vendor/wunderio/code-quality/phpcs-security.xml
-      ignore_patterns:
-        - cfg/
-        - libraries/
-      extensions: [php, inc, module, install]
-      report_width: 120
-    ecs:
-      config: vendor/wunderio/code-quality/ecs.yml
-      run_on: ['.']
-      clear-cache: false
-      no-progress-bar: true
+    phpcs: ~
+    ecs: ~
   extensions:
     - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader

@@ -56,14 +56,13 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $config = $this->getConfiguration();
     $files = $this->getFiles($context);
     if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
     }
 
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
-    $arguments = $this->addArgumentsFromConfig($arguments, $config);
+    $arguments = $this->addArgumentsFromConfig($arguments, $this->getConfiguration());
     $arguments->add('--standard=vendor/wunderio/code-quality/php-compatibility.xml');
 
     foreach ($files as $file) {

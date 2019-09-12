@@ -54,7 +54,6 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase {
    */
   public function run(ContextInterface $context): TaskResultInterface {
     $files = $this->getFiles($context, TRUE);
-
     if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
     }

@@ -37,7 +37,7 @@ class EcsTask extends ContextFileExternalTaskBase {
       'run_on' => ['.'],
       'clear-cache' => FALSE,
       'no-progress-bar' => TRUE,
-      'config' => NULL,
+      'config' => 'vendor/wunderio/code-quality/ecs.yml',
       'level' => NULL,
     ]);
 
@@ -63,7 +63,6 @@ class EcsTask extends ContextFileExternalTaskBase {
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $config = $this->getConfiguration();
     $files = $this->getFiles($context);
     if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
@@ -76,6 +75,7 @@ class EcsTask extends ContextFileExternalTaskBase {
       $arguments->add($file);
     }
 
+    $config = $this->getConfiguration();
     $arguments->addOptionalArgument('--config=%s', $config['config']);
     $arguments->addOptionalArgument('--level=%s', $config['level']);
     $arguments->addOptionalArgument('--clear-cache', $config['clear-cache']);

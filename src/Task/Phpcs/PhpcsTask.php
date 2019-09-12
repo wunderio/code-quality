@@ -34,7 +34,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
   public function getConfigurableOptions(): OptionsResolver {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
-      'standard' => [],
+      'standard' => ['vendor/wunderio/code-quality/phpcs.xml', 'vendor/wunderio/code-quality/phpcs-security.xml'],
       'tab_width' => NULL,
       'encoding' => NULL,
       'run_on' => [],
@@ -45,7 +45,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
       'ignore_patterns' => static::$ignorePatterns,
       'extensions' => static::$extensions,
       'report' => 'full',
-      'report_width' => NULL,
+      'report_width' => 120,
       'exclude' => [],
     ]);
 
@@ -77,15 +77,13 @@ class PhpcsTask extends ContextFileExternalTaskBase {
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    /** @var array $config */
-    $config = $this->getConfiguration();
     $files = $this->getFiles($context);
     if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
       return TaskResult::createSkipped($this, $context);
     }
 
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
-    $arguments = $this->addArgumentsFromConfig($arguments, $config);
+    $arguments = $this->addArgumentsFromConfig($arguments, $this->getConfiguration());
     $arguments->add('--report-json');
 
     foreach ($files as $file) {
@@ -100,7 +98,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
       if ($context instanceof GitPreCommitContext) {
         try {
           $arguments = $this->processBuilder->createArgumentsForCommand('phpcbf');
-          $arguments = $this->addArgumentsFromConfig($arguments, $config);
+          $arguments = $this->addArgumentsFromConfig($arguments, $this->getConfiguration());
           $output .= $this->formatter->formatErrorMessage($arguments, $this->processBuilder);
         }
         catch (RuntimeException $exception) {

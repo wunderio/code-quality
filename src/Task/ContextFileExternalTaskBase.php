@@ -27,6 +27,8 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
     '*/core/*',
     '*/modules/contrib/*',
     '*/themes/contrib/*',
+    '*/themes/contrib/*',
+    '*/libraries/*',
   ];
 
   /**
