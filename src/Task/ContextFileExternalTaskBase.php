@@ -6,6 +6,7 @@ use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Task\AbstractExternalTask;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
+use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Finder\Finder;
 
@@ -44,6 +45,13 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    * @var array
    */
   public static $runOn = ['.'];
+
+  /**
+   * {@inheritdoc}
+   */
+  public function canRunInContext(ContextInterface $context): bool {
+    return $context instanceof GitPreCommitContext || $context instanceof RunContext;
+  }
 
   /**
    * {@inheritdoc}

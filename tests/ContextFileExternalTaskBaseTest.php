@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Task\Context\ContextInterface;
+use GrumPHP\Task\Context\GitCommitMsgContext;
 use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +17,26 @@ use Symfony\Component\Finder\Finder;
  * @covers Wunderio\GrumPHP\Task\ContextFileExternalTaskBase
  */
 final class ContextFileExternalTaskBaseTest extends TestCase {
+
+  /**
+   * Test run contexts.
+   */
+  public function testCanRunInContext(): void {
+    $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
+      ->disableOriginalConstructor()
+      ->onlyMethods([
+        'canRunInContext',
+      ])
+      ->setMethodsExcept(['canRunInContext'])
+      ->getMockForAbstractClass();
+    $this->assertTrue($stub->canRunInContext(new RunContext(new FilesCollection())));
+    $this->assertTrue($stub->canRunInContext(new GitPreCommitContext(new FilesCollection())));
+
+    $commitMessageContext = $this->getMockBuilder(GitCommitMsgContext::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $this->assertFalse($stub->canRunInContext($commitMessageContext));
+  }
 
   /**
    * Test Default Options Configuration.

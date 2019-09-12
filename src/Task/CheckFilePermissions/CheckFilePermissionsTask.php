@@ -45,13 +45,6 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase {
   /**
    * {@inheritdoc}
    */
-  public function canRunInContext(ContextInterface $context): bool {
-    return $context instanceof GitPreCommitContext || $context instanceof RunContext;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function run(ContextInterface $context): TaskResultInterface {
     $files = $this->getFiles($context, TRUE);
     if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
