@@ -44,6 +44,13 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
   public const TYPE_ARRAY = 'array';
 
   /**
+   * String type.
+   *
+   * @var string
+   */
+  public const TYPE_STRING = 'string';
+
+  /**
    * Option Extensions.
    *
    * @var string
@@ -211,12 +218,10 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    *   File collection.
    */
   public function getContextFiles(ContextInterface $context, array $config): FilesCollection {
-    $files = $context->getFiles()
+    return $context->getFiles()
       ->extensions($config[self::D_EXT])
       ->paths($config[self::D_RUN])
       ->notPaths($config[self::D_IGN]);
-
-    return $files;
   }
 
   /**

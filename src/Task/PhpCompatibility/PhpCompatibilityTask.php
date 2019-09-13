@@ -15,6 +15,13 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 class PhpCompatibilityTask extends ContextFileExternalTaskBase {
 
   /**
+   * Option Extensions.
+   *
+   * @var string
+   */
+  public const D_TVERS = 'testVersion';
+
+  /**
    * Name.
    *
    * @var string
@@ -39,13 +46,13 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
       self::DEF => self::RUN_ON,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'testVersion' => [
+    self::D_TVERS => [
       self::DEF => '7.3',
-      self::ALLOWED_TYPES => 'string',
+      self::ALLOWED_TYPES => self::TYPE_STRING,
     ],
     'standard' => [
       self::DEF => 'vendor/wunderio/code-quality/config/php-compatibility.xml',
-      self::ALLOWED_TYPES => 'string',
+      self::ALLOWED_TYPES => self::TYPE_STRING,
     ],
   ];
 
@@ -78,7 +85,7 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
    */
   public function addArgumentsFromConfig(ProcessArgumentsCollection $arguments, array $config): ProcessArgumentsCollection {
     $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config[self::D_EXT]);
-    $arguments->addSeparatedArgumentArray('--runtime-set', ['testVersion', (string) $config['testVersion']]);
+    $arguments->addSeparatedArgumentArray('--runtime-set', [self::D_TVERS, (string) $config[self::D_TVERS]]);
     return $arguments;
   }
 

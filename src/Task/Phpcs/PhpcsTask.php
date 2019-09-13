@@ -41,7 +41,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     ],
     'standard' => [
       self::DEF => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY, 'string'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY, self::TYPE_STRING],
     ],
     'tab_width' => [
       self::DEF => NULL,
@@ -49,7 +49,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     ],
     'encoding' => [
       self::DEF => NULL,
-      self::ALLOWED_TYPES => ['null', 'string'],
+      self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
     ],
     'sniffs' => [
       self::DEF => [],
@@ -69,7 +69,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     ],
     'report' => [
       self::DEF => 'full',
-      self::ALLOWED_TYPES => ['null', 'string'],
+      self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
     ],
     'report_width' => [
       self::DEF => 120,
