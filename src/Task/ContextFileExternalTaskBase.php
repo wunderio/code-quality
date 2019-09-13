@@ -23,11 +23,25 @@ use Symfony\Component\Process\Process;
 abstract class ContextFileExternalTaskBase extends AbstractExternalTask implements ArgumentsBuilderInterface {
 
   /**
+   * Default.
+   *
+   * @var string
+   */
+  public const DEF = 'defaults';
+
+  /**
+   * Default.
+   *
+   * @var string
+   */
+  public const ALLOWED_TYPES = 'allowed_types';
+
+  /**
    * Name.
    *
    * @var string
    */
-  public $name = 'default';
+  public $name = self::DEF;
 
   /**
    * Ignore patterns.
@@ -72,16 +86,16 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    */
   public $configurableOptions = [
     'ignore_patterns' => [
-      'defaults' => self::IGNORE_PATTERNS,
-      'allowed_types' => ['array'],
+      self::DEF => self::IGNORE_PATTERNS,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'extensions' => [
-      'defaults' => self::EXTENSIONS,
-      'allowed_types' => ['array'],
+      self::DEF => self::EXTENSIONS,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'run_on' => [
-      'defaults' => self::RUN_ON,
-      'allowed_types' => ['array'],
+      self::DEF => self::RUN_ON,
+      self::ALLOWED_TYPES => ['array'],
     ],
   ];
 
@@ -106,11 +120,11 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
     $resolver = new OptionsResolver();
     $defaults = [];
     foreach ($this->configurableOptions as $option_name => $option) {
-      $defaults[$option_name] = $option['defaults'];
+      $defaults[$option_name] = $option[self::DEF];
     }
     $resolver->setDefaults($defaults);
     foreach ($this->configurableOptions as $option_name => $option) {
-      $resolver->addAllowedTypes($option_name, $option['allowed_types']);
+      $resolver->addAllowedTypes($option_name, $option[self::ALLOWED_TYPES]);
     }
 
     return $resolver;

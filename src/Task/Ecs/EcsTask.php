@@ -28,32 +28,32 @@ class EcsTask extends ContextFileExternalTaskBase {
    */
   public $configurableOptions = [
     'ignore_patterns' => [
-      'defaults' => self::IGNORE_PATTERNS,
-      'allowed_types' => ['array'],
+      self::DEF => self::IGNORE_PATTERNS,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'extensions' => [
-      'defaults' => self::EXTENSIONS,
-      'allowed_types' => ['array'],
+      self::DEF => self::EXTENSIONS,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'run_on' => [
-      'defaults' => self::RUN_ON,
-      'allowed_types' => ['array'],
+      self::DEF => self::RUN_ON,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'clear-cache' => [
-      'defaults' => FALSE,
-      'allowed_types' => ['bool'],
+      self::DEF => FALSE,
+      self::ALLOWED_TYPES => ['bool'],
     ],
     'no-progress-bar' => [
-      'defaults' => TRUE,
-      'allowed_types' => ['bool'],
+      self::DEF => TRUE,
+      self::ALLOWED_TYPES => ['bool'],
     ],
     'config' => [
-      'defaults' => 'vendor/wunderio/code-quality/config/ecs.yml',
-      'allowed_types' => ['null', 'string'],
+      self::DEF => 'vendor/wunderio/code-quality/config/ecs.yml',
+      self::ALLOWED_TYPES => ['null', 'string'],
     ],
     'level' => [
-      'defaults' => NULL,
-      'allowed_types' => ['null', 'string'],
+      self::DEF => NULL,
+      self::ALLOWED_TYPES => ['null', 'string'],
     ],
   ];
 

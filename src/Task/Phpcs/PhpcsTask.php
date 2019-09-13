@@ -28,56 +28,56 @@ class PhpcsTask extends ContextFileExternalTaskBase {
    */
   public $configurableOptions = [
     'ignore_patterns' => [
-      'defaults' => self::IGNORE_PATTERNS,
-      'allowed_types' => ['array'],
+      self::DEF => self::IGNORE_PATTERNS,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'extensions' => [
-      'defaults' => self::EXTENSIONS,
-      'allowed_types' => ['array'],
+      self::DEF => self::EXTENSIONS,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'run_on' => [
-      'defaults' => self::RUN_ON,
-      'allowed_types' => ['array'],
+      self::DEF => self::RUN_ON,
+      self::ALLOWED_TYPES => ['array'],
     ],
     'standard' => [
-      'defaults' => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
-      'allowed_types' => ['array', 'string'],
+      self::DEF => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
+      self::ALLOWED_TYPES => ['array', 'string'],
     ],
     'tab_width' => [
-      'defaults' => NULL,
-      'allowed_types' => ['null', 'int'],
+      self::DEF => NULL,
+      self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'encoding' => [
-      'defaults' => NULL,
-      'allowed_types' => ['null', 'string'],
+      self::DEF => NULL,
+      self::ALLOWED_TYPES => ['null', 'string'],
     ],
     'sniffs' => [
-      'defaults' => [],
-      'allowed_types' => ['array'],
+      self::DEF => [],
+      self::ALLOWED_TYPES => ['array'],
     ],
     'severity' => [
-      'defaults' => NULL,
-      'allowed_types' => ['null', 'int'],
+      self::DEF => NULL,
+      self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'error_severity' => [
-      'defaults' => NULL,
-      'allowed_types' => ['null', 'int'],
+      self::DEF => NULL,
+      self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'warning_severity' => [
-      'defaults' => NULL,
-      'allowed_types' => ['null', 'int'],
+      self::DEF => NULL,
+      self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'report' => [
-      'defaults' => 'full',
-      'allowed_types' => ['null', 'string'],
+      self::DEF => 'full',
+      self::ALLOWED_TYPES => ['null', 'string'],
     ],
     'report_width' => [
-      'defaults' => 120,
-      'allowed_types' => ['null', 'int'],
+      self::DEF => 120,
+      self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'exclude' => [
-      'defaults' => [],
-      'allowed_types' => ['array'],
+      self::DEF => [],
+      self::ALLOWED_TYPES => ['array'],
     ],
   ];
 
