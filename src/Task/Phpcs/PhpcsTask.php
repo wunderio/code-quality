@@ -41,7 +41,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     ],
     'standard' => [
       'defaults' => ['vendor/wunderio/code-quality/phpcs.xml', 'vendor/wunderio/code-quality/phpcs-security.xml'],
-      'allowed_types' => ['array']['array'],
+      'allowed_types' => ['array', 'string'],
     ],
     'tab_width' => [
       'defaults' => NULL,
@@ -99,7 +99,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
   /**
    * {@inheritdoc}
    */
-  protected function addArgumentsFromConfig(
+  public function addArgumentsFromConfig(
     ProcessArgumentsCollection $arguments,
     array $config
   ): ProcessArgumentsCollection {

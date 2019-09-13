@@ -7,20 +7,19 @@
 
 declare(strict_types = 1);
 
-use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use PHPUnit\Framework\TestCase;
-use Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask;
+use Wunderio\GrumPHP\Task\Phpcs\PhpcsTask;
 
 /**
  * Class PhpCompatibilityTaskTest.
  *
- * @covers \Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask
+ * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask
  */
-final class PhpCompatibilityTaskTest extends TestCase {
+final class PhpcsTaskTest extends TestCase {
 
   /**
    * Test building arguments.
@@ -31,23 +30,22 @@ final class PhpCompatibilityTaskTest extends TestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
-    $stub = $this->getMockBuilder(PhpCompatibilityTask::class)
-      ->setConstructorArgs([
-        $grumPHP,
-        $processBuilder,
-        $processFormatterInterface,
-      ])
+    $stub = $this->getMockBuilder(PhpcsTask::class)->setConstructorArgs([
+      $grumPHP,
+      $processBuilder,
+      $processFormatterInterface,
+    ])
       ->setMethodsExcept(['buildArguments'])
-      ->getMockForAbstractClass();
+      ->getMock();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
 
-    $files = new FilesCollection(['test.php', 'file.php']);
-    $processBuilder->method('createArgumentsForCommand')
+    $files = ['file1.php', 'file2.php', 'file3.php', 'dir1/'];
+    $processBuilder->expects($this->once())
+      ->method('createArgumentsForCommand')
       ->willReturn($arguments);
-    $stub->expects($this->once())
-      ->method('addArgumentsFromConfig')
+    $stub->method('addArgumentsFromConfig')
       ->willReturn($arguments);
-    $arguments->expects($this->exactly(3))
+    $arguments->expects($this->exactly(5))
       ->method('add');
     $config = [];
     foreach ($stub->configurableOptions as $name => $option) {
@@ -68,7 +66,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
-    $stub = $this->getMockBuilder(PhpCompatibilityTask::class)
+    $stub = $this->getMockBuilder(PhpcsTask::class)
       ->setConstructorArgs([
         $grumPHP,
         $processBuilder,
@@ -82,10 +80,12 @@ final class PhpCompatibilityTaskTest extends TestCase {
       $config[$name] = $option['defaults'];
     }
 
-    $arguments->expects($this->once())
+    $arguments->expects($this->atLeastOnce())
       ->method('addOptionalCommaSeparatedArgument');
-    $arguments->expects($this->once())
-      ->method('addSeparatedArgumentArray');
+    $arguments->expects($this->atLeastOnce())
+      ->method('addOptionalArgument');
+    $arguments->expects($this->atLeastOnce())
+      ->method('addOptionalIntegerArgument');
 
     $actual = $stub->addArgumentsFromConfig($arguments, $config);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);

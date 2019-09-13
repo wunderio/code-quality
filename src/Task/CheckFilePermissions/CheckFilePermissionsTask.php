@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Wunderio\GrumPHP\Task\CheckFilePermissions;
 
-use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 
@@ -53,7 +52,7 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase {
    * {@inheritdoc}
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
-    /** @var FilesCollection $files */
+    /** @var \GrumPHP\Collection\FilesCollection $files */
     $arguments = $this->processBuilder->createArgumentsForCommand('check_perms');
     $arguments->addFiles($files);
 

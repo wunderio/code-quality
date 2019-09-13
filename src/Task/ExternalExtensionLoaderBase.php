@@ -36,7 +36,6 @@ abstract class ExternalExtensionLoaderBase implements ExtensionInterface {
       $task->addArgument(new Reference($argument));
     }
 
-
     return $task;
   }
 

@@ -7,23 +7,22 @@
 
 declare(strict_types = 1);
 
-use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use PHPUnit\Framework\TestCase;
-use Wunderio\GrumPHP\Task\Ecs\EcsTask;
+use Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask;
 
 /**
- * Class EcsTaskTest.
+ * Class PhpCompatibilityTaskTest.
  *
- * @covers \Wunderio\GrumPHP\Task\Ecs\EcsTask
+ * @covers \Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask
  */
-final class EcsTaskTest extends TestCase {
+final class PhpCheckSyntaxTaskTest extends TestCase {
 
   /**
-   * Test run in scenario where no files or directories found.
+   * Test building arguments.
    */
   public function testBuildArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
@@ -31,7 +30,7 @@ final class EcsTaskTest extends TestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
-    $stub = $this->getMockBuilder(EcsTask::class)
+    $stub = $this->getMockBuilder(PhpCheckSyntaxTask::class)
       ->setConstructorArgs([
         $grumPHP,
         $processBuilder,
@@ -41,11 +40,11 @@ final class EcsTaskTest extends TestCase {
       ->getMockForAbstractClass();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
 
-    $files = new FilesCollection(['file.php']);
+    $files = ['test.php', 'file.php', 'file.php'];
     $processBuilder->expects($this->once())
       ->method('createArgumentsForCommand')
       ->willReturn($arguments);
-    $arguments->expects($this->exactly(2))
+    $arguments->expects($this->exactly(4))
       ->method('add');
     $config = [];
     foreach ($stub->configurableOptions as $name => $option) {
