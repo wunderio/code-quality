@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering IndividualContextFileExternalTaskBase.
+ * Tests covering CheckFilePermissionsTask.
  */
 
 declare(strict_types = 1);
@@ -16,14 +16,14 @@ use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask;
 
 /**
- * Class IndividualContextFileExternalTaskBaseTest.
- *
- * @covers \Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask
+ * Class CheckFilePermissionsTaskTest
  */
 final class CheckFilePermissionsTaskTest extends TestCase {
 
   /**
    * Test run in scenario where no files or directories found.
+   *
+   * @covers \Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask::buildArguments
    */
   public function testBuildArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();

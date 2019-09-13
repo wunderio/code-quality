@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering IndividualContextFileExternalTaskBase.
+ * Tests covering EcsTask.
  */
 
 declare(strict_types = 1);
@@ -16,14 +16,14 @@ use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\Ecs\EcsTask;
 
 /**
- * Class EcsTaskTest.
- *
- * @covers \Wunderio\GrumPHP\Task\Ecs\EcsTask
+ * Class EcsTaskTest
  */
 final class EcsTaskTest extends TestCase {
 
   /**
    * Test run in scenario where no files or directories found.
+   *
+   * @covers \Wunderio\GrumPHP\Task\Ecs\EcsTask::buildArguments
    */
   public function testBuildArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();

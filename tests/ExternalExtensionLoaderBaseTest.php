@@ -13,14 +13,14 @@ use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class ExternalExtensionLoaderBaseTest.
- *
- * @covers Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase
+ * Class ExternalExtensionLoaderBaseTest
  */
 final class ExternalExtensionLoaderBaseTest extends TestCase {
 
   /**
    * Test load.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
    */
   public function testLoad(): void {
     $class = TestLoader::class;
@@ -57,6 +57,8 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
 
   /**
    * Test load without arguments.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
    */
   public function testLoadWithoutArguments(): void {
     $class = TestLoader::class;

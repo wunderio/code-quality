@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering IndividualContextFileExternalTaskBase.
+ * Tests covering PhpcsTask.
  */
 
 declare(strict_types = 1);
@@ -16,13 +16,13 @@ use Wunderio\GrumPHP\Task\Phpcs\PhpcsTask;
 
 /**
  * Class PhpCompatibilityTaskTest.
- *
- * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask
  */
 final class PhpcsTaskTest extends TestCase {
 
   /**
    * Test building arguments.
+   *
+   * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::buildArguments
    */
   public function testBuildArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
@@ -59,6 +59,8 @@ final class PhpcsTaskTest extends TestCase {
 
   /**
    * Test adding arguments from configuration.
+   *
+   * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::addArgumentsFromConfig
    */
   public function testAddArgumentsFromConfig(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();

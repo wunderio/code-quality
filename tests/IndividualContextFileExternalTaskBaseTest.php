@@ -19,8 +19,6 @@ use Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase;
 
 /**
  * Class IndividualContextFileExternalTaskBaseTest.
- *
- * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase
  */
 final class IndividualContextFileExternalTaskBaseTest extends TestCase {
 
@@ -90,6 +88,8 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test run in scenario where no files or directories found.
+   *
+   * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
   public function testRunWithoutFiles(): void {
     $this->stub->expects($this->once())
@@ -109,6 +109,8 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test run in scenario with one files found and process successful.
+   *
+   * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
   public function testRunWithFilesSuccessful(): void {
     $this->stub->expects($this->once())
@@ -137,6 +139,8 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test run in scenario with multiple found and process unsuccessful.
+   *
+   * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
   public function testRunWithFilesUnsuccessful(): void {
     $this->stub->expects($this->once())

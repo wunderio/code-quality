@@ -25,13 +25,13 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * Class ContextFileExternalTaskBaseTest.
- *
- * @covers Wunderio\GrumPHP\Task\ContextFileExternalTaskBase
  */
 final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test name.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getName
    */
   public function testGetName(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -44,6 +44,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test run contexts.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::canRunInContext
    */
   public function testCanRunInContext(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -64,6 +66,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test Default Options Configuration.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getConfigurableOptions
    */
   public function testDefaultOptionsConfiguration(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -79,6 +83,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files in git context.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFiles
    */
   public function testGetFilesInGitContext(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -112,6 +118,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files in run context without file separation.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFiles
    */
   public function testGetFilesInRunContextWithoutSeparateFiles(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -144,6 +152,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test run in scenario where no files or directories found.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::run
    */
   public function testRunWithoutFiles(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
@@ -178,7 +188,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
   }
 
   /**
-   * Test run in scenario where no files or directories found.
+   * Test run in scenario with files or directories found.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::run
    */
   public function testRunWithFiles(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
@@ -232,6 +244,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files in run context with file separation.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFiles
    */
   public function testGetFilesInRunContextWithSeparateFiles(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -267,6 +281,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files in run context with file separation.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getContextFiles
    */
   public function testGetContextFiles(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -304,6 +320,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get File finder.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFileFinder
    */
   public function testGetFileFinder(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -318,6 +336,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get files from config.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFilesFromConfig
    */
   public function testGetFilesFromConfig(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -353,6 +373,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get unsuccessful task result.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getTaskResult
    */
   public function testGetTaskResultUnsuccessful(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)
@@ -383,6 +405,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get successful task result.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getTaskResult
    */
   public function testGetTaskResultSuccessful(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -400,6 +424,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files Or Result in run context.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFilesOrResult
    */
   public function testGetFilesOrResult(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -417,6 +443,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files Or Result in git context with empty array of files.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFilesOrResult
    */
   public function testGetFilesOrResultInGitWithEmptyArray(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
@@ -433,6 +461,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
   /**
    * Test get Files Or Result in git context with empty Files collection.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getFilesOrResult
    */
   public function testGetFilesOrResultInGitWithEmptyFilesCollection(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)

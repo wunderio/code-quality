@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering IndividualContextFileExternalTaskBase.
+ * Tests covering PhpCheckSyntaxTask.
  */
 
 declare(strict_types = 1);
@@ -16,13 +16,13 @@ use Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask;
 
 /**
  * Class PhpCompatibilityTaskTest.
- *
- * @covers \Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask
  */
 final class PhpCheckSyntaxTaskTest extends TestCase {
 
   /**
    * Test building arguments.
+   *
+   * @covers \Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask::buildArguments
    */
   public function testBuildArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
