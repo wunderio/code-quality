@@ -21,7 +21,7 @@ use Wunderio\GrumPHP\Task\Ecs\EcsTask;
 final class EcsTaskTest extends TestCase {
 
   /**
-   * Test run in scenario where no files or directories found.
+   * Test building arguments.
    *
    * @covers \Wunderio\GrumPHP\Task\Ecs\EcsTask::buildArguments
    */
