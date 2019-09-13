@@ -4,16 +4,21 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true">
 
-<php>
-    <!-- Set error reporting to E_ALL. -->
-    <ini name="error_reporting" value="32767"/>
-    <!-- Do not limit the amount of memory tests take to run. -->
-    <ini name="memory_limit" value="-1"/>
-</php>
-<!-- Filter for coverage reports. -->
-<filter>
-    <whitelist>
-        <directory>./src</directory>
-    </whitelist>
-</filter>
+    <php>
+        <!-- Set error reporting to E_ALL. -->
+        <ini name="error_reporting" value="32767"/>
+        <!-- Do not limit the amount of memory tests take to run. -->
+        <ini name="memory_limit" value="-1"/>
+    </php>
+    <!-- Filter for coverage reports. -->
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+        </whitelist>
+    </filter>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

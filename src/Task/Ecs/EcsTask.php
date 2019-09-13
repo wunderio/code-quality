@@ -48,7 +48,7 @@ class EcsTask extends ContextFileExternalTaskBase {
       'allowed_types' => ['bool'],
     ],
     'config' => [
-      'defaults' => 'vendor/wunderio/code-quality/ecs.yml',
+      'defaults' => 'vendor/wunderio/code-quality/config/ecs.yml',
       'allowed_types' => ['null', 'string'],
     ],
     'level' => [

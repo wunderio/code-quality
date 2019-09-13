@@ -43,6 +43,10 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
       'defaults' => '7.3',
       'allowed_types' => 'string',
     ],
+    'standard' => [
+      'defaults' => 'vendor/wunderio/code-quality/config/php-compatibility.xml',
+      'allowed_types' => 'string',
+    ],
   ];
 
   /**
@@ -50,8 +54,9 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
+    $conf = $this->getConfiguration();
     $arguments = $this->addArgumentsFromConfig($arguments, $this->getConfiguration());
-    $arguments->add('--standard=vendor/wunderio/code-quality/php-compatibility.xml');
+    $arguments->add('--standard=' . $conf['standard']);
 
     foreach ($files as $file) {
       $arguments->add($file);

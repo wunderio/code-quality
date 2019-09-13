@@ -40,7 +40,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
       'allowed_types' => ['array'],
     ],
     'standard' => [
-      'defaults' => ['vendor/wunderio/code-quality/phpcs.xml', 'vendor/wunderio/code-quality/phpcs-security.xml'],
+      'defaults' => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
       'allowed_types' => ['array', 'string'],
     ],
     'tab_width' => [

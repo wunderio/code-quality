@@ -2,7 +2,6 @@
 
 namespace Wunderio\GrumPHP\Task\PhpCheckSyntax;
 
-use Wunderio\GrumPHP\Task\Ecs\EcsTask;
 use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 
 /**
@@ -19,7 +18,7 @@ class PhpCheckSyntaxExtensionLoader extends ExternalExtensionLoaderBase {
    */
   public $taskInfo = [
     'name' => 'php_check_syntax',
-    'class' => EcsTask::class,
+    'class' => PhpCheckSyntaxTask::class,
     'arguments' => ['config', 'process_builder', 'formatter.raw_process'],
   ];
 

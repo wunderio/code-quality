@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\Ecs\EcsTask;
 
 /**
- * Class EcsTaskTest
+ * Class EcsTaskTest.
  */
 final class EcsTaskTest extends TestCase {
 

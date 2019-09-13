@@ -1,0 +1,20 @@
+parameters:
+  ascii:
+    failed: ~
+    succeeded: ~
+  tasks:
+    php_compatibility:
+      standard: 'php-compatibility.xml'
+      run_on: ['src']
+    php_check_syntax: ~
+    phpcs:
+      standard: ['phpcs.xml', 'phpcs-security.xml']
+    ecs:
+      config: ecs.yml
+    phpunit: ~
+  extensions:
+    - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
+    - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
+    - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
+    - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader

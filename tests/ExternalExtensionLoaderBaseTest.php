@@ -13,7 +13,7 @@ use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class ExternalExtensionLoaderBaseTest
+ * Class ExternalExtensionLoaderBaseTest.
  */
 final class ExternalExtensionLoaderBaseTest extends TestCase {
 

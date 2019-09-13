@@ -26,7 +26,7 @@ This needs to be done only once either while creating a project or enabling code
 
 ```
 composer require wunderio/code-quality --dev
-cp vendor/wunderio/code-quality/grumphp.yml.dist ./grumphp.yml
+cp vendor/wunderio/code-quality/config/grumphp.yml ./grumphp.yml
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.
