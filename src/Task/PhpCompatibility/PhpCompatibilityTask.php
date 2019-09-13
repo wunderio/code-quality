@@ -71,7 +71,7 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
    * @return \GrumPHP\Collection\ProcessArgumentsCollection
    *   Modified arguments.
    */
-  protected function addArgumentsFromConfig(ProcessArgumentsCollection $arguments, array $config): ProcessArgumentsCollection {
+  public function addArgumentsFromConfig(ProcessArgumentsCollection $arguments, array $config): ProcessArgumentsCollection {
     $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config['extensions']);
     $arguments->addSeparatedArgumentArray('--runtime-set', ['testVersion', (string) $config['testVersion']]);
     return $arguments;
