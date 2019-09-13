@@ -28,7 +28,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v2-coverage-{{ .Environment.CIRCLE_SHA1 }}
+          key: v2-coverage--{{ .Environment.CIRCLE_SHA1 }}
       - run: run-sonar-scanner -Dsonar.projectKey=code-quality -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN -Dsonar.php.coverage.reportPaths=coverage.xml
 
 # Workflow
