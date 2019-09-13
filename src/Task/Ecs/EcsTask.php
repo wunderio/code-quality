@@ -28,31 +28,31 @@ class EcsTask extends ContextFileExternalTaskBase {
    */
   public $configurableOptions = [
     self::D_IGN => [
-      self::DEF => self::IGNORE_PATTERNS,
+      self::DEFAULTS => self::IGNORE_PATTERNS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_EXT => [
-      self::DEF => self::EXTENSIONS,
+      self::DEFAULTS => self::EXTENSIONS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_RUN => [
-      self::DEF => self::RUN_ON,
+      self::DEFAULTS => self::RUN_ON,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     'clear-cache' => [
-      self::DEF => FALSE,
+      self::DEFAULTS => FALSE,
       self::ALLOWED_TYPES => ['bool'],
     ],
     'no-progress-bar' => [
-      self::DEF => TRUE,
+      self::DEFAULTS => TRUE,
       self::ALLOWED_TYPES => ['bool'],
     ],
     'config' => [
-      self::DEF => 'vendor/wunderio/code-quality/config/ecs.yml',
+      self::DEFAULTS => 'vendor/wunderio/code-quality/config/ecs.yml',
       self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
     ],
     'level' => [
-      self::DEF => NULL,
+      self::DEFAULTS => NULL,
       self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
     ],
   ];

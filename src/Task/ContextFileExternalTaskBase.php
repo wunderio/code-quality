@@ -27,7 +27,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    *
    * @var string
    */
-  public const DEF = 'defaults';
+  public const DEFAULTS = 'defaults';
 
   /**
    * Allowed types.
@@ -76,7 +76,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    *
    * @var string
    */
-  public $name = self::DEF;
+  public $name = 'default';
 
   /**
    * Ignore patterns.
@@ -121,15 +121,15 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    */
   public $configurableOptions = [
     self::D_IGN => [
-      self::DEF => self::IGNORE_PATTERNS,
+      self::DEFAULTS => self::IGNORE_PATTERNS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_EXT => [
-      self::DEF => self::EXTENSIONS,
+      self::DEFAULTS => self::EXTENSIONS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_RUN => [
-      self::DEF => self::RUN_ON,
+      self::DEFAULTS => self::RUN_ON,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
   ];
@@ -155,7 +155,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
     $resolver = new OptionsResolver();
     $defaults = [];
     foreach ($this->configurableOptions as $option_name => $option) {
-      $defaults[$option_name] = $option[self::DEF];
+      $defaults[$option_name] = $option[self::DEFAULTS];
     }
     $resolver->setDefaults($defaults);
     foreach ($this->configurableOptions as $option_name => $option) {

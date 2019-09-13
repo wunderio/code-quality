@@ -35,23 +35,23 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
    */
   public $configurableOptions = [
     self::D_IGN => [
-      self::DEF => self::IGNORE_PATTERNS,
+      self::DEFAULTS => self::IGNORE_PATTERNS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_EXT => [
-      self::DEF => self::EXTENSIONS,
+      self::DEFAULTS => self::EXTENSIONS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_RUN => [
-      self::DEF => self::RUN_ON,
+      self::DEFAULTS => self::RUN_ON,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_TVERS => [
-      self::DEF => '7.3',
+      self::DEFAULTS => '7.3',
       self::ALLOWED_TYPES => self::TYPE_STRING,
     ],
     'standard' => [
-      self::DEF => 'vendor/wunderio/code-quality/config/php-compatibility.xml',
+      self::DEFAULTS => 'vendor/wunderio/code-quality/config/php-compatibility.xml',
       self::ALLOWED_TYPES => self::TYPE_STRING,
     ],
   ];

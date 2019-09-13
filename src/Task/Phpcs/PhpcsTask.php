@@ -28,55 +28,55 @@ class PhpcsTask extends ContextFileExternalTaskBase {
    */
   public $configurableOptions = [
     self::D_IGN => [
-      self::DEF => self::IGNORE_PATTERNS,
+      self::DEFAULTS => self::IGNORE_PATTERNS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_EXT => [
-      self::DEF => self::EXTENSIONS,
+      self::DEFAULTS => self::EXTENSIONS,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     self::D_RUN => [
-      self::DEF => self::RUN_ON,
+      self::DEFAULTS => self::RUN_ON,
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     'standard' => [
-      self::DEF => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
+      self::DEFAULTS => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
       self::ALLOWED_TYPES => [self::TYPE_ARRAY, self::TYPE_STRING],
     ],
     'tab_width' => [
-      self::DEF => NULL,
+      self::DEFAULTS => NULL,
       self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'encoding' => [
-      self::DEF => NULL,
+      self::DEFAULTS => NULL,
       self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
     ],
     'sniffs' => [
-      self::DEF => [],
+      self::DEFAULTS => [],
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     'severity' => [
-      self::DEF => NULL,
+      self::DEFAULTS => NULL,
       self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'error_severity' => [
-      self::DEF => NULL,
+      self::DEFAULTS => NULL,
       self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'warning_severity' => [
-      self::DEF => NULL,
+      self::DEFAULTS => NULL,
       self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'report' => [
-      self::DEF => 'full',
+      self::DEFAULTS => 'full',
       self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
     ],
     'report_width' => [
-      self::DEF => 120,
+      self::DEFAULTS => 120,
       self::ALLOWED_TYPES => ['null', 'int'],
     ],
     'exclude' => [
-      self::DEF => [],
+      self::DEFAULTS => [],
       self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
   ];
