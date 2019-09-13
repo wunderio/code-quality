@@ -38,7 +38,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
         $processFormatterInterface,
       ])
       ->setMethodsExcept(['buildArguments'])
-      ->getMockForAbstractClass();
+      ->getMock();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
 
     $files = new FilesCollection(['test.php', 'file.php']);
@@ -77,7 +77,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
         $processFormatterInterface,
       ])
       ->setMethodsExcept(['addArgumentsFromConfig'])
-      ->getMockForAbstractClass();
+      ->getMock();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
     $config = [];
     foreach ($stub->configurableOptions as $name => $option) {

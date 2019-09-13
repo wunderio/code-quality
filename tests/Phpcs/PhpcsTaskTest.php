@@ -75,7 +75,7 @@ final class PhpcsTaskTest extends TestCase {
         $processFormatterInterface,
       ])
       ->setMethodsExcept(['addArgumentsFromConfig'])
-      ->getMockForAbstractClass();
+      ->getMock();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
     $config = [];
     foreach ($stub->configurableOptions as $name => $option) {

@@ -37,7 +37,7 @@ final class PhpCheckSyntaxTaskTest extends TestCase {
         $processFormatterInterface,
       ])
       ->setMethodsExcept(['buildArguments'])
-      ->getMockForAbstractClass();
+      ->getMock();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
 
     $files = ['test.php', 'file.php', 'file.php'];

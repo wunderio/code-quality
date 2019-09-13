@@ -38,7 +38,7 @@ final class EcsTaskTest extends TestCase {
         $processFormatterInterface,
       ])
       ->setMethodsExcept(['buildArguments'])
-      ->getMockForAbstractClass();
+      ->getMock();
     $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
 
     $files = new FilesCollection(['file.php']);
