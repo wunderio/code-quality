@@ -29,7 +29,7 @@ jobs:
       - checkout
       - restore_cache:
           key: v2-coverage--{{ .Environment.CIRCLE_SHA1 }}
-      - run: sonar-scanner -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN -Dsonar.php.coverage.reportPaths=/home/circleci/project/coverage.xml -Dsonar.projectKey=code-quality
+      - run: cd /home/circleci/project/ && sonar-scanner -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN -Dsonar.php.coverage.reportPaths=/home/circleci/project/coverage.xml -Dsonar.projectKey=code-quality
 
 # Workflow
 workflows:
