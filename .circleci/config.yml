@@ -10,7 +10,6 @@ jobs:
             - v2-composer-dependencies-{{ .Environment.CIRCLE_SHA1 }}
       - run: composer install --ignore-platform-reqs
       - run: ./vendor/bin/grumphp run
-      - run: ./vendor/bin/phpunit --coverage-clover coverage.xml
       - save_cache:
           paths:
             - ~/project/vendor
