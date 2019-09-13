@@ -5,12 +5,6 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task\PhpCompatibility;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Runner\TaskResult;
-use GrumPHP\Runner\TaskResultInterface;
-use GrumPHP\Task\Context\ContextInterface;
-use GrumPHP\Task\Context\GitPreCommitContext;
-use GrumPHP\Task\Context\RunContext;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 
 /**
@@ -21,39 +15,40 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 class PhpCompatibilityTask extends ContextFileExternalTaskBase {
 
   /**
-   * {@inheritdoc}
+   * Name.
+   *
+   * @var string
    */
-  public function getName(): string {
-    return 'php_compatibility';
-  }
+  public $name = 'php_compatibility';
+
+  /**
+   * Configurable options.
+   *
+   * @var array[]
+   */
+  public $configurableOptions = [
+    'ignore_patterns' => [
+      'defaults' => self::IGNORE_PATTERNS,
+      'allowed_types' => ['array'],
+    ],
+    'extensions' => [
+      'defaults' => self::EXTENSIONS,
+      'allowed_types' => ['array'],
+    ],
+    'run_on' => [
+      'defaults' => self::RUN_ON,
+      'allowed_types' => ['array'],
+    ],
+    'testVersion' => [
+      'defaults' => '7.3',
+      'allowed_types' => 'string',
+    ],
+  ];
 
   /**
    * {@inheritdoc}
    */
-  public function getConfigurableOptions(): OptionsResolver {
-    $resolver = new OptionsResolver();
-    $resolver->setDefaults([
-      'ignore_patterns' => static::$ignorePatterns,
-      'extensions' => static::$extensions,
-      'run_on' => ['.'],
-      'testVersion' => '7.3',
-    ]);
-    $resolver->addAllowedTypes('ignore_patterns', ['array']);
-    $resolver->setAllowedTypes('extensions', 'array');
-    $resolver->setAllowedTypes('run_on', ['array']);
-    $resolver->addAllowedTypes('testVersion', 'string');
-    return $resolver;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function run(ContextInterface $context): TaskResultInterface {
-    $files = $this->getFiles($context);
-    if ($context instanceof GitPreCommitContext && (empty($files) || \count($files) === 0)) {
-      return TaskResult::createSkipped($this, $context);
-    }
-
+  public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
     $arguments = $this->addArgumentsFromConfig($arguments, $this->getConfiguration());
     $arguments->add('--standard=vendor/wunderio/code-quality/php-compatibility.xml');
@@ -62,15 +57,7 @@ class PhpCompatibilityTask extends ContextFileExternalTaskBase {
       $arguments->add($file);
     }
 
-    $process = $this->processBuilder->buildProcess($arguments);
-    $process->run();
-
-    if (!$process->isSuccessful()) {
-      $output = $this->formatter->format($process);
-      return TaskResult::createFailed($this, $context, $output);
-    }
-
-    return TaskResult::createPassed($this, $context);
+    return $arguments;
   }
 
   /**

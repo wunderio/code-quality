@@ -2,26 +2,25 @@
 
 namespace Wunderio\GrumPHP\Task\PhpCheckSyntax;
 
-use GrumPHP\Extension\ExtensionInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
+use Wunderio\GrumPHP\Task\Ecs\EcsTask;
+use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 
 /**
  * Class PhpCheckSyntaxExtensionLoader.
  *
  * @package Wunderio\GrumPHP\Task\PhpCheckSyntaxTask
  */
-class PhpCheckSyntaxExtensionLoader implements ExtensionInterface {
+class PhpCheckSyntaxExtensionLoader extends ExternalExtensionLoaderBase {
 
   /**
-   * {@inheritdoc}
+   * Task info.
+   *
+   * @var array
    */
-  public function load(ContainerBuilder $container) {
-    return $container->register('task.php_check_syntax', PhpCheckSyntaxTask::class)
-      ->addArgument(new Reference('config'))
-      ->addArgument(new Reference('process_builder'))
-      ->addArgument(new Reference('formatter.raw_process'))
-      ->addTag('grumphp.task', ['config' => 'php_check_syntax']);
-  }
+  public $taskInfo = [
+    'name' => 'php_check_syntax',
+    'class' => EcsTask::class,
+    'arguments' => ['config', 'process_builder', 'formatter.raw_process'],
+  ];
 
 }

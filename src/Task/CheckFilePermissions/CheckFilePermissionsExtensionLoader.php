@@ -2,26 +2,24 @@
 
 namespace Wunderio\GrumPHP\Task\CheckFilePermissions;
 
-use GrumPHP\Extension\ExtensionInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
+use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 
 /**
  * Class CheckFilePermissionsExtensionLoader.
  *
  * @package Wunderio\GrumPHP\CheckFilePermissions
  */
-class CheckFilePermissionsExtensionLoader implements ExtensionInterface {
+class CheckFilePermissionsExtensionLoader extends ExternalExtensionLoaderBase {
 
   /**
-   * {@inheritdoc}
+   * Task info.
+   *
+   * @var array
    */
-  public function load(ContainerBuilder $container) {
-    return $container->register('task.check_file_permissions', CheckFilePermissionsTask::class)
-      ->addArgument(new Reference('config'))
-      ->addArgument(new Reference('process_builder'))
-      ->addArgument(new Reference('formatter.raw_process'))
-      ->addTag('grumphp.task', ['config' => 'check_file_permissions']);
-  }
+  public $taskInfo = [
+    'name' => 'check_file_permissions',
+    'class' => CheckFilePermissionsTask::class,
+    'arguments' => ['config', 'process_builder', 'formatter.raw_process'],
+  ];
 
 }

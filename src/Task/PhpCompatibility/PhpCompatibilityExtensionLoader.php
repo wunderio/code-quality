@@ -2,26 +2,24 @@
 
 namespace Wunderio\GrumPHP\Task\PhpCompatibility;
 
-use GrumPHP\Extension\ExtensionInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
+use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 
 /**
  * Class PhpCompatibilityExtensionLoader.
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpCompatibilityExtensionLoader implements ExtensionInterface {
+class PhpCompatibilityExtensionLoader extends ExternalExtensionLoaderBase {
 
   /**
-   * {@inheritdoc}
+   * Task info.
+   *
+   * @var array
    */
-  public function load(ContainerBuilder $container) {
-    return $container->register('task.php_compatibility', PhpCompatibilityTask::class)
-      ->addArgument(new Reference('config'))
-      ->addArgument(new Reference('process_builder'))
-      ->addArgument(new Reference('formatter.raw_process'))
-      ->addTag('grumphp.task', ['config' => 'php_compatibility']);
-  }
+  public $taskInfo = [
+    'name' => 'php_compatibility',
+    'class' => PhpCompatibilityTask::class,
+    'arguments' => ['config', 'process_builder', 'formatter.raw_process'],
+  ];
 
 }

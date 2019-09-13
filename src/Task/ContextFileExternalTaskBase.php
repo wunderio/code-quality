@@ -1,28 +1,40 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Wunderio\GrumPHP\Task;
 
 use GrumPHP\Collection\FilesCollection;
+use GrumPHP\Runner\TaskResult;
+use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\AbstractExternalTask;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\Process;
 
 /**
- * Trait ContextFileTrait.
+ * Class ContextFileExternalTaskBase.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
+abstract class ContextFileExternalTaskBase extends AbstractExternalTask implements ArgumentsBuilderInterface {
+
+  /**
+   * Name.
+   *
+   * @var string
+   */
+  public $name = 'default';
 
   /**
    * Ignore patterns.
    *
    * @var array
    */
-  public static $ignorePatterns = [
+  public const IGNORE_PATTERNS = [
     '*/vendor/*',
     '*/node_modules/*',
     '*/core/*',
@@ -37,14 +49,48 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    *
    * @var array
    */
-  public static $extensions = ['php', 'inc', 'module', 'install'];
+  public const EXTENSIONS = ['php', 'inc', 'module', 'install'];
 
   /**
    * Run on.
    *
    * @var array
    */
-  public static $runOn = ['.'];
+  public const RUN_ON = ['.'];
+
+  /**
+   * File separation.
+   *
+   * @var bool
+   */
+  public $isFileSpecific = FALSE;
+
+  /**
+   * Configurable options.
+   *
+   * @var array[]
+   */
+  public $configurableOptions = [
+    'ignore_patterns' => [
+      'defaults' => self::IGNORE_PATTERNS,
+      'allowed_types' => ['array'],
+    ],
+    'extensions' => [
+      'defaults' => self::EXTENSIONS,
+      'allowed_types' => ['array'],
+    ],
+    'run_on' => [
+      'defaults' => self::RUN_ON,
+      'allowed_types' => ['array'],
+    ],
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getName(): string {
+    return $this->name;
+  }
 
   /**
    * {@inheritdoc}
@@ -58,15 +104,31 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    */
   public function getConfigurableOptions(): OptionsResolver {
     $resolver = new OptionsResolver();
-    $resolver->setDefaults([
-      'ignore_patterns' => static::$ignorePatterns,
-      'extensions' => static::$extensions,
-      'run_on' => static::$runOn,
-    ]);
-    $resolver->addAllowedTypes('ignore_patterns', ['array']);
-    $resolver->setAllowedTypes('extensions', 'array');
-    $resolver->setAllowedTypes('run_on', ['array']);
+    $defaults = [];
+    foreach ($this->configurableOptions as $option_name => $option) {
+      $defaults[$option_name] = $option['defaults'];
+    }
+    $resolver->setDefaults($defaults);
+    foreach ($this->configurableOptions as $option_name => $option) {
+      $resolver->addAllowedTypes($option_name, $option['allowed_types']);
+    }
+
     return $resolver;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function run(ContextInterface $context): TaskResultInterface {
+    $files = $result = $this->getFilesOrResult($context, $this->isFileSpecific);
+    if ($result  instanceof TaskResultInterface) {
+      return $result;
+    }
+
+    $process = $this->processBuilder->buildProcess($this->buildArguments($files));
+    $process->run();
+
+    return $this->getTaskResult($context, $process);
   }
 
   /**
@@ -74,13 +136,11 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    *
    * @param \GrumPHP\Task\Context\ContextInterface $context
    *   Current context.
-   * @param bool $useSeparateFiles
-   *   Flag to indicate if files should be separated.
    *
    * @return array|\GrumPHP\Collection\FilesCollection
    *   File collection.
    */
-  public function getFiles(ContextInterface $context, $useSeparateFiles = FALSE) {
+  public function getFiles(ContextInterface $context) {
     $config = $this->getConfiguration();
 
     // Deal with pre commit files first.
@@ -89,10 +149,8 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
     }
 
     // When not in git context and no separation requested - return directories.
-    /** @var array $paths */
-    $paths = $config['run_on'];
-    if (!$useSeparateFiles) {
-      return $paths;
+    if (!$this->isFileSpecific) {
+      return $config['run_on'];
     }
 
     // Finally find separate files from configured directories.
@@ -110,7 +168,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    * @return \GrumPHP\Collection\FilesCollection
    *   File collection.
    */
-  public function getContextFiles(ContextInterface $context, array $config) {
+  public function getContextFiles(ContextInterface $context, array $config): FilesCollection {
     $files = $context->getFiles()
       ->extensions($config['extensions'])
       ->paths($config['run_on'])
@@ -138,7 +196,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
    * @return \GrumPHP\Collection\FilesCollection
    *   File collection.
    */
-  public function getFilesFromConfig(array $config) {
+  public function getFilesFromConfig(array $config): FilesCollection {
     $files = $this->getFileFinder();
     foreach ($config['extensions'] as $extension) {
       $files->name('*.' . $extension);
@@ -152,6 +210,42 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask {
     }
 
     return new FilesCollection(iterator_to_array($files->getIterator()));
+  }
+
+  /**
+   * Returns task result.
+   *
+   * @param \GrumPHP\Task\Context\ContextInterface $context
+   *   Current context.
+   * @param \Symfony\Component\Process\Process $process
+   *   Process.
+   *
+   * @return \GrumPHP\Runner\TaskResult
+   *   Result.
+   */
+  public function getTaskResult(ContextInterface $context, Process $process): TaskResult {
+    if (!$process->isSuccessful()) {
+      return TaskResult::createFailed($this, $context, $this->formatter->format($process));
+    }
+
+    return TaskResult::createPassed($this, $context);
+  }
+
+  /**
+   * Get files or task result.
+   *
+   * @param \GrumPHP\Task\Context\ContextInterface $context
+   *   Current context.
+   *
+   * @return array|FilesCollection|TaskResult
+   *   Files or result.
+   */
+  public function getFilesOrResult(ContextInterface $context) {
+    $files = $this->getFiles($context);
+    if ($context instanceof GitPreCommitContext && \count($files) === 0) {
+      return TaskResult::createSkipped($this, $context);
+    }
+    return $files;
   }
 
 }

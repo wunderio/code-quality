@@ -2,26 +2,24 @@
 
 namespace Wunderio\GrumPHP\Task\Phpcs;
 
-use GrumPHP\Extension\ExtensionInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
+use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 
 /**
  * Class PhpCompatibilityExtensionLoader.
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpcsExtensionLoader implements ExtensionInterface {
+class PhpcsExtensionLoader extends ExternalExtensionLoaderBase {
 
   /**
-   * {@inheritdoc}
+   * Task info.
+   *
+   * @var array
    */
-  public function load(ContainerBuilder $container) {
-    return $container->register('task.phpcs', PhpcsTask::class)
-      ->addArgument(new Reference('config'))
-      ->addArgument(new Reference('process_builder'))
-      ->addArgument(new Reference('formatter.phpcs'))
-      ->addTag('grumphp.task', ['config' => 'phpcs']);
-  }
+  public $taskInfo = [
+    'name' => 'phpcs',
+    'class' => PhpcsTask::class,
+    'arguments' => ['config', 'process_builder', 'formatter.phpcs'],
+  ];
 
 }
