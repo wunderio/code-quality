@@ -169,7 +169,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $files = $result = $this->getFilesOrResult($context, $this->isFileSpecific);
+    $files = $result = $this->getFilesOrResult($context);
     if ($result  instanceof TaskResultInterface) {
       return $result;
     }
