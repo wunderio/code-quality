@@ -30,11 +30,39 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
   public const DEF = 'defaults';
 
   /**
-   * Default.
+   * Allowed types.
    *
    * @var string
    */
   public const ALLOWED_TYPES = 'allowed_types';
+
+  /**
+   * Array type.
+   *
+   * @var string
+   */
+  public const TYPE_ARRAY = 'array';
+
+  /**
+   * Option Extensions.
+   *
+   * @var string
+   */
+  public const D_EXT = 'extensions';
+
+  /**
+   * Option Ignore patterns.
+   *
+   * @var string
+   */
+  public const D_IGN = 'ignore_patterns';
+
+  /**
+   * Option Run on.
+   *
+   * @var string
+   */
+  public const D_RUN = 'run_on';
 
   /**
    * Name.
@@ -85,17 +113,17 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    * @var array[]
    */
   public $configurableOptions = [
-    'ignore_patterns' => [
+    self::D_IGN => [
       self::DEF => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'extensions' => [
+    self::D_EXT => [
       self::DEF => self::EXTENSIONS,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'run_on' => [
+    self::D_RUN => [
       self::DEF => self::RUN_ON,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
   ];
 
@@ -164,7 +192,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
 
     // When not in git context and no separation requested - return directories.
     if (!$this->isFileSpecific) {
-      return $config['run_on'];
+      return $config[self::D_RUN];
     }
 
     // Finally find separate files from configured directories.
@@ -184,9 +212,9 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    */
   public function getContextFiles(ContextInterface $context, array $config): FilesCollection {
     $files = $context->getFiles()
-      ->extensions($config['extensions'])
-      ->paths($config['run_on'])
-      ->notPaths($config['ignore_patterns']);
+      ->extensions($config[self::D_EXT])
+      ->paths($config[self::D_RUN])
+      ->notPaths($config[self::D_IGN]);
 
     return $files;
   }
@@ -212,14 +240,14 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    */
   public function getFilesFromConfig(array $config): FilesCollection {
     $files = $this->getFileFinder();
-    foreach ($config['extensions'] as $extension) {
+    foreach ($config[self::D_EXT] as $extension) {
       $files->name('*.' . $extension);
     }
-    $run_on = $config['run_on'] ?? ['.'];
+    $run_on = $config[self::D_RUN] ?? ['.'];
     foreach ($run_on as $dir) {
       $files->in($dir);
     }
-    foreach ($config['ignore_patterns'] as $ignore_pattern) {
+    foreach ($config[self::D_IGN] as $ignore_pattern) {
       $files->notPath(str_replace(['*/', '/*'], '', $ignore_pattern));
     }
 

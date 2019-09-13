@@ -27,21 +27,21 @@ class PhpcsTask extends ContextFileExternalTaskBase {
    * @var array[]
    */
   public $configurableOptions = [
-    'ignore_patterns' => [
+    self::D_IGN => [
       self::DEF => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'extensions' => [
+    self::D_EXT => [
       self::DEF => self::EXTENSIONS,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'run_on' => [
+    self::D_RUN => [
       self::DEF => self::RUN_ON,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     'standard' => [
       self::DEF => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
-      self::ALLOWED_TYPES => ['array', 'string'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY, 'string'],
     ],
     'tab_width' => [
       self::DEF => NULL,
@@ -53,7 +53,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     ],
     'sniffs' => [
       self::DEF => [],
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
     'severity' => [
       self::DEF => NULL,
@@ -77,7 +77,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     ],
     'exclude' => [
       self::DEF => [],
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
   ];
 
@@ -112,7 +112,7 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     $arguments->addOptionalIntegerArgument('--error-severity=%s', $config['error_severity']);
     $arguments->addOptionalIntegerArgument('--warning-severity=%s', $config['warning_severity']);
     $arguments->addOptionalCommaSeparatedArgument('--sniffs=%s', $config['sniffs']);
-    $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config['ignore_patterns']);
+    $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config[self::D_IGN]);
     $arguments->addOptionalCommaSeparatedArgument('--exclude=%s', $config['exclude']);
 
     return $arguments;

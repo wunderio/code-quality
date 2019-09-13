@@ -23,7 +23,6 @@ jobs:
       - image: dmoscrop/circleci-sonar-scanner-docker
         environment:
           SONAR_ANALYSIS_MODE: publish
-          SONAR_SCANNER_VERSION: 4.0.0.1744
 
     steps:
       - checkout

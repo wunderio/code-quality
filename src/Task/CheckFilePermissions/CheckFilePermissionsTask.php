@@ -34,17 +34,17 @@ class CheckFilePermissionsTask extends ContextFileExternalTaskBase {
    * @var array[]
    */
   public $configurableOptions = [
-    'ignore_patterns' => [
+    self::D_IGN => [
       self::DEF => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'extensions' => [
+    self::D_EXT => [
       self::DEF => ['sh'],
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
-    'run_on' => [
+    self::D_RUN => [
       self::DEF => ['.'],
-      self::ALLOWED_TYPES => ['array'],
+      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
     ],
   ];
 
