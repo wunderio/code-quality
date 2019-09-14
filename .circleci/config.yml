@@ -34,7 +34,6 @@ jobs:
           -Dsonar.php.coverage.reportPaths=/home/circleci/project/coverage.xml
           -Dsonar.projectKey=code-quality
           -Dsonar.sources=/home/circleci/project/src
-          -Dsonar.branch.name=${CIRCLE_BRANCH}
 
 # Workflow
 workflows:
@@ -45,3 +44,6 @@ workflows:
       - analyze:
           requires:
             - build_and_test
+          filters:
+            branches:
+              only: master
