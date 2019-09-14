@@ -5,23 +5,28 @@ jobs:
     docker:
       - image: wunderio/silta-circleci
     steps:
+      # Check out source code.
       - checkout
+      # Install composer dependencies.
       - run: composer install --ignore-platform-reqs
+      # Run all checkers.
       - run: ./vendor/bin/grumphp run
+      # Save project with coverage for next step to be analysed.
       - save_cache:
           paths:
             - ~/project
           key: v2-coverage--{{ .Environment.CIRCLE_SHA1 }}
-  # Job to install all dependencies and run check tasks.
+  # Analyse codebase.
   analyze:
     docker:
       - image: dmoscrop/circleci-sonar-scanner-docker
         environment:
           SONAR_ANALYSIS_MODE: publish
     steps:
-      - checkout
+      # Restore project with coverage.
       - restore_cache:
           key: v2-coverage--{{ .Environment.CIRCLE_SHA1 }}
+      # Run sonar scanner on project.
       - run: >-
           cd /home/circleci/project/ &&
           sonar-scanner -Dsonar.host.url=$SONAR_HOST
