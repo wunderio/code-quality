@@ -24,7 +24,7 @@ final class PhpCheckSyntaxTaskTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask::buildArguments
    */
-  public function testBuildArguments(): void {
+  public function testBuildsProcessArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()

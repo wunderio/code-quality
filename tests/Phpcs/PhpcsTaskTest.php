@@ -24,7 +24,7 @@ final class PhpcsTaskTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::buildArguments
    */
-  public function testBuildArguments(): void {
+  public function testBuildsProcessArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()
@@ -62,7 +62,7 @@ final class PhpcsTaskTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::addArgumentsFromConfig
    */
-  public function testAddArgumentsFromConfig(): void {
+  public function testAddsArgumentsFromConfiguration(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()

@@ -22,7 +22,7 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
    */
-  public function testLoad(): void {
+  public function testLoadsDefinitionWithArguments(): void {
     $class = TestLoader::class;
     $name = 'testname';
     $args = [
@@ -60,7 +60,7 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
    */
-  public function testLoadWithoutArguments(): void {
+  public function testLoadsDefinitionWithoutArguments(): void {
     $class = TestLoader::class;
     $name = 'testname';
     $stub = $this->getMockBuilder(ExternalExtensionLoaderBase::class)

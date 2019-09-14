@@ -25,7 +25,7 @@ final class EcsTaskTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\Ecs\EcsTask::buildArguments
    */
-  public function testBuildArguments(): void {
+  public function testBuildsProcessArguments(): void {
     $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()

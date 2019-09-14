@@ -11,8 +11,11 @@ use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
+use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
+use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\RunContext;
+use GrumPHP\Task\TaskInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 use Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase;
@@ -91,10 +94,13 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
-  public function testRunWithoutFiles(): void {
+  public function testSkipsTaskIfNoFilesFound(): void {
     $this->stub->expects($this->once())
       ->method('getFilesOrResult')
-      ->willReturn($this->getMockBuilder(TaskResultInterface::class)->getMock());
+      ->willReturn(TaskResult::createSkipped(
+        $this->createMock(TaskInterface::class),
+        $this->createMock(ContextInterface::class)
+      ));
 
     $this->processBuilder->expects($this->never())
       ->method('buildProcess');
@@ -105,6 +111,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
 
     $actual = $this->stub->run($context);
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
+    $this->assertEquals(TaskResult::SKIPPED, $actual->getResultCode());
   }
 
   /**
@@ -112,7 +119,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
-  public function testRunWithFilesSuccessful(): void {
+  public function testPassesTaskIfFileFoundAndProcessSuccessful(): void {
     $this->stub->expects($this->once())
       ->method('getFilesOrResult')
       ->willReturn(['file.php']);
@@ -142,7 +149,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
    *
    * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
-  public function testRunWithFilesUnsuccessful(): void {
+  public function testFailsTaskIfMultipleFilesFoundButProcessUnsuccessful(): void {
     $this->stub->expects($this->once())
       ->method('getFilesOrResult')
       ->willReturn(['file.php', 'directory/']);
