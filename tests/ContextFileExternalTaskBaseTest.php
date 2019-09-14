@@ -59,9 +59,7 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
     $this->assertTrue($stub->canRunInContext(new RunContext(new FilesCollection())));
     $this->assertTrue($stub->canRunInContext(new GitPreCommitContext(new FilesCollection())));
 
-    $commitMessageContext = $this->getMockBuilder(GitCommitMsgContext::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $commitMessageContext = $this->createMock(GitCommitMsgContext::class);
     $this->assertFalse($stub->canRunInContext($commitMessageContext));
   }
 
@@ -98,6 +96,7 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ])
       ->setMethodsExcept(['getFiles'])
       ->getMockForAbstractClass();
+    $context = $this->createMock(GitPreCommitContext::class);
 
     $stub->expects($this->once())
       ->method('getConfiguration')
@@ -105,13 +104,8 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
     $stub->expects($this->once())
       ->method('getContextFiles')
       ->willReturn(new FilesCollection([]));
-
     $stub->expects($this->never())
       ->method('getFilesFromConfig');
-
-    $context = $this->getMockBuilder(GitPreCommitContext::class)
-      ->disableOriginalConstructor()
-      ->getMock();
 
     $files = $stub->getFiles($context);
     $this->assertInstanceOf(FilesCollection::class, $files);
@@ -133,19 +127,15 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ])
       ->setMethodsExcept(['getFiles'])
       ->getMockForAbstractClass();
+    $context = $this->createMock(RunContext::class);
 
     $stub->expects($this->once())
       ->method('getConfiguration')
       ->willReturn($this->getConfigDefaults());
-
     $stub->expects($this->never())
       ->method('getFilesFromConfig');
     $stub->expects($this->never())
       ->method('getContextFiles');
-
-    $context = $this->getMockBuilder(RunContext::class)
-      ->disableOriginalConstructor()
-      ->getMock();
 
     $files = $stub->getFiles($context);
     $this->assertEquals($files, $this->getConfigDefaults()['run_on']);
@@ -157,12 +147,12 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::run
    */
   public function testSkipsTaskIfNoFilesFound(): void {
-    $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
+    $grumPHP = $this->createMock(GrumPHP::class);
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()
       ->onlyMethods(['buildProcess'])
       ->getMock();
-    $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
+    $processFormatterInterface = $this->createMock(ProcessFormatterInterface::class);
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->setConstructorArgs([
         $grumPHP,
@@ -172,14 +162,11 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->onlyMethods(['getFilesOrResult', 'run'])
       ->setMethodsExcept(['run'])
       ->getMockForAbstractClass();
-    $context = $this->getMockBuilder(RunContext::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $context = $this->createMock(RunContext::class);
 
     $stub->expects($this->once())
       ->method('getFilesOrResult')
       ->willReturn(TaskResult::createSkipped($this->createMock(TaskInterface::class), $context));
-
     $processBuilder->expects($this->never())
       ->method('buildProcess');
 
@@ -194,17 +181,15 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::run
    */
   public function testReturnsTaskResultIfFileFoundAndProcessUnsuccessful(): void {
-    $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()
       ->onlyMethods(['buildProcess'])
       ->getMock();
-    $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->setConstructorArgs([
-        $grumPHP,
+        $this->createMock(GrumPHP::class),
         $processBuilder,
-        $processFormatterInterface,
+        $this->createMock(ProcessFormatterInterface::class),
       ])
       ->onlyMethods([
         'getFilesOrResult',
@@ -214,32 +199,26 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ])
       ->setMethodsExcept(['run'])
       ->getMockForAbstractClass();
+    $message = 'Test message...';
 
     $stub->expects($this->once())
       ->method('getFilesOrResult')
       ->willReturn(['file.php']);
-    $process = $this->getMockBuilder(Process::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $process = $this->createMock(Process::class);
     $process->expects($this->once())->method('run');
     $stub->expects($this->once())
       ->method('buildArguments')
-      ->willReturn($this->getMockBuilder(ProcessArgumentsCollection::class)->getMock());
+      ->willReturn($this->createMock(ProcessArgumentsCollection::class));
     $processBuilder->expects($this->once())
       ->method('buildProcess')
       ->willReturn($process);
-    $message = 'Test message...';
     $stub->expects($this->once())
       ->method('getTaskResult')
       ->willReturn(
         TaskResult::createFailed($stub, $this->createMock(ContextInterface::class), $message)
       );
 
-    $context = $this->getMockBuilder(RunContext::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-
-    $actual = $stub->run($context);
+    $actual = $stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
     $this->assertFalse($actual->isPassed());
     $this->assertEquals($message, $actual->getMessage());
@@ -253,12 +232,6 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
   public function testGetsFilesFromConfigurationInRunContextIfFileSeparationEnabled(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->disableOriginalConstructor()
-      ->onlyMethods([
-        'getConfiguration',
-        'getContextFiles',
-        'getFiles',
-        'getFilesFromConfig',
-      ])
       ->setMethodsExcept(['getFiles'])
       ->getMockForAbstractClass();
 
@@ -270,15 +243,10 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
     $stub->expects($this->once())
       ->method('getFilesFromConfig')
       ->willReturn(new FilesCollection([]));
-
     $stub->expects($this->never())
       ->method('getContextFiles');
 
-    $context = $this->getMockBuilder(RunContext::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-
-    $files = $stub->getFiles($context);
+    $files = $stub->getFiles($this->createMock(RunContext::class));
     $this->assertInstanceOf(FilesCollection::class, $files);
   }
 
@@ -290,19 +258,10 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
   public function testFiltersContextFilesWithConfigurationSets(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->disableOriginalConstructor()
-      ->onlyMethods([
-        'getConfiguration',
-        'getContextFiles',
-      ])
       ->setMethodsExcept(['getContextFiles'])
       ->getMockForAbstractClass();
-
-    $context = $this->getMockBuilder(ContextInterface::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $filesCollection = $this->getMockBuilder(FilesCollection::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $context = $this->createMock(ContextInterface::class);
+    $filesCollection = $this->createMock(FilesCollection::class);
 
     $context->expects($this->once())
       ->method('getFiles')
@@ -329,9 +288,6 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
   public function testGetsFileFinder(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->disableOriginalConstructor()
-      ->onlyMethods([
-        'getFileFinder',
-      ])
       ->setMethodsExcept(['getFileFinder'])
       ->getMockForAbstractClass();
     $this->assertInstanceOf(Finder::class, $stub->getFileFinder());
@@ -345,23 +301,11 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
   public function testFindsFilesUsingConfiguration(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->disableOriginalConstructor()
-      ->onlyMethods([
-        'getFileFinder',
-        'getFilesFromConfig',
-      ])
       ->setMethodsExcept(['getFilesFromConfig'])
       ->getMockForAbstractClass();
-
-    $files = $this->getMockBuilder(Finder::class)
-      ->onlyMethods([
-        'name',
-        'in',
-        'notPath',
-        'getIterator',
-      ])->getMock();
+    $files = $this->createMock(Finder::class);
 
     $stub->expects($this->once())->method('getFileFinder')->willReturn($files);
-
     $files->expects($this->once())->method('name');
     $files->expects($this->once())->method('in');
     $files->expects($this->once())->method('notPath');
@@ -380,29 +324,21 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\ContextFileExternalTaskBase::getTaskResult
    */
   public function testFailsTaskIfProcessUnsuccessful(): void {
-    $grumPHP = $this->getMockBuilder(GrumPHP::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
-      ->disableOriginalConstructor()
-      ->onlyMethods(['buildProcess'])
-      ->getMock();
-    $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
+    $processFormatterInterface = $this->createMock(ProcessFormatterInterface::class);
     $processFormatterInterface->expects($this->once())->method('format')->willReturn('Formatted Output.');
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
       ->setConstructorArgs([
-        $grumPHP,
-        $processBuilder,
+        $this->createMock(GrumPHP::class),
+        $this->createMock(ProcessBuilder::class),
         $processFormatterInterface,
       ])
       ->setMethodsExcept(['getTaskResult'])
       ->getMockForAbstractClass();
+    $process = $this->createMock(Process::class);
 
-    $context = $this->getMockBuilder(ContextInterface::class)->getMock();
-    $process = $this->getMockBuilder(Process::class)->disableOriginalConstructor()->getMock();
     $process->expects($this->once())->method('isSuccessful')->willReturn(FALSE);
 
-    $result = $stub->getTaskResult($context, $process);
+    $result = $stub->getTaskResult($this->createMock(ContextInterface::class), $process);
     $this->assertFalse($result->isPassed());
   }
 
@@ -417,11 +353,10 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->setMethodsExcept(['getTaskResult'])
       ->getMockForAbstractClass();
 
-    $context = $this->getMockBuilder(ContextInterface::class)->getMock();
-    $process = $this->getMockBuilder(Process::class)->disableOriginalConstructor()->getMock();
+    $process = $this->createMock(Process::class);
     $process->expects($this->once())->method('isSuccessful')->willReturn(TRUE);
 
-    $result = $stub->getTaskResult($context, $process);
+    $result = $stub->getTaskResult($this->createMock(ContextInterface::class), $process);
     $this->assertTrue($result->isPassed());
   }
 
@@ -437,10 +372,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->getMockForAbstractClass();
 
     $file = ['file.php'];
-    $context = $this->getMockBuilder(RunContext::class)->disableOriginalConstructor()->getMock();
     $stub->expects($this->once())->method('getFiles')->willReturn($file);
 
-    $actual = $stub->getFilesOrResult($context);
+    $actual = $stub->getFilesOrResult($this->createMock(RunContext::class));
     $this->assertEquals($file, $actual);
   }
 
@@ -455,10 +389,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->setMethodsExcept(['getFilesOrResult'])
       ->getMockForAbstractClass();
 
-    $context = $this->getMockBuilder(GitPreCommitContext::class)->disableOriginalConstructor()->getMock();
     $stub->expects($this->once())->method('getFiles')->willReturn([]);
 
-    $actual = $stub->getFilesOrResult($context);
+    $actual = $stub->getFilesOrResult($this->createMock(GitPreCommitContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
     $this->assertEquals(TaskResult::SKIPPED, $actual->getResultCode());
   }
@@ -474,10 +407,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->setMethodsExcept(['getFilesOrResult'])
       ->getMockForAbstractClass();
 
-    $context = $this->getMockBuilder(GitPreCommitContext::class)->disableOriginalConstructor()->getMock();
     $stub->expects($this->once())->method('getFiles')->willReturn(new FilesCollection());
 
-    $actual = $stub->getFilesOrResult($context);
+    $actual = $stub->getFilesOrResult($this->createMock(GitPreCommitContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
     $this->assertEquals(TaskResult::SKIPPED, $actual->getResultCode());
   }

@@ -25,19 +25,15 @@ final class PhpcsTaskTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::buildArguments
    */
   public function testBuildsProcessArguments(): void {
-    $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
-    $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
+    $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(PhpcsTask::class)->setConstructorArgs([
-      $grumPHP,
+      $this->createMock(GrumPHP::class),
       $processBuilder,
-      $processFormatterInterface,
+      $this->createMock(ProcessFormatterInterface::class),
     ])
       ->setMethodsExcept(['buildArguments'])
       ->getMock();
-    $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
+    $arguments = $this->createMock(ProcessArgumentsCollection::class);
 
     $files = ['file1.php', 'file2.php', 'file3.php', 'dir1/'];
     $processBuilder->expects($this->once())
@@ -63,20 +59,16 @@ final class PhpcsTaskTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::addArgumentsFromConfig
    */
   public function testAddsArgumentsFromConfiguration(): void {
-    $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
-    $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
+    $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(PhpcsTask::class)
       ->setConstructorArgs([
-        $grumPHP,
+        $this->createMock(GrumPHP::class),
         $processBuilder,
-        $processFormatterInterface,
+        $this->createMock(ProcessFormatterInterface::class),
       ])
       ->setMethodsExcept(['addArgumentsFromConfig'])
       ->getMock();
-    $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
+    $arguments = $this->createMock(ProcessArgumentsCollection::class);
     $config = [];
     foreach ($stub->configurableOptions as $name => $option) {
       $config[$name] = $option['defaults'];

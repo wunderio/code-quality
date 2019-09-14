@@ -26,20 +26,16 @@ final class EcsTaskTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\Ecs\EcsTask::buildArguments
    */
   public function testBuildsProcessArguments(): void {
-    $grumPHP = $this->getMockBuilder(GrumPHP::class)->disableOriginalConstructor()->getMock();
-    $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $processFormatterInterface = $this->getMockBuilder(ProcessFormatterInterface::class)->getMock();
+    $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(EcsTask::class)
       ->setConstructorArgs([
-        $grumPHP,
+        $this->createMock(GrumPHP::class),
         $processBuilder,
-        $processFormatterInterface,
+        $this->createMock(ProcessFormatterInterface::class),
       ])
       ->setMethodsExcept(['buildArguments'])
       ->getMock();
-    $arguments = $this->getMockBuilder(ProcessArgumentsCollection::class)->getMock();
+    $arguments = $this->createMock(ProcessArgumentsCollection::class);
 
     $files = new FilesCollection(['file.php']);
     $processBuilder->expects($this->once())

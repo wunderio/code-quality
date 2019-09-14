@@ -34,9 +34,7 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
       ->disableOriginalConstructor()
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
-    $container = $this->getMockBuilder(ContainerBuilder::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $container = $this->createMock(ContainerBuilder::class);
 
     $container->expects($this->once())
       ->method('register')
@@ -67,9 +65,7 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
       ->disableOriginalConstructor()
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
-    $container = $this->getMockBuilder(ContainerBuilder::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $container = $this->createMock(ContainerBuilder::class);
 
     $container->expects($this->once())
       ->method('register')
