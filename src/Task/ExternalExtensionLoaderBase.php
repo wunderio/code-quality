@@ -49,9 +49,9 @@ abstract class ExternalExtensionLoaderBase implements ExtensionInterface {
     if (!class_exists($this->class)) {
       $this->class = ContextFileExternalTaskBase::class;
     }
-    $configurations = $tasks[$this->class] ?? $tasks[$this->class];
+    $configurations = $tasks[$this->class] ?? $tasks[ContextFileExternalTaskBase::class];
     $this->name = $configurations['name'];
-    $this->arguments = $configurations['arguments'] ?? $tasks[$this->class]['arguments'];
+    $this->arguments = $configurations['arguments'] ?? $tasks[ContextFileExternalTaskBase::class]['arguments'];
   }
 
   /**
