@@ -11,9 +11,9 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class PhpCompatibilityExtensionLoader.
+ * Class ExternalExtensionLoaderBase.
  *
- * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
+ * @package Wunderio\GrumPHP\Task
  */
 abstract class ExternalExtensionLoaderBase implements ExtensionInterface {
 
