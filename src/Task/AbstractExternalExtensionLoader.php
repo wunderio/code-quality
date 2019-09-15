@@ -11,11 +11,11 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class ExternalExtensionLoaderBase.
+ * Class AbstractExternalExtensionLoader.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class ExternalExtensionLoaderBase implements ExtensionInterface {
+abstract class AbstractExternalExtensionLoader implements ExtensionInterface {
 
   /**
    * Name.
@@ -39,7 +39,7 @@ abstract class ExternalExtensionLoaderBase implements ExtensionInterface {
   public $class;
 
   /**
-   * ExternalExtensionLoaderBase constructor.
+   * AbstractExternalExtensionLoader constructor.
    *
    * @codeCoverageIgnore
    */

@@ -9,18 +9,11 @@ use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\Context\ContextInterface;
 
 /**
- * Class IndividualContextFileExternalTaskBase.
+ * Class IndividualAbstractConfigurableContextFileExternalTask.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class IndividualContextFileExternalTaskBase extends ContextFileExternalTaskBase {
-
-  /**
-   * File separation.
-   *
-   * @var bool
-   */
-  public $isFileSpecific = TRUE;
+abstract class AbstractPerPathExternalTask extends AbstractConfigurableContextFileExternalTask {
 
   /**
    * {@inheritdoc}

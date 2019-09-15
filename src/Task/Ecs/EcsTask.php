@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task\Ecs;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
+use Wunderio\GrumPHP\Task\AbstractConfigurableContextFileExternalTask;
 
 /**
  * Class EcsTask.
  *
  * @package Wunderio\GrumPHP\Task\Ecs
  */
-class EcsTask extends ContextFileExternalTaskBase {
+class EcsTask extends AbstractConfigurableContextFileExternalTask {
 
   /**
    * {@inheritdoc}

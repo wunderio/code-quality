@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering IndividualContextFileExternalTaskBase.
+ * Tests covering AbstractPerPathExternalTask.
  */
 
 declare(strict_types = 1);
@@ -18,12 +18,12 @@ use GrumPHP\Task\Context\RunContext;
 use GrumPHP\Task\TaskInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
-use Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase;
+use Wunderio\GrumPHP\Task\AbstractPerPathExternalTask;
 
 /**
- * Class IndividualContextFileExternalTaskBaseTest.
+ * Class AbstractPerPathExternalTaskTest.
  */
-final class IndividualContextFileExternalTaskBaseTest extends TestCase {
+final class AbstractPerPathExternalTaskTest extends TestCase {
 
   /**
    * GrumPHP object mock.
@@ -47,7 +47,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
   protected $processFormatterInterface;
 
   /**
-   * IndividualContextFileExternalTaskBase object mock.
+   * AbstractPerPathExternalTask object mock.
    *
    * @var \PHPUnit\Framework\MockObject\MockObject
    */
@@ -67,7 +67,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
     $this->grumPHP = $this->createMock(GrumPHP::class);
     $this->processBuilder = $this->createMock(ProcessBuilder::class);
     $this->processFormatterInterface = $this->createMock(ProcessFormatterInterface::class);
-    $this->stub = $this->getMockBuilder(IndividualContextFileExternalTaskBase::class)
+    $this->stub = $this->getMockBuilder(AbstractPerPathExternalTask::class)
       ->setConstructorArgs([
         $this->grumPHP,
         $this->processBuilder,
@@ -81,7 +81,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
   /**
    * Test run in scenario where no files or directories found.
    *
-   * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
+   * @covers \Wunderio\GrumPHP\Task\AbstractPerPathExternalTask::run
    */
   public function testSkipsTaskIfNoFilesFound(): void {
     $this->stub->expects($this->once())
@@ -101,7 +101,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
   /**
    * Test run in scenario with one files found and process successful.
    *
-   * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
+   * @covers \Wunderio\GrumPHP\Task\AbstractPerPathExternalTask::run
    */
   public function testPassesTaskIfFileFoundAndProcessSuccessful(): void {
     $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(['file.php']);
@@ -120,7 +120,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
   /**
    * Test run in scenario with multiple found and process unsuccessful.
    *
-   * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
+   * @covers \Wunderio\GrumPHP\Task\AbstractPerPathExternalTask::run
    */
   public function testFailsTaskIfMultipleFilesFoundButProcessUnsuccessful(): void {
     $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(

@@ -20,11 +20,11 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class ContextFileExternalTaskBase.
+ * Class AbstractConfigurableContextFileExternalTask.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class ContextFileExternalTaskBase extends AbstractExternalTask implements ArgumentsBuilderInterface {
+abstract class AbstractConfigurableContextFileExternalTask extends AbstractExternalTask implements ArgumentsBuilderInterface {
 
   /**
    * Option Extensions.
@@ -76,7 +76,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
   public $arguments = [];
 
   /**
-   * ContextFileExternalTaskBase constructor.
+   * AbstractConfigurableContextFileExternalTask constructor.
    *
    * @param \GrumPHP\Configuration\GrumPHP $grumPHP
    *   Grumphp.

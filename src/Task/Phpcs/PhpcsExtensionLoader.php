@@ -2,24 +2,11 @@
 
 namespace Wunderio\GrumPHP\Task\Phpcs;
 
-use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
+use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 
 /**
  * Class PhpCompatibilityExtensionLoader.
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpcsExtensionLoader extends ExternalExtensionLoaderBase {
-
-  /**
-   * Task info.
-   *
-   * @var array
-   */
-  public $taskInfo = [
-    'name' => 'phpcs',
-    'class' => PhpcsTask::class,
-    'arguments' => ['config', 'process_builder', 'formatter.phpcs'],
-  ];
-
-}
+class PhpcsExtensionLoader extends AbstractExternalExtensionLoader {}

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering ExternalExtensionLoaderBase.
+ * Tests covering AbstractExternalExtensionLoader.
  */
 
 declare(strict_types = 1);
@@ -10,24 +10,22 @@ declare(strict_types = 1);
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
-use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
+use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class ExternalExtensionLoaderBaseTest.
+ * Class AbstractExternalExtensionLoaderTest.
  */
-final class ExternalExtensionLoaderBaseTest extends TestCase {
+final class AbstractExternalExtensionLoaderTest extends TestCase {
 
   /**
    * Test load.
    *
-   * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
+   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::load
    */
   public function testLoadsDefinitionWithArguments(): void {
-    $class = ContextFileExternalTaskBase::class;
-    $name = 'default';
-    $stub = $this->getMockBuilder(ExternalExtensionLoaderBase::class)
+    $class = AbstractConfigurableContextFileExternalTaskTest::class;
+    $stub = $this->getMockBuilder(AbstractExternalExtensionLoader::class)
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
     $container = $this->createMock(ContainerBuilder::class);
@@ -48,12 +46,11 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
   /**
    * Test load without arguments.
    *
-   * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
+   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::load
    */
   public function testLoadsDefinitionWithoutArguments(): void {
-    $class = ContextFileExternalTaskBase::class;
-    $name = 'default';
-    $stub = $this->getMockBuilder(ExternalExtensionLoaderBase::class)
+    $class = AbstractConfigurableContextFileExternalTaskTest::class;
+    $stub = $this->getMockBuilder(AbstractExternalExtensionLoader::class)
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
     $container = $this->createMock(ContainerBuilder::class);

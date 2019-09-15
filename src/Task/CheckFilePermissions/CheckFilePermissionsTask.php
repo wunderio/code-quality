@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task\CheckFilePermissions;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
+use Wunderio\GrumPHP\Task\AbstractConfigurableContextFileExternalTask;
 
 /**
  * Class CheckFilePermissionsTask.
  *
  * @package Wunderio\GrumPHP\CheckFilePermissions
  */
-class CheckFilePermissionsTask extends ContextFileExternalTaskBase {
+class CheckFilePermissionsTask extends AbstractConfigurableContextFileExternalTask {
 
   /**
    * {@inheritdoc}

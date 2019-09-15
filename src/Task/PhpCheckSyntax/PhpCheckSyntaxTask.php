@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task\PhpCheckSyntax;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase;
+use Wunderio\GrumPHP\Task\AbstractPerPathExternalTask;
 
 /**
  * Class PhpCheckSyntaxTask.
  *
  * @package Wunderio\GrumPHP\Task\PhpCheckSyntaxTask
  */
-class PhpCheckSyntaxTask extends IndividualContextFileExternalTaskBase {
+class PhpCheckSyntaxTask extends AbstractPerPathExternalTask {
 
   /**
    * {@inheritdoc}
