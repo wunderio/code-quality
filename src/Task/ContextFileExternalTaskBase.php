@@ -148,7 +148,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
   }
 
   /**
-   * Return files.
+   * Return appropriate files or directories based on context and configuration.
    *
    * @param \GrumPHP\Task\Context\ContextInterface $context
    *   Current context.
@@ -252,7 +252,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    *   Current context.
    *
    * @return array|FilesCollection|TaskResult
-   *   Files or result.
+   *   Files or task result.
    */
   public function getFilesOrResult(ContextInterface $context) {
     $files = $this->getFiles($context);

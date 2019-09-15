@@ -16,7 +16,7 @@ use GrumPHP\Task\Context\ContextInterface;
 abstract class IndividualContextFileExternalTaskBase extends ContextFileExternalTaskBase {
 
   /**
-   * File separation..
+   * File separation.
    *
    * @var bool
    */
