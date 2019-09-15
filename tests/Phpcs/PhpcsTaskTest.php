@@ -12,6 +12,7 @@ use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Yaml\Yaml;
 use Wunderio\GrumPHP\Task\Phpcs\PhpcsTask;
 
 /**
@@ -31,58 +32,33 @@ final class PhpcsTaskTest extends TestCase {
       $processBuilder,
       $this->createMock(ProcessFormatterInterface::class),
     ])
-      ->setMethodsExcept(['buildArguments'])
-      ->getMock();
+      ->setMethodsExcept(['buildArguments'])->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
 
     $files = ['file1.php', 'file2.php', 'file3.php', 'dir1/'];
     $processBuilder->expects($this->once())
       ->method('createArgumentsForCommand')
       ->willReturn($arguments);
-    $stub->method('addArgumentsFromConfig')
-      ->willReturn($arguments);
-    $arguments->expects($this->exactly(5))
-      ->method('add');
+    $arguments->expects($this->exactly(5))->method('add');
     $config = [];
-    foreach ($stub->configurableOptions as $name => $option) {
+    foreach ($this->getConfigurations() as $name => $option) {
       $config[$name] = $option['defaults'];
     }
-    $stub->method('getConfiguration')->willReturn($config);
+    $stub->expects($this->once())->method('getConfiguration')->willReturn($config);
 
     $actual = $stub->buildArguments($files);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);
   }
 
   /**
-   * Test adding arguments from configuration.
+   * Gets task configurations.
    *
-   * @covers \Wunderio\GrumPHP\Task\Phpcs\PhpcsTask::addArgumentsFromConfig
+   * @return array
+   *   Array of options.
    */
-  public function testAddsArgumentsFromConfiguration(): void {
-    $processBuilder = $this->createMock(ProcessBuilder::class);
-    $stub = $this->getMockBuilder(PhpcsTask::class)
-      ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
-        $processBuilder,
-        $this->createMock(ProcessFormatterInterface::class),
-      ])
-      ->setMethodsExcept(['addArgumentsFromConfig'])
-      ->getMock();
-    $arguments = $this->createMock(ProcessArgumentsCollection::class);
-    $config = [];
-    foreach ($stub->configurableOptions as $name => $option) {
-      $config[$name] = $option['defaults'];
-    }
-
-    $arguments->expects($this->atLeastOnce())
-      ->method('addOptionalCommaSeparatedArgument');
-    $arguments->expects($this->atLeastOnce())
-      ->method('addOptionalArgument');
-    $arguments->expects($this->atLeastOnce())
-      ->method('addOptionalIntegerArgument');
-
-    $actual = $stub->addArgumentsFromConfig($arguments, $config);
-    $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);
+  protected function getConfigurations(): array {
+    $tasks = Yaml::parseFile(__DIR__ . '/../../src/Task/tasks.yml');
+    return $tasks[PhpcsTask::class]['options'];
   }
 
 }

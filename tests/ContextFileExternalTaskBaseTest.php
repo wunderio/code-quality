@@ -53,9 +53,7 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->disableOriginalConstructor()
       ->onlyMethods([
         'canRunInContext',
-      ])
-      ->setMethodsExcept(['canRunInContext'])
-      ->getMockForAbstractClass();
+      ])->setMethodsExcept(['canRunInContext'])->getMockForAbstractClass();
     $this->assertTrue($stub->canRunInContext(new RunContext(new FilesCollection())));
     $this->assertTrue($stub->canRunInContext(new GitPreCommitContext(new FilesCollection())));
 
@@ -70,7 +68,11 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
    */
   public function testGetsConfigurableOptions(): void {
     $stub = $this->getMockBuilder(ContextFileExternalTaskBase::class)
-      ->disableOriginalConstructor()
+      ->setConstructorArgs([
+        $this->createMock(GrumPHP::class),
+        $this->createMock(ProcessBuilder::class),
+        $this->createMock(ProcessFormatterInterface::class),
+      ])
       ->setMethodsExcept(['getConfigurableOptions'])
       ->getMockForAbstractClass();
     $resolver = $stub->getConfigurableOptions();
@@ -98,14 +100,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->getMockForAbstractClass();
     $context = $this->createMock(GitPreCommitContext::class);
 
-    $stub->expects($this->once())
-      ->method('getConfiguration')
-      ->willReturn($this->getConfigDefaults());
-    $stub->expects($this->once())
-      ->method('getContextFiles')
-      ->willReturn(new FilesCollection([]));
-    $stub->expects($this->never())
-      ->method('getFilesFromConfig');
+    $stub->expects($this->once())->method('getConfiguration')->willReturn($this->getConfigDefaults());
+    $stub->expects($this->once())->method('getContextFiles')->willReturn(new FilesCollection([]));
+    $stub->expects($this->never())->method('getFilesFromConfig');
 
     $files = $stub->getFiles($context);
     $this->assertInstanceOf(FilesCollection::class, $files);
@@ -129,13 +126,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->getMockForAbstractClass();
     $context = $this->createMock(RunContext::class);
 
-    $stub->expects($this->once())
-      ->method('getConfiguration')
-      ->willReturn($this->getConfigDefaults());
-    $stub->expects($this->never())
-      ->method('getFilesFromConfig');
-    $stub->expects($this->never())
-      ->method('getContextFiles');
+    $stub->expects($this->once())->method('getConfiguration')->willReturn($this->getConfigDefaults());
+    $stub->expects($this->never())->method('getFilesFromConfig');
+    $stub->expects($this->never())->method('getContextFiles');
 
     $files = $stub->getFiles($context);
     $this->assertEquals($files, $this->getConfigDefaults()['run_on']);
@@ -167,8 +160,7 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
     $stub->expects($this->once())
       ->method('getFilesOrResult')
       ->willReturn(TaskResult::createSkipped($this->createMock(TaskInterface::class), $context));
-    $processBuilder->expects($this->never())
-      ->method('buildProcess');
+    $processBuilder->expects($this->never())->method('buildProcess');
 
     $actual = $stub->run($context);
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
@@ -201,22 +193,16 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
       ->getMockForAbstractClass();
     $message = 'Test message...';
 
-    $stub->expects($this->once())
-      ->method('getFilesOrResult')
-      ->willReturn(['file.php']);
+    $stub->expects($this->once())->method('getFilesOrResult')->willReturn(['file.php']);
     $process = $this->createMock(Process::class);
     $process->expects($this->once())->method('run');
     $stub->expects($this->once())
       ->method('buildArguments')
       ->willReturn($this->createMock(ProcessArgumentsCollection::class));
-    $processBuilder->expects($this->once())
-      ->method('buildProcess')
-      ->willReturn($process);
+    $processBuilder->expects($this->once())->method('buildProcess')->willReturn($process);
     $stub->expects($this->once())
       ->method('getTaskResult')
-      ->willReturn(
-        TaskResult::createFailed($stub, $this->createMock(ContextInterface::class), $message)
-      );
+      ->willReturn(TaskResult::createFailed($stub, $this->createMock(ContextInterface::class), $message));
 
     $actual = $stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
@@ -237,14 +223,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
 
     $stub->isFileSpecific = TRUE;
 
-    $stub->expects($this->once())
-      ->method('getConfiguration')
-      ->willReturn($this->getConfigDefaults());
-    $stub->expects($this->once())
-      ->method('getFilesFromConfig')
-      ->willReturn(new FilesCollection([]));
-    $stub->expects($this->never())
-      ->method('getContextFiles');
+    $stub->expects($this->once())->method('getConfiguration')->willReturn($this->getConfigDefaults());
+    $stub->expects($this->once())->method('getFilesFromConfig')->willReturn(new FilesCollection([]));
+    $stub->expects($this->never())->method('getContextFiles');
 
     $files = $stub->getFiles($this->createMock(RunContext::class));
     $this->assertInstanceOf(FilesCollection::class, $files);
@@ -263,18 +244,10 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
     $context = $this->createMock(ContextInterface::class);
     $filesCollection = $this->createMock(FilesCollection::class);
 
-    $context->expects($this->once())
-      ->method('getFiles')
-      ->willReturn($filesCollection);
-    $filesCollection->expects($this->once())
-      ->method('extensions')
-      ->willReturn($filesCollection);
-    $filesCollection->expects($this->once())
-      ->method('paths')
-      ->willReturn($filesCollection);
-    $filesCollection->expects($this->once())
-      ->method('notPaths')
-      ->willReturn($filesCollection);
+    $context->expects($this->once())->method('getFiles')->willReturn($filesCollection);
+    $filesCollection->expects($this->once())->method('extensions')->willReturn($filesCollection);
+    $filesCollection->expects($this->once())->method('paths')->willReturn($filesCollection);
+    $filesCollection->expects($this->once())->method('notPaths')->willReturn($filesCollection);
 
     $files = $stub->getContextFiles($context, $this->getConfigDefaults());
     $this->assertInstanceOf(FilesCollection::class, $files);
@@ -422,9 +395,9 @@ final class ContextFileExternalTaskBaseTest extends TestCase {
    */
   protected function getConfigDefaults(): array {
     return [
-      'ignore_patterns' => ContextFileExternalTaskBase::IGNORE_PATTERNS,
-      'extensions' => ContextFileExternalTaskBase::EXTENSIONS,
-      'run_on' => ContextFileExternalTaskBase::RUN_ON,
+      'ignore_patterns' => ['/vendor/'],
+      'extensions' => ['php'],
+      'run_on' => ['.'],
     ];
   }
 

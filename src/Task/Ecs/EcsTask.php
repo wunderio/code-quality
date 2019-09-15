@@ -15,49 +15,6 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 class EcsTask extends ContextFileExternalTaskBase {
 
   /**
-   * Name.
-   *
-   * @var string
-   */
-  public $name = 'ecs';
-
-  /**
-   * Configurable options.
-   *
-   * @var array[]
-   */
-  public $configurableOptions = [
-    self::D_IGN => [
-      self::DEFAULTS => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_EXT => [
-      self::DEFAULTS => self::EXTENSIONS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_RUN => [
-      self::DEFAULTS => self::RUN_ON,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    'clear-cache' => [
-      self::DEFAULTS => FALSE,
-      self::ALLOWED_TYPES => ['bool'],
-    ],
-    'no-progress-bar' => [
-      self::DEFAULTS => TRUE,
-      self::ALLOWED_TYPES => ['bool'],
-    ],
-    'config' => [
-      self::DEFAULTS => 'vendor/wunderio/code-quality/config/ecs.yml',
-      self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
-    ],
-    'level' => [
-      self::DEFAULTS => NULL,
-      self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
-    ],
-  ];
-
-  /**
    * {@inheritdoc}
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {

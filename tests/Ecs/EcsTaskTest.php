@@ -38,15 +38,16 @@ final class EcsTaskTest extends TestCase {
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
 
     $files = new FilesCollection(['file.php']);
-    $processBuilder->expects($this->once())
-      ->method('createArgumentsForCommand')
-      ->willReturn($arguments);
-    $arguments->expects($this->exactly(2))
-      ->method('add');
-    $config = [];
-    foreach ($stub->configurableOptions as $name => $option) {
-      $config[$name] = $option['defaults'];
-    }
+    $processBuilder->expects($this->once())->method('createArgumentsForCommand')->willReturn($arguments);
+    $arguments->expects($this->exactly(2))->method('add');
+    $config = [
+      'extensions' => ['php'],
+      'run_on' => ['.'],
+      'clear-cache' => FALSE,
+      'config' => 'ecs.yml',
+      'no-progress-bar' => TRUE,
+      'level' => NULL,
+    ];
     $stub->method('getConfiguration')->willReturn($config);
 
     $actual = $stub->buildArguments($files);

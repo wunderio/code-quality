@@ -5,6 +5,9 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task;
 
 use GrumPHP\Collection\FilesCollection;
+use GrumPHP\Configuration\GrumPHP;
+use GrumPHP\Formatter\ProcessFormatterInterface;
+use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\AbstractExternalTask;
@@ -14,6 +17,7 @@ use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ContextFileExternalTaskBase.
@@ -21,34 +25,6 @@ use Symfony\Component\Process\Process;
  * @package Wunderio\GrumPHP\Task
  */
 abstract class ContextFileExternalTaskBase extends AbstractExternalTask implements ArgumentsBuilderInterface {
-
-  /**
-   * Default.
-   *
-   * @var string
-   */
-  public const DEFAULTS = 'defaults';
-
-  /**
-   * Allowed types.
-   *
-   * @var string
-   */
-  public const ALLOWED_TYPES = 'allowed_types';
-
-  /**
-   * Array type.
-   *
-   * @var string
-   */
-  public const TYPE_ARRAY = 'array';
-
-  /**
-   * String type.
-   *
-   * @var string
-   */
-  public const TYPE_STRING = 'string';
 
   /**
    * Option Extensions.
@@ -76,36 +52,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    *
    * @var string
    */
-  public $name = 'default';
-
-  /**
-   * Ignore patterns.
-   *
-   * @var array
-   */
-  public const IGNORE_PATTERNS = [
-    '*/vendor/*',
-    '*/node_modules/*',
-    '*/core/*',
-    '*/modules/contrib/*',
-    '*/themes/contrib/*',
-    '*/themes/contrib/*',
-    '*/libraries/*',
-  ];
-
-  /**
-   * Triggering extensions.
-   *
-   * @var array
-   */
-  public const EXTENSIONS = ['php', 'inc', 'module', 'install'];
-
-  /**
-   * Run on.
-   *
-   * @var array
-   */
-  public const RUN_ON = ['.'];
+  public $name = '';
 
   /**
    * File separation.
@@ -119,20 +66,36 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
    *
    * @var array[]
    */
-  public $configurableOptions = [
-    self::D_IGN => [
-      self::DEFAULTS => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_EXT => [
-      self::DEFAULTS => self::EXTENSIONS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_RUN => [
-      self::DEFAULTS => self::RUN_ON,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-  ];
+  public $configurableOptions = [];
+
+  /**
+   * Construction arguments.
+   *
+   * @var array
+   */
+  public $arguments = [];
+
+  /**
+   * ContextFileExternalTaskBase constructor.
+   *
+   * @param \GrumPHP\Configuration\GrumPHP $grumPHP
+   *   Grumphp.
+   * @param \GrumPHP\Process\ProcessBuilder $processBuilder
+   *   ProcessBuilder.
+   * @param \GrumPHP\Formatter\ProcessFormatterInterface $formatter
+   *   Formatter.
+   *
+   * @codeCoverageIgnore
+   */
+  public function __construct(GrumPHP $grumPHP, ProcessBuilder $processBuilder, ProcessFormatterInterface $formatter) {
+    parent::__construct($grumPHP, $processBuilder, $formatter);
+    $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
+    $configurations = $tasks[static::class] ?? $tasks[self::class];
+    $this->configurableOptions = $configurations['options'] ?? $tasks[self::class]['options'];
+    $this->name = $configurations['name'];
+    $this->arguments = $configurations['arguments'] ?? $tasks[self::class]['arguments'];
+    $this->isFileSpecific = $configurations['is_file_specific'] ?? $tasks[self::class]['is_file_specific'];
+  }
 
   /**
    * {@inheritdoc}
@@ -155,11 +118,11 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
     $resolver = new OptionsResolver();
     $defaults = [];
     foreach ($this->configurableOptions as $option_name => $option) {
-      $defaults[$option_name] = $option[self::DEFAULTS];
+      $defaults[$option_name] = $option['defaults'];
     }
     $resolver->setDefaults($defaults);
     foreach ($this->configurableOptions as $option_name => $option) {
-      $resolver->addAllowedTypes($option_name, $option[self::ALLOWED_TYPES]);
+      $resolver->addAllowedTypes($option_name, $option['allowed_types']);
     }
 
     return $resolver;

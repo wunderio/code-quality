@@ -15,40 +15,6 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 class CheckFilePermissionsTask extends ContextFileExternalTaskBase {
 
   /**
-   * Name.
-   *
-   * @var string
-   */
-  public $name = 'check_file_permissions';
-
-  /**
-   * File separation.
-   *
-   * @var bool
-   */
-  public $isFileSpecific = TRUE;
-
-  /**
-   * Configurable options.
-   *
-   * @var array[]
-   */
-  public $configurableOptions = [
-    self::D_IGN => [
-      self::DEFAULTS => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_EXT => [
-      self::DEFAULTS => ['sh'],
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_RUN => [
-      self::DEFAULTS => ['.'],
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-  ];
-
-  /**
    * {@inheritdoc}
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {

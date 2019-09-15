@@ -15,13 +15,6 @@ use Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase;
 class PhpCheckSyntaxTask extends IndividualContextFileExternalTaskBase {
 
   /**
-   * Name.
-   *
-   * @var string
-   */
-  public $name = 'php_check_syntax';
-
-  /**
    * {@inheritdoc}
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {

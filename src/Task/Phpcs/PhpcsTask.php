@@ -15,94 +15,11 @@ use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 class PhpcsTask extends ContextFileExternalTaskBase {
 
   /**
-   * Name.
-   *
-   * @var string
-   */
-  public $name = 'phpcs';
-
-  /**
-   * Configurable options.
-   *
-   * @var array[]
-   */
-  public $configurableOptions = [
-    self::D_IGN => [
-      self::DEFAULTS => self::IGNORE_PATTERNS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_EXT => [
-      self::DEFAULTS => self::EXTENSIONS,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    self::D_RUN => [
-      self::DEFAULTS => self::RUN_ON,
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    'standard' => [
-      self::DEFAULTS => ['vendor/wunderio/code-quality/config/phpcs.xml', 'vendor/wunderio/code-quality/config/phpcs-security.xml'],
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY, self::TYPE_STRING],
-    ],
-    'tab_width' => [
-      self::DEFAULTS => NULL,
-      self::ALLOWED_TYPES => ['null', 'int'],
-    ],
-    'encoding' => [
-      self::DEFAULTS => NULL,
-      self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
-    ],
-    'sniffs' => [
-      self::DEFAULTS => [],
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-    'severity' => [
-      self::DEFAULTS => NULL,
-      self::ALLOWED_TYPES => ['null', 'int'],
-    ],
-    'error_severity' => [
-      self::DEFAULTS => NULL,
-      self::ALLOWED_TYPES => ['null', 'int'],
-    ],
-    'warning_severity' => [
-      self::DEFAULTS => NULL,
-      self::ALLOWED_TYPES => ['null', 'int'],
-    ],
-    'report' => [
-      self::DEFAULTS => 'full',
-      self::ALLOWED_TYPES => ['null', self::TYPE_STRING],
-    ],
-    'report_width' => [
-      self::DEFAULTS => 120,
-      self::ALLOWED_TYPES => ['null', 'int'],
-    ],
-    'exclude' => [
-      self::DEFAULTS => [],
-      self::ALLOWED_TYPES => [self::TYPE_ARRAY],
-    ],
-  ];
-
-  /**
    * {@inheritdoc}
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
-    $arguments = $this->addArgumentsFromConfig($arguments, $this->getConfiguration());
-    $arguments->add('--report-json');
-
-    foreach ($files as $file) {
-      $arguments->add($file);
-    }
-
-    return $arguments;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function addArgumentsFromConfig(
-    ProcessArgumentsCollection $arguments,
-    array $config
-  ): ProcessArgumentsCollection {
+    $config = $this->getConfiguration();
     $arguments->addOptionalCommaSeparatedArgument('--standard=%s', (array) $config['standard']);
     $arguments->addOptionalArgument('--tab-width=%s', $config['tab_width']);
     $arguments->addOptionalArgument('--encoding=%s', $config['encoding']);
@@ -112,8 +29,13 @@ class PhpcsTask extends ContextFileExternalTaskBase {
     $arguments->addOptionalIntegerArgument('--error-severity=%s', $config['error_severity']);
     $arguments->addOptionalIntegerArgument('--warning-severity=%s', $config['warning_severity']);
     $arguments->addOptionalCommaSeparatedArgument('--sniffs=%s', $config['sniffs']);
-    $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config[self::D_IGN]);
+    $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config['ignore_patterns']);
     $arguments->addOptionalCommaSeparatedArgument('--exclude=%s', $config['exclude']);
+    $arguments->add('--report-json');
+
+    foreach ($files as $file) {
+      $arguments->add($file);
+    }
 
     return $arguments;
   }

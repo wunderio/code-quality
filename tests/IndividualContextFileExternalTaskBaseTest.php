@@ -91,8 +91,7 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
         $this->createMock(ContextInterface::class)
       ));
 
-    $this->processBuilder->expects($this->never())
-      ->method('buildProcess');
+    $this->processBuilder->expects($this->never())->method('buildProcess');
 
     $actual = $this->stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
@@ -105,20 +104,13 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
   public function testPassesTaskIfFileFoundAndProcessSuccessful(): void {
-    $this->stub->expects($this->once())
-      ->method('getFilesOrResult')
-      ->willReturn(['file.php']);
+    $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(['file.php']);
     $this->stub->expects($this->once())
       ->method('buildArguments')
       ->willReturn($this->createMock(ProcessArgumentsCollection::class));
-    $this->processBuilder->expects($this->once())
-      ->method('buildProcess')
-      ->willReturn($this->process);
-    $this->process->expects($this->once())
-      ->method('run');
-    $this->process->expects($this->once())
-      ->method('isSuccessful')
-      ->willReturn(TRUE);
+    $this->processBuilder->expects($this->once())->method('buildProcess')->willReturn($this->process);
+    $this->process->expects($this->once())->method('run');
+    $this->process->expects($this->once())->method('isSuccessful')->willReturn(TRUE);
 
     $actual = $this->stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
@@ -131,23 +123,16 @@ final class IndividualContextFileExternalTaskBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\IndividualContextFileExternalTaskBase::run
    */
   public function testFailsTaskIfMultipleFilesFoundButProcessUnsuccessful(): void {
-    $this->stub->expects($this->once())
-      ->method('getFilesOrResult')
-      ->willReturn(['file.php', 'directory/']);
+    $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(
+      ['file.php', 'directory/']
+    );
     $this->stub->expects($this->exactly(2))
       ->method('buildArguments')
       ->willReturn($this->createMock(ProcessArgumentsCollection::class));
-    $this->processBuilder->expects($this->exactly(2))
-      ->method('buildProcess')
-      ->willReturn($this->process);
-    $this->process->expects($this->exactly(2))
-      ->method('run');
-    $this->process->expects($this->exactly(2))
-      ->method('isSuccessful')
-      ->willReturn(FALSE);
-    $this->processFormatterInterface->expects($this->exactly(2))
-      ->method('format')
-      ->willReturn('Error');
+    $this->processBuilder->expects($this->exactly(2))->method('buildProcess')->willReturn($this->process);
+    $this->process->expects($this->exactly(2))->method('run');
+    $this->process->expects($this->exactly(2))->method('isSuccessful')->willReturn(FALSE);
+    $this->processFormatterInterface->expects($this->exactly(2))->method('format')->willReturn('Error');
 
     $actual = $this->stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);

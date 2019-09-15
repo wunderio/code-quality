@@ -38,12 +38,8 @@ final class CheckFilePermissionsTaskTest extends TestCase {
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
 
     $files = new FilesCollection(['file.php']);
-    $processBuilder->expects($this->once())
-      ->method('createArgumentsForCommand')
-      ->willReturn($arguments);
-    $arguments->expects($this->once())
-      ->method('addFiles')
-      ->with($files);
+    $processBuilder->expects($this->once())->method('createArgumentsForCommand')->willReturn($arguments);
+    $arguments->expects($this->once())->method('addFiles')->with($files);
 
     $actual = $stub->buildArguments($files);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);

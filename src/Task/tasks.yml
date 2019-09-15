@@ -1,0 +1,176 @@
+Wunderio\GrumPHP\Task\ContextFileExternalTaskBase:
+  name: default
+  is_file_specific: false
+  arguments:
+    - config
+    - process_builder
+    - formatter.raw_process
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+        - '*/core/*'
+        - '*/libraries/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
+  name: check_file_permissions
+  is_file_specific: true
+  arguments:
+    - config
+    - process_builder
+    - formatter.raw_process
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+        - '*/core/*'
+        - '*/libraries/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['sh']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+Wunderio\GrumPHP\Task\Ecs\EcsTask:
+  name: ecs
+  is_file_specific: false
+  arguments:
+    - config
+    - process_builder
+    - formatter.raw_process
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+        - '*/core/*'
+        - '*/libraries/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    clear-cache:
+      defaults: false
+      allowed_types: bool
+    config:
+      defaults: 'vendor/wunderio/code-quality/config/ecs.yml'
+      allowed_types: ['string', 'null']
+    no-progress-bar:
+      defaults: true
+      allowed_types: bool
+    level:
+      defaults: ~
+      allowed_types: ['string', 'null']
+Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
+  name: php_check_syntax
+  is_file_specific: false
+  arguments:
+    - config
+    - process_builder
+    - formatter.raw_process
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+        - '*/core/*'
+        - '*/libraries/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
+  name: php_compatibility
+  is_file_specific: false
+  arguments:
+    - config
+    - process_builder
+    - formatter.raw_process
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+        - '*/core/*'
+        - '*/libraries/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    testVersion:
+      defaults: '7.3'
+      allowed_types: ['string']
+    standard:
+      defaults: 'vendor/wunderio/code-quality/config/php-compatibility.xml'
+      allowed_types: ['string']
+Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
+  name: phpcs
+  is_file_specific: false
+  arguments:
+    - config
+    - process_builder
+    - formatter.phpcs
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+        - '*/core/*'
+        - '*/libraries/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    standard:
+      defaults:
+        - 'vendor/wunderio/code-quality/config/phpcs.xml'
+        - 'vendor/wunderio/code-quality/config/phpcs-security.xml'
+      allowed_types: ['array', 'string']
+    tab_width:
+      defaults: ~
+      allowed_types: ['null', 'int']
+    encoding:
+      defaults: ~
+      allowed_types: ['null', 'string']
+    sniffs:
+      defaults: []
+      allowed_types: ['array']
+    severity:
+      defaults: ~
+      allowed_types: ['null', 'int']
+    error_severity:
+      defaults: ~
+      allowed_types: ['null', 'int']
+    warning_severity:
+      defaults: ~
+      allowed_types: ['null', 'int']
+    report:
+      defaults: 'full'
+      allowed_types: ['null', 'string']
+    report_width:
+      defaults: 120
+      allowed_types: ['null', 'int']
+    exclude:
+      defaults: []
+      allowed_types: ['array']

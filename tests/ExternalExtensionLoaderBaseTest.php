@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
+use Wunderio\GrumPHP\Task\ContextFileExternalTaskBase;
 use Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -23,15 +25,9 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
    */
   public function testLoadsDefinitionWithArguments(): void {
-    $class = TestLoader::class;
-    $name = 'testname';
-    $args = [
-      'one',
-      'two',
-      'three',
-    ];
+    $class = ContextFileExternalTaskBase::class;
+    $name = 'default';
     $stub = $this->getMockBuilder(ExternalExtensionLoaderBase::class)
-      ->disableOriginalConstructor()
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
     $container = $this->createMock(ContainerBuilder::class);
@@ -40,16 +36,13 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
       ->method('register')
       ->with('task.' . $name, $class)
       ->willReturn(new Definition($class));
-    $stub->taskInfo = [
-      'name' => $name,
-      'class' => $class,
-      'arguments' => $args,
-    ];
 
     /** @var \Symfony\Component\DependencyInjection\Definition $task */
     $task = $stub->load($container);
     $this->assertInstanceOf(Definition::class, $task);
-    $this->assertEquals($args, $task->getArguments());
+    $this->assertInstanceOf(Reference::class, $task->getArguments()[0]);
+    $this->assertInstanceOf(Reference::class, $task->getArguments()[1]);
+    $this->assertInstanceOf(Reference::class, $task->getArguments()[2]);
     $this->assertEquals($class, $task->getClass());
   }
 
@@ -59,10 +52,9 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\ExternalExtensionLoaderBase::load
    */
   public function testLoadsDefinitionWithoutArguments(): void {
-    $class = TestLoader::class;
-    $name = 'testname';
+    $class = ContextFileExternalTaskBase::class;
+    $name = 'default';
     $stub = $this->getMockBuilder(ExternalExtensionLoaderBase::class)
-      ->disableOriginalConstructor()
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
     $container = $this->createMock(ContainerBuilder::class);
@@ -71,10 +63,7 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
       ->method('register')
       ->with('task.' . $name, $class)
       ->willReturn(new Definition($class));
-    $stub->taskInfo = [
-      'name' => $name,
-      'class' => $class,
-    ];
+    $stub->arguments = [];
 
     /** @var \Symfony\Component\DependencyInjection\Definition $task */
     $task = $stub->load($container);
@@ -84,8 +73,3 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
   }
 
 }
-
-/**
- * Class TestLoader.
- */
-class TestLoader {}
