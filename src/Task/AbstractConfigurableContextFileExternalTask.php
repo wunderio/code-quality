@@ -52,28 +52,21 @@ abstract class AbstractConfigurableContextFileExternalTask extends AbstractExter
    *
    * @var string
    */
-  public $name = '';
+  public $name;
 
   /**
    * File separation.
    *
    * @var bool
    */
-  public $isFileSpecific = FALSE;
+  public $isFileSpecific;
 
   /**
    * Configurable options.
    *
    * @var array[]
    */
-  public $configurableOptions = [];
-
-  /**
-   * Construction arguments.
-   *
-   * @var array
-   */
-  public $arguments = [];
+  public $configurableOptions;
 
   /**
    * AbstractConfigurableContextFileExternalTask constructor.
@@ -95,7 +88,6 @@ abstract class AbstractConfigurableContextFileExternalTask extends AbstractExter
     $class_name = explode('\\', static::class);
     $default_name = strtolower(preg_replace('/\B([A-Z])/', '_$1', str_replace('Task', '', end($class_name))));
     $this->name = $configurations['name'] ?? $default_name;
-    $this->arguments = $configurations['arguments'] ?? $default_configuration['arguments'];
     $this->isFileSpecific = $configurations['is_file_specific'] ?? $default_configuration['is_file_specific'];
   }
 

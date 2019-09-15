@@ -41,7 +41,6 @@ final class AbstractConfigurableContextFileExternalTaskTest extends TestCase {
         $this->createMock(ProcessFormatterInterface::class)
     );
     $this->assertEquals('custom_test', $customTask->name);
-    $this->assertEquals(['config', 'process_builder', 'formatter.raw_process'], $customTask->arguments);
     $this->assertCount(3, $customTask->configurableOptions);
   }
 
