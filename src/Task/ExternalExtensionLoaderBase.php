@@ -45,13 +45,18 @@ abstract class ExternalExtensionLoaderBase implements ExtensionInterface {
    */
   public function __construct() {
     $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
-    $this->class = str_replace('ExtensionLoader', 'Task', static::class);
+    $class_name = str_replace('ExtensionLoader', '', static::class);
+    $this->class = $class_name . 'Task';
     if (!class_exists($this->class)) {
       $this->class = ContextFileExternalTaskBase::class;
     }
-    $configurations = $tasks[$this->class] ?? $tasks[ContextFileExternalTaskBase::class];
-    $this->name = $configurations['name'];
-    $this->arguments = $configurations['arguments'] ?? $tasks[ContextFileExternalTaskBase::class]['arguments'];
+    $default_configuration = $tasks[ContextFileExternalTaskBase::class];
+    unset($default_configuration['name']);
+    $configurations = $tasks[$this->class] ?? $default_configuration;
+    $class_name = explode('\\', $class_name);
+    $default_name = strtolower(preg_replace('/\B([A-Z])/', '_$1', end($class_name)));
+    $this->name = $configurations['name'] ?? $default_name;
+    $this->arguments = $configurations['arguments'] ?? $default_configuration['arguments'];
   }
 
   /**

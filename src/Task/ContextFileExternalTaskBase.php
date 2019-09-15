@@ -90,11 +90,15 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
   public function __construct(GrumPHP $grumPHP, ProcessBuilder $processBuilder, ProcessFormatterInterface $formatter) {
     parent::__construct($grumPHP, $processBuilder, $formatter);
     $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
-    $configurations = $tasks[static::class] ?? $tasks[self::class];
-    $this->configurableOptions = $configurations['options'] ?? $tasks[self::class]['options'];
-    $this->name = $configurations['name'];
-    $this->arguments = $configurations['arguments'] ?? $tasks[self::class]['arguments'];
-    $this->isFileSpecific = $configurations['is_file_specific'] ?? $tasks[self::class]['is_file_specific'];
+    $default_configuration = $tasks[__CLASS__];
+    unset($default_configuration['name']);
+    $configurations = $tasks[static::class] ?? $default_configuration;
+    $this->configurableOptions = $configurations['options'] ?? $default_configuration['options'];
+    $class_name = explode('\\', static::class);
+    $default_name = strtolower(preg_replace('/\B([A-Z])/', '_$1', str_replace('Task', '', end($class_name))));
+    $this->name = $configurations['name'] ?? $default_name;
+    $this->arguments = $configurations['arguments'] ?? $default_configuration['arguments'];
+    $this->isFileSpecific = $configurations['is_file_specific'] ?? $default_configuration['is_file_specific'];
   }
 
   /**

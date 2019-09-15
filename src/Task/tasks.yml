@@ -20,7 +20,6 @@ Wunderio\GrumPHP\Task\ContextFileExternalTaskBase:
       defaults: ['.']
       allowed_types: ['array']
 Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
-  name: check_file_permissions
   is_file_specific: true
   options:
     ignore_patterns:
@@ -37,7 +36,6 @@ Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
       defaults: ['.']
       allowed_types: ['array']
 Wunderio\GrumPHP\Task\Ecs\EcsTask:
-  name: ecs
   options:
     ignore_patterns:
       defaults:
@@ -64,10 +62,8 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
     level:
       defaults: ~
       allowed_types: ['string', 'null']
-Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
-  name: php_check_syntax
+Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask: ~
 Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
-  name: php_compatibility
   options:
     ignore_patterns:
       defaults:
@@ -89,7 +85,6 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
       defaults: 'vendor/wunderio/code-quality/config/php-compatibility.xml'
       allowed_types: ['string']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
-  name: phpcs
   arguments:
     - config
     - process_builder
