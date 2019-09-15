@@ -34,7 +34,6 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
 
     $container->expects($this->once())
       ->method('register')
-      ->with('task.' . $name, $class)
       ->willReturn(new Definition($class));
 
     /** @var \Symfony\Component\DependencyInjection\Definition $task */
@@ -61,7 +60,6 @@ final class ExternalExtensionLoaderBaseTest extends TestCase {
 
     $container->expects($this->once())
       ->method('register')
-      ->with('task.' . $name, $class)
       ->willReturn(new Definition($class));
     $stub->arguments = [];
 

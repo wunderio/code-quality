@@ -90,7 +90,7 @@ abstract class ContextFileExternalTaskBase extends AbstractExternalTask implemen
   public function __construct(GrumPHP $grumPHP, ProcessBuilder $processBuilder, ProcessFormatterInterface $formatter) {
     parent::__construct($grumPHP, $processBuilder, $formatter);
     $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
-    $default_configuration = $tasks[__CLASS__];
+    $default_configuration = $tasks['default'];
     unset($default_configuration['name']);
     $configurations = $tasks[static::class] ?? $default_configuration;
     $this->configurableOptions = $configurations['options'] ?? $default_configuration['options'];

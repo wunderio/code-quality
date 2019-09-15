@@ -1,4 +1,4 @@
-Wunderio\GrumPHP\Task\ContextFileExternalTaskBase:
+default:
   name: default
   is_file_specific: false
   arguments:
