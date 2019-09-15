@@ -19,6 +19,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 final class AbstractExternalExtensionLoaderTest extends TestCase {
 
   /**
+   * Test class constructor.
+   *
+   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::__construct
+   */
+  public function testSetsConfigurationFromYaml(): void {
+    $customLoader = new CustomTestExtensionLoader();
+    $this->assertEquals('custom_test', $customLoader->name);
+    $this->assertEquals(['config', 'process_builder', 'formatter.raw_process'], $customLoader->arguments);
+    $this->assertEquals('CustomTestTask', $customLoader->class);
+  }
+
+  /**
    * Test load.
    *
    * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::load
@@ -68,3 +80,10 @@ final class AbstractExternalExtensionLoaderTest extends TestCase {
   }
 
 }
+
+/**
+ * Class CustomExtensionLoader.
+ *
+ * Extender class for test cases.
+ */
+class CustomTestExtensionLoader extends AbstractExternalExtensionLoader {}

@@ -84,8 +84,6 @@ abstract class AbstractConfigurableContextFileExternalTask extends AbstractExter
    *   ProcessBuilder.
    * @param \GrumPHP\Formatter\ProcessFormatterInterface $formatter
    *   Formatter.
-   *
-   * @codeCoverageIgnore
    */
   public function __construct(GrumPHP $grumPHP, ProcessBuilder $processBuilder, ProcessFormatterInterface $formatter) {
     parent::__construct($grumPHP, $processBuilder, $formatter);

@@ -30,6 +30,22 @@ use Symfony\Component\Finder\Finder;
 final class AbstractConfigurableContextFileExternalTaskTest extends TestCase {
 
   /**
+   * Test class constructor.
+   *
+   * @covers \Wunderio\GrumPHP\Task\AbstractConfigurableContextFileExternalTask::__construct
+   */
+  public function testSetsConfigurationFromYaml(): void {
+    $customTask = new CustomTestTask(
+        $this->createMock(GrumPHP::class),
+        $this->createMock(ProcessBuilder::class),
+        $this->createMock(ProcessFormatterInterface::class)
+    );
+    $this->assertEquals('custom_test', $customTask->name);
+    $this->assertEquals(['config', 'process_builder', 'formatter.raw_process'], $customTask->arguments);
+    $this->assertCount(3, $customTask->configurableOptions);
+  }
+
+  /**
    * Test name.
    *
    * @covers \Wunderio\GrumPHP\Task\AbstractConfigurableContextFileExternalTask::getName
@@ -402,5 +418,19 @@ final class AbstractConfigurableContextFileExternalTaskTest extends TestCase {
       'run_on' => ['.'],
     ];
   }
+
+}
+
+/**
+ * Class CustomTestTask.
+ *
+ * Extender class for test cases.
+ */
+class CustomTestTask extends AbstractConfigurableContextFileExternalTask {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildArguments(iterable $files): ProcessArgumentsCollection {}
 
 }

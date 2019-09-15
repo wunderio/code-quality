@@ -40,8 +40,6 @@ abstract class AbstractExternalExtensionLoader implements ExtensionInterface {
 
   /**
    * AbstractExternalExtensionLoader constructor.
-   *
-   * @codeCoverageIgnore
    */
   public function __construct() {
     $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
