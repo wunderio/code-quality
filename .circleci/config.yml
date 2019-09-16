@@ -8,7 +8,9 @@ jobs:
       # Check out source code.
       - checkout
       # Install composer dependencies.
-      - run: export PATH="/home/circleci/.composer/vendor/bin:${PATH}" && composer install --ignore-platform-reqs
+      - run: >-
+          export PATH="/home/circleci/.composer/vendor/bin:${PATH}" &&
+          composer install --ignore-platform-reqs
       # Run all checkers.
       - run: ./vendor/bin/grumphp run
       # Save project with coverage for next step to be analysed.
@@ -44,6 +46,6 @@ workflows:
       - analyze:
           requires:
             - build_and_test
-#          filters:
-#            branches:
-#              only: master
+          filters:
+            branches:
+              only: master
