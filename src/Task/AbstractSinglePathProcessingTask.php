@@ -26,7 +26,6 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
 
     $output = '';
     foreach ($files as $file) {
-      print_r([(string) $file]);
       $process = $this->processBuilder->buildProcess($this->buildArgumentsFromPath((string) $file));
       $process->run();
 
