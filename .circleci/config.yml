@@ -22,8 +22,6 @@ jobs:
   analyze:
     docker:
       - image: wunderio/circleci-sonar-scanner
-        environment:
-          SONAR_ANALYSIS_MODE: publish
     steps:
       # Restore project with coverage.
       - restore_cache:
