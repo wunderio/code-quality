@@ -1,3 +1,4 @@
+# Default configuration for tasks.
 default:
   name: default
   is_file_specific: false
@@ -19,6 +20,7 @@ default:
     run_on:
       defaults: ['.']
       allowed_types: ['array']
+# Custom configurations for tasks.
 Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
   is_file_specific: true
   options:

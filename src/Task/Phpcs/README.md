@@ -1,6 +1,6 @@
 # phpcs
 
-Check if files are compatible with X version of PHP.
+Check Drupal code against coding standards and other best practices.
 
 ### grumphp.yml:
 ````yml
