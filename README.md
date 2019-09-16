@@ -1,5 +1,8 @@
 # Code Quality
 
+[![Quality Gate Status](https://sonar.wdr.io/api/project_badges/measure?project=code-quality&metric=alert_status)](https://sonar.wdr.io/dashboard?id=code-quality)
+[![CircleCI](https://circleci.com/gh/wunderio/code-quality.svg?style=svg)](https://circleci.com/gh/wunderio/code-quality)
+
 This composer package will provide some basic code quality checks before commiting code by using
 https://github.com/phpro/grumphp.
 
