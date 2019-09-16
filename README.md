@@ -1,5 +1,8 @@
 # Code Quality
 
+[![Quality Gate Status](https://sonar.wdr.io/api/project_badges/measure?project=code-quality&metric=alert_status)](https://sonar.wdr.io/dashboard?id=code-quality)
+[![CircleCI](https://circleci.com/gh/wunderio/code-quality.svg?style=svg)](https://circleci.com/gh/wunderio/code-quality)
+
 This composer package will provide some basic code quality checks before commiting code by using
 https://github.com/phpro/grumphp.
 
@@ -26,7 +29,7 @@ This needs to be done only once either while creating a project or enabling code
 
 ```
 composer require wunderio/code-quality --dev
-cp vendor/wunderio/code-quality/grumphp.yml.dist ./grumphp.yml
+cp vendor/wunderio/code-quality/config/grumphp.yml ./grumphp.yml
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.

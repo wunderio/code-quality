@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
+<ruleset name="Security Audit">
+    <description>Security audit rules</description>
+
+    <config name="installed_paths" value="vendor/pheromone/phpcs-security-audit/Security" />
+
+    <!-- exclude some Drupal files that contain issues -->
+    <exclude-pattern>*default.settings.php</exclude-pattern>
+
+    <!-- exclude minified files -->
+    <exclude-pattern>*.min.*</exclude-pattern>
+
+    <!-- exclude third-party node modules -->
+    <exclude-pattern>node_modules/</exclude-pattern>
+
+    <!-- exclude CSS files, where we don't usually follow Drupal standards  -->
+    <exclude-pattern>*.css</exclude-pattern>
+
+    <!-- Security Code Reviews Rules -->
+
+    <!-- Global properties -->
+    <!-- Please note that not every sniff uses them and they can be overwritten by rule -->
+    <!-- Paranoia mode: Will generate more alerts but will miss less vulnerabilities. Good for assisting manual code review. -->
+    <config name="ParanoiaMode" value="0"/>
+
+    <!-- BadFunctions -->
+    <!-- PHP functions that can lead to security issues -->
+    <rule ref="Security.BadFunctions.Asserts"/>
+    <rule ref="Security.BadFunctions.Backticks"/>
+    <rule ref="Security.BadFunctions.CallbackFunctions"/>
+    <rule ref="Security.BadFunctions.CryptoFunctions"/>
+    <rule ref="Security.BadFunctions.EasyRFI"/>
+    <rule ref="Security.BadFunctions.EasyXSS"/>
+    <rule ref="Security.BadFunctions.ErrorHandling"/>
+    <rule ref="Security.BadFunctions.FilesystemFunctions"/>
+    <rule ref="Security.BadFunctions.FringeFunctions"/>
+    <rule ref="Security.BadFunctions.FunctionHandlingFunctions"/>
+    <rule ref="Security.BadFunctions.Mysqli"/>
+    <rule ref="Security.BadFunctions.NoEvals"/>
+    <rule ref="Security.BadFunctions.Phpinfos"/>
+    <rule ref="Security.BadFunctions.PregReplace"/>
+    <rule ref="Security.BadFunctions.SQLFunctions"/>
+    <rule ref="Security.BadFunctions.SystemExecFunctions"/>
+</ruleset>

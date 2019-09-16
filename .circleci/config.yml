@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  # Install all dependencies and run check tasks.
+  build_and_test:
+    docker:
+      - image: circleci/php:7.3.9-cli-node
+    steps:
+      # Check out source code.
+      - checkout
+      # Install composer dependencies.
+      - run: >-
+          export PATH="/home/circleci/.composer/vendor/bin:${PATH}" &&
+          composer install --ignore-platform-reqs
+      # Run all checkers.
+      - run: ./vendor/bin/grumphp run
+      # Save project with coverage for next step to be analysed.
+      - save_cache:
+          paths:
+            - ~/project
+          key: v2-coverage--{{ .Environment.CIRCLE_SHA1 }}
+  # Analyse codebase.
+  analyze:
+    docker:
+      - image: wunderio/circleci-sonar-scanner
+    steps:
+      # Restore project with coverage.
+      - restore_cache:
+          key: v2-coverage--{{ .Environment.CIRCLE_SHA1 }}
+      # Run sonar scanner on project.
+      - run: >-
+          cd /home/circleci/project/ &&
+          sonar-scanner -Dsonar.host.url=$SONAR_HOST
+          -Dsonar.login=$SONAR_TOKEN
+          -Dsonar.php.coverage.reportPaths=/home/circleci/project/coverage.xml
+          -Dsonar.projectKey=code-quality
+          -Dsonar.sources=/home/circleci/project/src
+
+# Workflow
+workflows:
+  version: 2
+  test_and_analyze:
+    jobs:
+      - build_and_test
+      - analyze:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: master

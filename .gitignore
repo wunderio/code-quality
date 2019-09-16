@@ -1,3 +1,10 @@
+# IDE files.
 /.idea/
+
+# Composer
 /vendor/
 composer.lock
+
+# Test results
+coverage.xml
+.phpunit.result.cache
