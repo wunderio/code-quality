@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering AbstractPerPathExternalTask.
+ * Tests covering AbstractSinglePathProcessingTask.
  */
 
 declare(strict_types = 1);
@@ -18,12 +18,12 @@ use GrumPHP\Task\Context\RunContext;
 use GrumPHP\Task\TaskInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
-use Wunderio\GrumPHP\Task\AbstractPerPathExternalTask;
+use Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask;
 
 /**
- * Class AbstractPerPathExternalTaskTest.
+ * Class AbstractSinglePathProcessingTaskTest.
  */
-final class AbstractPerPathExternalTaskTest extends TestCase {
+final class AbstractSinglePathProcessingTaskTest extends TestCase {
 
   /**
    * GrumPHP object mock.
@@ -67,7 +67,7 @@ final class AbstractPerPathExternalTaskTest extends TestCase {
     $this->grumPHP = $this->createMock(GrumPHP::class);
     $this->processBuilder = $this->createMock(ProcessBuilder::class);
     $this->processFormatterInterface = $this->createMock(ProcessFormatterInterface::class);
-    $this->stub = $this->getMockBuilder(AbstractPerPathExternalTask::class)
+    $this->stub = $this->getMockBuilder(AbstractSinglePathProcessingTask::class)
       ->setConstructorArgs([
         $this->grumPHP,
         $this->processBuilder,
@@ -81,7 +81,7 @@ final class AbstractPerPathExternalTaskTest extends TestCase {
   /**
    * Test run in scenario where no files or directories found.
    *
-   * @covers \Wunderio\GrumPHP\Task\AbstractPerPathExternalTask::run
+   * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::run
    */
   public function testSkipsTaskIfNoFilesFound(): void {
     $this->stub->expects($this->once())
@@ -101,12 +101,12 @@ final class AbstractPerPathExternalTaskTest extends TestCase {
   /**
    * Test run in scenario with one files found and process successful.
    *
-   * @covers \Wunderio\GrumPHP\Task\AbstractPerPathExternalTask::run
+   * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::run
    */
   public function testPassesTaskIfFileFoundAndProcessSuccessful(): void {
     $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(['file.php']);
     $this->stub->expects($this->once())
-      ->method('buildArguments')
+      ->method('buildArgumentsFromPath')
       ->willReturn($this->createMock(ProcessArgumentsCollection::class));
     $this->processBuilder->expects($this->once())->method('buildProcess')->willReturn($this->process);
     $this->process->expects($this->once())->method('run');
@@ -120,14 +120,14 @@ final class AbstractPerPathExternalTaskTest extends TestCase {
   /**
    * Test run in scenario with multiple found and process unsuccessful.
    *
-   * @covers \Wunderio\GrumPHP\Task\AbstractPerPathExternalTask::run
+   * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::run
    */
   public function testFailsTaskIfMultipleFilesFoundButProcessUnsuccessful(): void {
     $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(
       ['file.php', 'directory/']
     );
     $this->stub->expects($this->exactly(2))
-      ->method('buildArguments')
+      ->method('buildArgumentsFromPath')
       ->willReturn($this->createMock(ProcessArgumentsCollection::class));
     $this->processBuilder->expects($this->exactly(2))->method('buildProcess')->willReturn($this->process);
     $this->process->expects($this->exactly(2))->method('run');

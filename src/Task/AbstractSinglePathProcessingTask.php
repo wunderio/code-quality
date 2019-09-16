@@ -9,11 +9,11 @@ use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\Context\ContextInterface;
 
 /**
- * Class IndividualAbstractConfigurableContextFileExternalTask.
+ * Class AbstractSinglePathProcessingTask.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class AbstractPerPathExternalTask extends AbstractConfigurableContextFileExternalTask {
+abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask implements SinglePathArgumentsBuilderInterface {
 
   /**
    * {@inheritdoc}
@@ -26,7 +26,8 @@ abstract class AbstractPerPathExternalTask extends AbstractConfigurableContextFi
 
     $output = '';
     foreach ($files as $file) {
-      $process = $this->processBuilder->buildProcess($this->buildArguments([$file]));
+      print_r([(string) $file]);
+      $process = $this->processBuilder->buildProcess($this->buildArgumentsFromPath((string) $file));
       $process->run();
 
       if (!$process->isSuccessful()) {

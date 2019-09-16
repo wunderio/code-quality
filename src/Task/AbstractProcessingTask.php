@@ -9,7 +9,6 @@ use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResult;
-use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\AbstractExternalTask;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
@@ -20,11 +19,11 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class AbstractConfigurableContextFileExternalTask.
+ * Class AbstractProcessingTask.
  *
  * @package Wunderio\GrumPHP\Task
  */
-abstract class AbstractConfigurableContextFileExternalTask extends AbstractExternalTask implements ArgumentsBuilderInterface {
+abstract class AbstractProcessingTask extends AbstractExternalTask {
 
   /**
    * Option Extensions.
@@ -69,7 +68,7 @@ abstract class AbstractConfigurableContextFileExternalTask extends AbstractExter
   public $configurableOptions;
 
   /**
-   * AbstractConfigurableContextFileExternalTask constructor.
+   * AbstractMultiPathProcessingTask constructor.
    *
    * @param \GrumPHP\Configuration\GrumPHP $grumPHP
    *   Grumphp.
@@ -120,21 +119,6 @@ abstract class AbstractConfigurableContextFileExternalTask extends AbstractExter
     }
 
     return $resolver;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function run(ContextInterface $context): TaskResultInterface {
-    $files = $result = $this->getFilesOrResult($context);
-    if ($result  instanceof TaskResultInterface) {
-      return $result;
-    }
-
-    $process = $this->processBuilder->buildProcess($this->buildArguments($files));
-    $process->run();
-
-    return $this->getTaskResult($context, $process);
   }
 
   /**

@@ -22,9 +22,9 @@ final class PhpCheckSyntaxTaskTest extends TestCase {
   /**
    * Test building arguments.
    *
-   * @covers \Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask::buildArguments
+   * @covers \Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask::buildArgumentsFromPath
    */
-  public function testBuildsProcessArguments(): void {
+  public function testBuildsProcessArgumentsFromPath(): void {
     $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(PhpCheckSyntaxTask::class)
       ->setConstructorArgs([
@@ -32,15 +32,15 @@ final class PhpCheckSyntaxTaskTest extends TestCase {
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])
-      ->setMethodsExcept(['buildArguments'])
+      ->setMethodsExcept(['buildArgumentsFromPath'])
       ->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
 
-    $files = ['test.php', 'file.php', 'file.php'];
+    $path = 'test.php';
     $processBuilder->expects($this->once())
       ->method('createArgumentsForCommand')
       ->willReturn($arguments);
-    $arguments->expects($this->exactly(4))
+    $arguments->expects($this->exactly(2))
       ->method('add');
     $config = [];
     foreach ($stub->configurableOptions as $name => $option) {
@@ -48,7 +48,7 @@ final class PhpCheckSyntaxTaskTest extends TestCase {
     }
     $stub->method('getConfiguration')->willReturn($config);
 
-    $actual = $stub->buildArguments($files);
+    $actual = $stub->buildArgumentsFromPath($path);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);
   }
 

@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task\PhpCompatibility;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use Wunderio\GrumPHP\Task\AbstractConfigurableContextFileExternalTask;
+use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 
 /**
  * Class PhpCompatibilityTask.
  *
  * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
  */
-class PhpCompatibilityTask extends AbstractConfigurableContextFileExternalTask {
+class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
 
   /**
    * {@inheritdoc}

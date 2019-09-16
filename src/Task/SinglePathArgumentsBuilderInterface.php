@@ -7,21 +7,21 @@ namespace Wunderio\GrumPHP\Task;
 use GrumPHP\Collection\ProcessArgumentsCollection;
 
 /**
- * Interface ArgumentsBuilderInterface.
+ * Interface SinglePathArgumentsBuilderInterface.
  *
  * @package Wunderio\GrumPHP\Task
  */
-interface ArgumentsBuilderInterface {
+interface SinglePathArgumentsBuilderInterface {
 
   /**
    * Builds Process arguments.
    *
-   * @param iterable $files
+   * @param string $path
    *   Files or directories.
    *
    * @return \GrumPHP\Collection\ProcessArgumentsCollection
    *   Process arguments.
    */
-  public function buildArguments(iterable $files): ProcessArgumentsCollection;
+  public function buildArgumentsFromPath(string $path): ProcessArgumentsCollection;
 
 }

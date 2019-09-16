@@ -36,7 +36,7 @@ final class AbstractExternalExtensionLoaderTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::load
    */
   public function testLoadsDefinitionWithArguments(): void {
-    $class = AbstractConfigurableContextFileExternalTaskTest::class;
+    $class = AbstractMultiPathProcessingTaskTest::class;
     $stub = $this->getMockBuilder(AbstractExternalExtensionLoader::class)
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
@@ -61,7 +61,7 @@ final class AbstractExternalExtensionLoaderTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::load
    */
   public function testLoadsDefinitionWithoutArguments(): void {
-    $class = AbstractConfigurableContextFileExternalTaskTest::class;
+    $class = AbstractMultiPathProcessingTaskTest::class;
     $stub = $this->getMockBuilder(AbstractExternalExtensionLoader::class)
       ->setMethodsExcept(['load'])
       ->getMockForAbstractClass();
