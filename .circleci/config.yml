@@ -21,7 +21,7 @@ jobs:
   # Analyse codebase.
   analyze:
     docker:
-      - image: dmoscrop/circleci-sonar-scanner-docker
+      - image: wunderio/circleci-sonar-scanner
         environment:
           SONAR_ANALYSIS_MODE: publish
     steps:
