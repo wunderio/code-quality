@@ -11,7 +11,6 @@ use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\Context\ContextInterface;
-use GrumPHP\Task\Context\GitCommitMsgContext;
 use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use PHPUnit\Framework\TestCase;
@@ -35,25 +34,6 @@ final class ConfigurableTaskTraitTest extends TestCase {
       ->getMockForTrait();
     $stub->name = 'test_name';
     $this->assertEquals($stub->getName(), $stub->name);
-  }
-
-  /**
-   * Test run contexts.
-   *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::canRunInContext
-   */
-  public function testRunsInGitAndRunContexts(): void {
-    $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
-      ->onlyMethods([
-        'canRunInContext',
-      ])
-      ->setMethodsExcept(['canRunInContext'])
-      ->getMockForTrait();
-    $this->assertTrue($stub->canRunInContext(new RunContext(new FilesCollection())));
-    $this->assertTrue($stub->canRunInContext(new GitPreCommitContext(new FilesCollection())));
-
-    $commitMessageContext = $this->createMock(GitCommitMsgContext::class);
-    $this->assertFalse($stub->canRunInContext($commitMessageContext));
   }
 
   /**

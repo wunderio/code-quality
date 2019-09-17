@@ -6,7 +6,6 @@ use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
-use GrumPHP\Task\Context\RunContext;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Yaml\Yaml;
@@ -66,13 +65,6 @@ trait ConfigurableTaskTrait {
    */
   public function getName(): string {
     return $this->name;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function canRunInContext(ContextInterface $context): bool {
-    return $context instanceof GitPreCommitContext || $context instanceof RunContext;
   }
 
   /**

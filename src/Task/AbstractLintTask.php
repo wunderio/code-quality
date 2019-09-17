@@ -21,6 +21,7 @@ use GrumPHP\Task\Context\ContextInterface;
 abstract class AbstractLintTask extends AbstractLinterTask implements LintTaskInterface, ConfigurableTaskInterface {
 
   use ConfigurableTaskTrait;
+  use ContextRunTrait;
 
   /**
    * AbstractLintTask constructor.

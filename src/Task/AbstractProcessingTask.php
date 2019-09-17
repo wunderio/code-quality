@@ -20,6 +20,7 @@ use Symfony\Component\Process\Process;
 abstract class AbstractProcessingTask extends AbstractExternalTask implements ConfigurableTaskInterface {
 
   use ConfigurableTaskTrait;
+  use ContextRunTrait;
 
   /**
    * AbstractProcessingTask constructor.
