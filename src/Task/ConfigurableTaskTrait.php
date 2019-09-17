@@ -54,7 +54,7 @@ trait ConfigurableTaskTrait {
     $default_configuration = $tasks['default'];
     unset($default_configuration['name']);
     $configurations = $tasks[static::class] ?? $default_configuration;
-    $this->configurableOptions = $configurations['options'] ?? $tasks['default']['options'];
+    $this->configurableOptions = $configurations['options'] ?? $default_configuration['options'];
     $class_name = explode('\\', static::class);
     $default_name = strtolower(preg_replace('/\B([A-Z])/', '_$1', str_replace('Task', '', end($class_name))));
     $this->name = $configurations['name'] ?? $default_name;

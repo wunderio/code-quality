@@ -15,7 +15,7 @@ parameters:
       config: ecs.yml
     yaml_lint: ~
     json_lint: ~
-#    phpunit: ~
+    phpunit: ~
   extensions:
     - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
