@@ -7,6 +7,6 @@ use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 /**
  * Class CheckFilePermissionsExtensionLoader.
  *
- * @package Wunderio\GrumPHP\CheckFilePermissions
+ * @package Wunderio\GrumPHP\Task
  */
 class CheckFilePermissionsExtensionLoader extends AbstractExternalExtensionLoader {}

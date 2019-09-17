@@ -19,8 +19,9 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $files = $result = $this->getFilesOrResult($context);
-    if ($result  instanceof TaskResultInterface) {
+    $files = $result = $this->getFilesOrResult($context, $this->getConfiguration(), $this);
+    if ($result instanceof TaskResultInterface) {
+      unset($files);
       return $result;
     }
 

@@ -137,3 +137,52 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     exclude:
       defaults: []
       allowed_types: ['array']
+Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
+  is_file_specific: true
+  arguments:
+    - config
+    - linter.yamllint
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['yaml', 'yml']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    object_support:
+      defaults: false
+      allowed_types: ['bool']
+    exception_on_invalid_type:
+      defaults: false
+      allowed_types: ['bool']
+    parse_constant:
+      defaults: false
+      allowed_types: ['bool']
+    parse_custom_tags:
+      defaults: false
+      allowed_types: ['bool']
+Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
+  is_file_specific: true
+  arguments:
+    - config
+    - linter.jsonlint
+  options:
+    ignore_patterns:
+      defaults:
+        - '*/vendor/*'
+        - '*/node_modules/*'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['json', 'lock']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    detect_key_conflicts:
+      defaults: false
+      allowed_types: ['bool']
