@@ -1,4 +1,5 @@
 parameters:
+  stop_on_failure: true
   ascii:
     failed: ~
     succeeded: ~
