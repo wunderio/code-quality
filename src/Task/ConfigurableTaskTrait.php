@@ -151,18 +151,14 @@ trait ConfigurableTaskTrait {
    */
   public static function getFilesFromConfig(array $config): FilesCollection {
     $files = static::getFileFinder();
-    foreach ($config[ConfigurableTaskInterface::D_EXT] as $extension) {
-      $files->name('*.' . $extension);
-    }
     $run_on = $config[ConfigurableTaskInterface::D_RUN] ?? ['.'];
     foreach ($run_on as $dir) {
       $files->in($dir);
     }
-    foreach ($config[ConfigurableTaskInterface::D_IGN] as $ignore_pattern) {
-      $files->notPath(str_replace(['*/', '/*'], '', $ignore_pattern));
-    }
+    $files = new FilesCollection(iterator_to_array($files->getIterator()));
 
-    return new FilesCollection(iterator_to_array($files->getIterator()));
+    return $files->extensions($config[ConfigurableTaskInterface::D_EXT])
+      ->notPaths($config[ConfigurableTaskInterface::D_IGN]);
   }
 
   /**

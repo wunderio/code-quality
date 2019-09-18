@@ -64,7 +64,8 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
     level:
       defaults: ~
       allowed_types: ['string', 'null']
-Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask: ~
+Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
+  is_file_specific: true
 Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
   options:
     ignore_patterns:
