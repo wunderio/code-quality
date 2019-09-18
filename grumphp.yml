@@ -7,8 +7,6 @@ parameters:
     php_compatibility:
       standard: 'php-compatibility.xml'
       run_on: ['src', 'tests']
-    php_check_syntax:
-      run_on: ['src', 'tests']
     phpcs:
       standard: ['phpcs.xml', 'phpcs-security.xml']
       run_on: ['src', 'tests']

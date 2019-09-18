@@ -9,10 +9,10 @@ default:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -26,10 +26,10 @@ Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['sh']
@@ -41,10 +41,10 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -70,10 +70,10 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -95,10 +95,10 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -146,8 +146,8 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
+        - '/vendor/'
+        - '/node_modules/'
       allowed_types: ['array']
     extensions:
       defaults: ['yaml', 'yml']
@@ -165,7 +165,7 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
       defaults: false
       allowed_types: ['bool']
     parse_custom_tags:
-      defaults: false
+      defaults: true
       allowed_types: ['bool']
 Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
   is_file_specific: true
@@ -175,8 +175,8 @@ Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
+        - '/vendor/'
+        - '/node_modules/'
       allowed_types: ['array']
     extensions:
       defaults: ['json', 'lock']
