@@ -56,41 +56,41 @@ final class ConfigurableTaskTraitTest extends TestCase {
   /**
    * Test get Files in git context.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFiles
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getPaths
    */
   public function testGetsFilesInGitContext(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
     $context = $this->createMock(GitPreCommitContext::class);
 
-    $files = $stub::getFiles($context, $this->getConfigDefaults(), FALSE);
+    $files = $stub::getPaths($context, $this->getConfigDefaults(), FALSE);
     $this->assertInstanceOf(FilesCollection::class, $files);
   }
 
   /**
    * Test get Files in run context without file separation.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFiles
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getPaths
    */
   public function testGetsRunOnPathsInRunContextIfFileSeparationNotEnabled(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
     $context = $this->createMock(RunContext::class);
 
-    $files = $stub::getFiles($context, $this->getConfigDefaults(), FALSE);
+    $files = $stub::getPaths($context, $this->getConfigDefaults(), FALSE);
     $this->assertEquals($files, $this->getConfigDefaults()['run_on']);
   }
 
   /**
    * Test get Files in run context with file separation.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFiles
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getPaths
    */
   public function testGetsFilesFromConfigurationInRunContextIfFileSeparationEnabled(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
 
-    $files = $stub::getFiles($this->createMock(RunContext::class), $this->getConfigDefaults(), TRUE);
+    $files = $stub::getPaths($this->createMock(RunContext::class), $this->getConfigDefaults(), TRUE);
     $this->assertInstanceOf(FilesCollection::class, $files);
   }
 
@@ -144,14 +144,14 @@ final class ConfigurableTaskTraitTest extends TestCase {
   /**
    * Test get Files Or Result in run context.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFilesOrResult
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getPathsOrResult
    */
   public function testReturnsArrayOfFilesIfFoundAfterFiltering(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
     $stub->configure();
 
-    $actual = $stub->getFilesOrResult(
+    $actual = $stub->getPathsOrResult(
       $this->createMock(RunContext::class),
       $this->getConfigDefaults(),
       $this->createMock(ConfigurableTaskInterface::class)
@@ -162,7 +162,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
   /**
    * Test get Files Or Result in git context with empty array of files.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFilesOrResult
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getPathsOrResult
    */
   public function testSkipsTaskIfEmptyArrayOfFilesProvided(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
@@ -171,7 +171,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
     $conf = $this->getConfigDefaults();
     $conf[ConfigurableTaskInterface::D_RUN] = [];
 
-    $actual = $stub->getFilesOrResult(
+    $actual = $stub->getPathsOrResult(
       $this->createMock(GitPreCommitContext::class),
       $conf,
       $this->createMock(ConfigurableTaskInterface::class)
@@ -183,7 +183,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
   /**
    * Test get Files Or Result in git context with empty Files collection.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFilesOrResult
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getPathsOrResult
    */
   public function testSkipsTaskIfEmptyFilesCollectionOfFilesProvided(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
@@ -192,7 +192,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
     $context = $this->createMock(GitPreCommitContext::class);
     $context->expects($this->once())->method('getFiles')->willReturn(new FilesCollection([]));
 
-    $actual = $stub->getFilesOrResult(
+    $actual = $stub->getPathsOrResult(
       $context,
       $this->getConfigDefaults(),
       $this->createMock(ConfigurableTaskInterface::class)

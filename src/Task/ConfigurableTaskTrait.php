@@ -97,7 +97,7 @@ trait ConfigurableTaskTrait {
    * @return array|\GrumPHP\Collection\FilesCollection
    *   File collection.
    */
-  public static function getFiles(ContextInterface $context, array $config, bool $isFileSpecific) {
+  public static function getPaths(ContextInterface $context, array $config, bool $isFileSpecific) {
     // Deal with pre commit files first.
     if ($context instanceof GitPreCommitContext) {
       return static::getContextFiles($context, $config);
@@ -174,8 +174,8 @@ trait ConfigurableTaskTrait {
    * @return array|FilesCollection|TaskResult
    *   Files or task result.
    */
-  public function getFilesOrResult(ContextInterface $context, array $config, ConfigurableTaskInterface $task) {
-    $files = static::getFiles($context, $config, $task->isFileSpecific());
+  public function getPathsOrResult(ContextInterface $context, array $config, ConfigurableTaskInterface $task) {
+    $files = static::getPaths($context, $config, $task->isFileSpecific());
     if ($context instanceof GitPreCommitContext && \count($files) === 0) {
       return TaskResult::createSkipped($task, $context);
     }

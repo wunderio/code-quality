@@ -18,13 +18,12 @@ abstract class AbstractMultiPathProcessingTask extends AbstractProcessingTask im
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $files = $result = $this->getFilesOrResult($context, $this->getConfiguration(), $this);
-    if ($result instanceof TaskResultInterface) {
-      unset($files);
-      return $result;
+    $paths = $this->getPathsOrResult($context, $this->getConfiguration(), $this);
+    if ($paths instanceof TaskResultInterface) {
+      return $paths;
     }
 
-    $process = $this->processBuilder->buildProcess($this->buildArguments($files));
+    $process = $this->processBuilder->buildProcess($this->buildArguments($paths));
     $process->run();
 
     return $this->getTaskResult($process, $context);

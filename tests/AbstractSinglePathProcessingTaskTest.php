@@ -86,7 +86,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
    */
   public function testSkipsTaskIfNoFilesFound(): void {
     $this->stub->expects($this->once())
-      ->method('getFilesOrResult')
+      ->method('getPathsOrResult')
       ->willReturn(TaskResult::createSkipped(
         $this->createMock(TaskInterface::class),
         $this->createMock(ContextInterface::class)
@@ -106,7 +106,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
    */
   public function testPassesTaskIfFileFoundAndProcessSuccessful(): void {
     $this->stub->expects($this->once())
-      ->method('getFilesOrResult')
+      ->method('getPathsOrResult')
       ->willReturn([__DIR__]);
     $this->stub->expects($this->once())
       ->method('runInParallel')
@@ -124,7 +124,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
    */
   public function testFailsTaskIfMultipleFilesFoundButProcessUnsuccessful(): void {
     $this->stub->expects($this->once())
-      ->method('getFilesOrResult')
+      ->method('getPathsOrResult')
       ->willReturn(new FilesCollection([__FILE__]));
     $this->stub->expects($this->once())
       ->method('runInParallel')
@@ -203,7 +203,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
       ->willReturn($message);
 
     $task->handleProcesses($processes, $output);
-    $this->assertEquals(PHP_EOL . $message, $output);
+    $this->assertEquals($message . PHP_EOL, $output);
   }
 
 }

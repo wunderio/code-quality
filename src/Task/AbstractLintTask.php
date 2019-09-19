@@ -40,15 +40,14 @@ abstract class AbstractLintTask extends AbstractLinterTask implements LintTaskIn
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $files = $result = $this->getFilesOrResult($context, $this->getConfiguration(), $this);
-    if ($result instanceof TaskResultInterface) {
-      unset($files);
-      return $result;
+    $paths = $this->getPathsOrResult($context, $this->getConfiguration(), $this);
+    if ($paths instanceof TaskResultInterface) {
+      return $paths;
     }
 
     $this->configureLint($this->linter);
 
-    return $this->runLint($context, $files);
+    return $this->runLint($context, $paths);
   }
 
   /**

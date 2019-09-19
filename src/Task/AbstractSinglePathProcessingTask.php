@@ -20,10 +20,9 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $paths = $result = $this->getFilesOrResult($context, $this->getConfiguration(), $this);
-    if ($result instanceof TaskResultInterface) {
-      unset($paths);
-      return $result;
+    $paths = $this->getPathsOrResult($context, $this->getConfiguration(), $this);
+    if ($paths instanceof TaskResultInterface) {
+      return $paths;
     }
     // Convert files collection to array.
     if ($paths instanceof FilesCollection) {
@@ -57,6 +56,7 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
     // Start parallel execution.
     $runningProcesses = [];
     foreach ($path_list as $path) {
+      // Create arguments list from paths and build process.
       $process = $this->processBuilder->buildProcess($this->buildArgumentsFromPath((string) $path));
       $process->start();
       $runningProcesses[] = $process;
@@ -85,7 +85,7 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
       }
       // If process failed - report it.
       if (!$process->isSuccessful()) {
-        $output .= PHP_EOL . $this->formatter->format($process);
+        $output .= $this->formatter->format($process) . PHP_EOL;
       }
       // Remove processes that are finished.
       unset($processes[$index]);

@@ -52,7 +52,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->getMockForAbstractClass();
     $context = $this->createMock(ContextInterface::class);
     $files = new FilesCollection(['file.php']);
-    $stub->expects($this->once())->method('getFilesOrResult')->willReturn($files);
+    $stub->expects($this->once())->method('getPathsOrResult')->willReturn($files);
     $stub->expects($this->once())->method('configureLint');
     $stub->expects($this->once())
       ->method('runLint')
@@ -78,7 +78,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->getMockForAbstractClass();
     $context = $this->createMock(ContextInterface::class);
     $stub->expects($this->once())
-      ->method('getFilesOrResult')
+      ->method('getPathsOrResult')
       ->willReturn(TaskResult::createSkipped($this->createMock(TaskInterface::class), $context)
       );
     $stub->expects($this->never())->method('configureLint');
