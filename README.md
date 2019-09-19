@@ -17,6 +17,8 @@ This repository currently has following checks:
 * Shell script exec bits
 * PHP Code security
 * Cognitive complexity
+* Yaml syntax
+* Json syntax
 
 ## Pre-requisites
 

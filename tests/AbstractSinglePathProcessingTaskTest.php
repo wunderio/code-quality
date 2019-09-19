@@ -7,6 +7,7 @@
 
 declare(strict_types = 1);
 
+use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
@@ -79,19 +80,19 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
   }
 
   /**
-   * Test run in scenario where no files or directories found.
+   * Test run in scenario where no paths or directories found.
    *
    * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::run
    */
   public function testSkipsTaskIfNoFilesFound(): void {
     $this->stub->expects($this->once())
-      ->method('getFilesOrResult')
+      ->method('getPathsOrResult')
       ->willReturn(TaskResult::createSkipped(
         $this->createMock(TaskInterface::class),
         $this->createMock(ContextInterface::class)
       ));
 
-    $this->processBuilder->expects($this->never())->method('buildProcess');
+    $this->stub->expects($this->never())->method('runInParallel');
 
     $actual = $this->stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
@@ -99,18 +100,17 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
   }
 
   /**
-   * Test run in scenario with one files found and process successful.
+   * Test run in scenario with one path found and process successful.
    *
    * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::run
    */
   public function testPassesTaskIfFileFoundAndProcessSuccessful(): void {
-    $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(['file.php']);
     $this->stub->expects($this->once())
-      ->method('buildArgumentsFromPath')
-      ->willReturn($this->createMock(ProcessArgumentsCollection::class));
-    $this->processBuilder->expects($this->once())->method('buildProcess')->willReturn($this->process);
-    $this->process->expects($this->once())->method('run');
-    $this->process->expects($this->once())->method('isSuccessful')->willReturn(TRUE);
+      ->method('getPathsOrResult')
+      ->willReturn([__DIR__]);
+    $this->stub->expects($this->once())
+      ->method('runInParallel')
+      ->willReturn('');
 
     $actual = $this->stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
@@ -118,25 +118,92 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
   }
 
   /**
-   * Test run in scenario with multiple found and process unsuccessful.
+   * Test run in scenario with one file found and process successful.
    *
    * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::run
    */
   public function testFailsTaskIfMultipleFilesFoundButProcessUnsuccessful(): void {
-    $this->stub->expects($this->once())->method('getFilesOrResult')->willReturn(
-      ['file.php', 'directory/']
-    );
-    $this->stub->expects($this->exactly(2))
-      ->method('buildArgumentsFromPath')
-      ->willReturn($this->createMock(ProcessArgumentsCollection::class));
-    $this->processBuilder->expects($this->exactly(2))->method('buildProcess')->willReturn($this->process);
-    $this->process->expects($this->exactly(2))->method('run');
-    $this->process->expects($this->exactly(2))->method('isSuccessful')->willReturn(FALSE);
-    $this->processFormatterInterface->expects($this->exactly(2))->method('format')->willReturn('Error');
+    $this->stub->expects($this->once())
+      ->method('getPathsOrResult')
+      ->willReturn(new FilesCollection([__FILE__]));
+    $this->stub->expects($this->once())
+      ->method('runInParallel')
+      ->willReturn('Error');
 
     $actual = $this->stub->run($this->createMock(RunContext::class));
     $this->assertInstanceOf(TaskResultInterface::class, $actual);
     $this->assertFalse($actual->isPassed());
+  }
+
+  /**
+   * Test running 3 processes in parallel.
+   *
+   * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::runInParallel
+   */
+  public function testRunsPathListInParallel(): void {
+    $task = $this->getMockBuilder(AbstractSinglePathProcessingTask::class)
+      ->setConstructorArgs([
+        $this->grumPHP,
+        $this->processBuilder,
+        $this->processFormatterInterface,
+      ])
+      ->setMethodsExcept(['runInParallel'])
+      ->getMockForAbstractClass();
+    $output_text = 'Test error output';
+    $task->expects($this->exactly(3))
+      ->method('buildArgumentsFromPath')
+      ->willReturn(new ProcessArgumentsCollection());
+    $this->processBuilder->expects($this->exactly(3))
+      ->method('buildProcess')
+      ->willReturn($this->process);
+    $this->process->expects($this->exactly(3))->method('start');
+    $task->expects($this->once())->method('handleProcesses')->willReturnCallback(
+      static function (&$runningProcesses, &$output) use ($output_text) {
+        $runningProcesses = [];
+        $output = $output_text;
+      }
+    );
+
+    $actual = $task->runInParallel(['.', 'src/', 'test/']);
+    $this->assertEquals($output_text, $actual);
+  }
+
+  /**
+   * Test parallel process handling.
+   *
+   * @covers \Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask::handleProcesses
+   */
+  public function testHandlesParallelProcess(): void {
+    $task = $this->getMockBuilder(AbstractSinglePathProcessingTask::class)
+      ->setConstructorArgs([
+        $this->grumPHP,
+        $this->processBuilder,
+        $this->processFormatterInterface,
+      ])
+      ->setMethodsExcept(['handleProcesses'])
+      ->getMockForAbstractClass();
+    $message = 'Test error';
+    $output = '';
+    $processes = [
+      $this->process,
+      $this->process,
+    ];
+
+    $this->process
+      ->expects($this->exactly(2))
+      ->method('isRunning')
+      ->willReturnOnConsecutiveCalls([TRUE, FALSE]);
+    $this->process
+      ->expects($this->once())
+      ->method('isSuccessful')
+      ->willReturn(FALSE);
+    $this->processFormatterInterface
+      ->expects($this->once())
+      ->method('format')
+      ->willReturn($message);
+
+    $task->handleProcesses($processes, $output);
+    $this->assertEquals($message . PHP_EOL, $output);
   }
 
 }

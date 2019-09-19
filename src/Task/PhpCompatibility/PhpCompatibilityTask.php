@@ -10,7 +10,7 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class PhpCompatibilityTask.
  *
- * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
+ * @package Wunderio\GrumPHP\Task
  */
 class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
 
@@ -21,6 +21,7 @@ class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
     $config = $this->getConfiguration();
     $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config[self::D_EXT]);
+    $arguments->addOptionalIntegerArgument('--parallel=%s', $config['parallel']);
     $arguments->addSeparatedArgumentArray('--runtime-set', ['testVersion', (string) $config['testVersion']]);
     $arguments->add('--standard=' . $config['standard']);
 

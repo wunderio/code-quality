@@ -48,6 +48,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
       'extensions' => ['php'],
       'run_on' => ['.'],
       'ignore_patterns' => ['/vendor/'],
+      'parallel' => 10,
     ]);
 
     $actual = $stub->buildArguments($files);

@@ -42,14 +42,24 @@ final class PhpCheckSyntaxTaskTest extends TestCase {
       ->willReturn($arguments);
     $arguments->expects($this->exactly(2))
       ->method('add');
-    $config = [];
-    foreach ($stub->configurableOptions as $name => $option) {
-      $config[$name] = $option['defaults'];
-    }
-    $stub->method('getConfiguration')->willReturn($config);
+    $stub->method('getConfiguration')->willReturn($this->getConfigDefaults());
 
     $actual = $stub->buildArgumentsFromPath($path);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);
+  }
+
+  /**
+   * Default configuration.
+   *
+   * @return array
+   *   Configuration.
+   */
+  protected function getConfigDefaults(): array {
+    return [
+      'ignore_patterns' => ['/vendor/'],
+      'extensions' => ['php'],
+      'run_on' => ['.'],
+    ];
   }
 
 }

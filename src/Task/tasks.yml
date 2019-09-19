@@ -9,10 +9,10 @@ default:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -26,10 +26,10 @@ Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['sh']
@@ -41,10 +41,10 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -64,15 +64,33 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
     level:
       defaults: ~
       allowed_types: ['string', 'null']
-Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask: ~
+Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
+  is_file_specific: true
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    parallelism:
+      defaults: 100
+      allowed_types: ['int']
 Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -86,6 +104,9 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
     standard:
       defaults: 'vendor/wunderio/code-quality/config/php-compatibility.xml'
       allowed_types: ['string']
+    parallel:
+      defaults: 20
+      allowed_types: ['int']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   arguments:
     - config
@@ -94,10 +115,10 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   options:
     ignore_patterns:
       defaults:
-        - '*/vendor/*'
-        - '*/node_modules/*'
-        - '*/core/*'
-        - '*/libraries/*'
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['php', 'inc', 'module', 'install']
@@ -137,3 +158,55 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     exclude:
       defaults: []
       allowed_types: ['array']
+    parallel:
+      defaults: 20
+      allowed_types: ['int']
+Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
+  is_file_specific: true
+  arguments:
+    - config
+    - linter.yamllint
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['yaml', 'yml']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    object_support:
+      defaults: false
+      allowed_types: ['bool']
+    exception_on_invalid_type:
+      defaults: false
+      allowed_types: ['bool']
+    parse_constant:
+      defaults: false
+      allowed_types: ['bool']
+    parse_custom_tags:
+      defaults: true
+      allowed_types: ['bool']
+Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
+  is_file_specific: true
+  arguments:
+    - config
+    - linter.jsonlint
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['json', 'lock']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    detect_key_conflicts:
+      defaults: false
+      allowed_types: ['bool']

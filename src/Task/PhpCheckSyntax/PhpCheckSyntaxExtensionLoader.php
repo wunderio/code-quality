@@ -7,6 +7,6 @@ use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 /**
  * Class PhpCheckSyntaxExtensionLoader.
  *
- * @package Wunderio\GrumPHP\Task\PhpCheckSyntaxTask
+ * @package Wunderio\GrumPHP\Task
  */
 class PhpCheckSyntaxExtensionLoader extends AbstractExternalExtensionLoader {}

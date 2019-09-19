@@ -10,7 +10,7 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class CheckFilePermissionsTask.
  *
- * @package Wunderio\GrumPHP\CheckFilePermissions
+ * @package Wunderio\GrumPHP\Task
  */
 class CheckFilePermissionsTask extends AbstractMultiPathProcessingTask {
 

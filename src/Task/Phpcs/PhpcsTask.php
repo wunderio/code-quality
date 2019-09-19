@@ -10,7 +10,7 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class PhpCompatibilityTask.
  *
- * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
+ * @package Wunderio\GrumPHP\Task
  */
 class PhpcsTask extends AbstractMultiPathProcessingTask {
 
@@ -28,6 +28,7 @@ class PhpcsTask extends AbstractMultiPathProcessingTask {
     $arguments->addOptionalIntegerArgument('--severity=%s', $config['severity']);
     $arguments->addOptionalIntegerArgument('--error-severity=%s', $config['error_severity']);
     $arguments->addOptionalIntegerArgument('--warning-severity=%s', $config['warning_severity']);
+    $arguments->addOptionalIntegerArgument('--parallel=%s', $config['parallel']);
     $arguments->addOptionalCommaSeparatedArgument('--sniffs=%s', $config['sniffs']);
     $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config['ignore_patterns']);
     $arguments->addOptionalCommaSeparatedArgument('--exclude=%s', $config['exclude']);

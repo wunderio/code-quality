@@ -7,6 +7,6 @@ use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 /**
  * Class PhpCompatibilityExtensionLoader.
  *
- * @package Wunderio\GrumPHP\Task\PhpCompatibilityTask
+ * @package Wunderio\GrumPHP\Task
  */
 class PhpCompatibilityExtensionLoader extends AbstractExternalExtensionLoader {}

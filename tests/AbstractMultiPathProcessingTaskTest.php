@@ -43,13 +43,13 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
         $processBuilder,
         $processFormatterInterface,
       ])
-      ->onlyMethods(['getFilesOrResult', 'run'])
+      ->onlyMethods(['getPathsOrResult', 'run'])
       ->setMethodsExcept(['run'])
       ->getMockForAbstractClass();
     $context = $this->createMock(RunContext::class);
 
     $stub->expects($this->once())
-      ->method('getFilesOrResult')
+      ->method('getPathsOrResult')
       ->willReturn(TaskResult::createSkipped($this->createMock(TaskInterface::class), $context));
     $processBuilder->expects($this->never())->method('buildProcess');
 
@@ -75,7 +75,7 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
         $this->createMock(ProcessFormatterInterface::class),
       ])
       ->onlyMethods([
-        'getFilesOrResult',
+        'getPathsOrResult',
         'buildArguments',
         'run',
         'getTaskResult',
@@ -84,7 +84,7 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
       ->getMockForAbstractClass();
     $message = 'Test message...';
 
-    $stub->expects($this->once())->method('getFilesOrResult')->willReturn(['file.php']);
+    $stub->expects($this->once())->method('getPathsOrResult')->willReturn(['file.php']);
     $process = $this->createMock(Process::class);
     $process->expects($this->once())->method('run');
     $stub->expects($this->once())
