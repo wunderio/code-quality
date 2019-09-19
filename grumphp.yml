@@ -15,6 +15,7 @@ parameters:
     yaml_lint: ~
     json_lint: ~
     phpunit: ~
+    php_check_syntax: ~
   extensions:
     - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader

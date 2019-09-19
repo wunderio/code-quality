@@ -66,6 +66,23 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
       allowed_types: ['string', 'null']
 Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
   is_file_specific: true
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    parallelism:
+      defaults: 100
+      allowed_types: ['int']
 Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
   options:
     ignore_patterns:
