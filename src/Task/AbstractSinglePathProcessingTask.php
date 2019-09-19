@@ -76,7 +76,7 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
    * @param string $output
    *   Process output.
    */
-  public function handleProcesses(array &$processes, string &$output) {
+  public function handleProcesses(array &$processes, string &$output): void {
     $output = '';
     foreach ($processes as $index => $process) {
       // Skip processes that are still running.
