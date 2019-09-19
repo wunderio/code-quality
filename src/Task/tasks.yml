@@ -104,6 +104,9 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
     standard:
       defaults: 'vendor/wunderio/code-quality/config/php-compatibility.xml'
       allowed_types: ['string']
+    parallel:
+      defaults: 100
+      allowed_types: ['int']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   arguments:
     - config
@@ -155,6 +158,9 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     exclude:
       defaults: []
       allowed_types: ['array']
+    parallel:
+      defaults: 100
+      allowed_types: ['int']
 Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
   is_file_specific: true
   arguments:
