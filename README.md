@@ -65,7 +65,7 @@ parameters:
 
 Same applies to any task that uses other configuration file (easy-coding-standards).
 
-Ech code quality tool allows you to define at least 3 things:
+**Each code quality tool allows you to define at least 3 things:**
 - `run_on` - Multiple paths that will be checked and files staged must be from same path
 - `ignore_patterns` - path parts that will exclude files from check
 - `extensions` - file extensions of files that should be checked
