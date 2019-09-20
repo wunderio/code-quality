@@ -5,8 +5,8 @@
 This composer package will provide some basic code quality checks before committing
 code by using https://github.com/phpro/grumphp.
 
-It checks only modified files or new files on git commit, but check on all configured
-paths can be executed running `vendor/bin/grumphp run`
+**It checks only modified files or new files on git commit, but check on all configured
+paths can be executed running `vendor/bin/grumphp run`**
 
 This tool only extends [GrumPHP](https://github.com/phpro/grumphp) please read 
 its [documentation](https://github.com/phpro/grumphp/blob/master/README.md#configuration) on how to configure tool itself.
