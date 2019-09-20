@@ -13,7 +13,7 @@ parameters:
                 - '/core/'
                 - '/libraries/'
             extensions: ['php', 'inc', 'module', 'install']
-            run_on: '.']
+            run_on: ['.']
             parallelism: 100
     extensions:
         - Wunderio\GrumPHP\Task\PhpCheckSyntaxTask\PhpCheckSyntaxExtensionLoader
