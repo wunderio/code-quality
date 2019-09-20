@@ -171,6 +171,8 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
       defaults:
         - '/vendor/'
         - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['yaml', 'yml']
@@ -200,6 +202,8 @@ Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
       defaults:
         - '/vendor/'
         - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
       allowed_types: ['array']
     extensions:
       defaults: ['json', 'lock']

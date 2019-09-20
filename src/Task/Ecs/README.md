@@ -2,17 +2,22 @@
 
 Easy coding standards implementation to better react on task context.
 
-### grumphp.yml:
+### grumphp.yml (with current defaults):
 ````yml
 parameters:
     tasks:
         ecs:
+            ignore_patterns:
+                - '/vendor/'
+                - '/node_modules/'
+                - '/core/'
+                - '/libraries/'
+            extensions: ['php', 'inc', 'module', 'install']
             run_on: ['.']
-            extensions: [php, inc, module, phtml, php3, php4, php5]
-            ignore_patterns: ['*/vendor/*','*/node_modules/*']
-            config: ecs.yml
             clear-cache: false
+            config: 'vendor/wunderio/code-quality/config/ecs.yml'
             no-progress-bar: true
+            level: ~
     extensions:
         - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
 ````
