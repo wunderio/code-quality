@@ -2,14 +2,18 @@
 
 Json linter.
 
-### grumphp.yml:
+### grumphp.yml (with current defaults):
 ````yml
 parameters:
     tasks:
         json_lint:
+            ignore_patterns:
+                - '/vendor/'
+                - '/node_modules/'
+                - '/core/'
+                - '/libraries/'
+            extensions: ['json', 'lock']
             run_on: ['.']
-            extensions: ['yaml', 'yml']
-            ignore_patterns: ['*/vendor/*','*/node_modules/*']
             detect_key_conflicts: false
     extensions:
         - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader

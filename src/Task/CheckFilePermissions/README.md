@@ -2,14 +2,21 @@
 
 Check if the file permissions match that you've required.
 
-### grumphp.yml:
+
+### grumphp.yml (with current defaults):
 ````yml
 parameters:
     tasks:
         check_file_permissions:
-            run_on: ['.']
-            extensions: [php, inc, module, phtml, php3, php4, php5]
-            ignore_patterns: ['*/vendor/*','*/node_modules/*']
+            ignore_patterns:
+                - '/vendor/'
+                - '/node_modules/'
+                - '/core/'
+                - '/libraries/'
+            extensions:
+              defaults: ['sh']
+            run_on:
+              defaults: ['.']
     extensions:
         - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
 ````
