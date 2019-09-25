@@ -102,7 +102,7 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
       defaults: '7.3'
       allowed_types: ['string']
     standard:
-      defaults: 'vendor/wunderio/code-quality/config/php-compatibility.xml'
+      defaults: 'PHPCompatibility'
       allowed_types: ['string']
     parallel:
       defaults: 20
@@ -128,8 +128,8 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
       allowed_types: ['array']
     standard:
       defaults:
-        - 'vendor/wunderio/code-quality/config/phpcs.xml'
-        - 'vendor/wunderio/code-quality/config/phpcs-security.xml'
+        - 'WunderSecurity'
+        - 'WunderDrupal'
       allowed_types: ['array', 'string']
     tab_width:
       defaults: ~
