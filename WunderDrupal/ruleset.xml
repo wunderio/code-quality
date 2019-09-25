@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
-<ruleset name="WunderDrupal" namespace="WunderRules">
+<ruleset name="WunderDrupal">
     <description>Drupal coding standard</description>
 
     <!-- exclude some Drupal files that contain issues -->
