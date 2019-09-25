@@ -1,7 +1,7 @@
 {
     "name": "wunderio/code-quality",
     "description": "Code Quality checker wrapper for GrumPHP",
-    "type": "library",
+    "type": "phpcodesniffer-standard",
     "license": "MIT",
     "homepage": "https://github.com/wunderio/code-quality",
     "keywords": [
