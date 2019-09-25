@@ -15,7 +15,7 @@ parameters:
             extensions: ['php', 'inc', 'module', 'install']
             run_on: ['.']
             testVersion: '7.3'
-            standard: 'vendor/wunderio/code-quality/config/php-compatibility.xml'
+            standard: 'PHPCompatibility'
             parallel: 20
     extensions:
         - Wunderio\GrumPHP\Task\PhpCompatibilityTask\PhpCompatibilityExtensionLoader
