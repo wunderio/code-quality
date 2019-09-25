@@ -12,7 +12,7 @@ parameters:
                 - '/node_modules/'
                 - '/core/'
                 - '/libraries/'
-            extensions: ['php', 'inc', 'module', 'install']
+            extensions: ['php', 'inc', 'module', 'install', 'theme']
             run_on: ['.']
             standard:
                 - 'vendor/wunderio/code-quality/config/phpcs.xml'

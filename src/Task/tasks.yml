@@ -15,7 +15,7 @@ default:
         - '/libraries/'
       allowed_types: ['array']
     extensions:
-      defaults: ['php', 'inc', 'module', 'install']
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
       allowed_types: ['array']
     run_on:
       defaults: ['.']
@@ -47,7 +47,7 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
         - '/libraries/'
       allowed_types: ['array']
     extensions:
-      defaults: ['php', 'inc', 'module', 'install']
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
       allowed_types: ['array']
     run_on:
       defaults: ['.']
@@ -75,7 +75,7 @@ Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
         - '/libraries/'
       allowed_types: ['array']
     extensions:
-      defaults: ['php', 'inc', 'module', 'install']
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
       allowed_types: ['array']
     run_on:
       defaults: ['.']
@@ -93,7 +93,7 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
         - '/libraries/'
       allowed_types: ['array']
     extensions:
-      defaults: ['php', 'inc', 'module', 'install']
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
       allowed_types: ['array']
     run_on:
       defaults: ['.']
@@ -121,7 +121,7 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
         - '/libraries/'
       allowed_types: ['array']
     extensions:
-      defaults: ['php', 'inc', 'module', 'install']
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
       allowed_types: ['array']
     run_on:
       defaults: ['.']
