@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
-<ruleset name="WunderSecurity">
+<ruleset name="WunderSecurity" namespace="WunderRules">
     <description>Security audit rules</description>
 
     <!-- exclude some Drupal files that contain issues -->
