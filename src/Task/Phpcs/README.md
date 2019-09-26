@@ -15,8 +15,8 @@ parameters:
             extensions: ['php', 'inc', 'module', 'install']
             run_on: ['.']
             standard:
-                - 'vendor/wunderio/code-quality/config/phpcs.xml'
-                - 'vendor/wunderio/code-quality/config/phpcs-security.xml'
+                - 'WunderSecurity'
+                - 'WunderDrupal'
             tab_width: ~
             encoding: ~
             sniffs: []
