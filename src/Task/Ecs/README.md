@@ -12,7 +12,7 @@ parameters:
                 - '/node_modules/'
                 - '/core/'
                 - '/libraries/'
-            extensions: ['php', 'inc', 'module', 'install']
+            extensions: ['php', 'inc', 'module', 'install', 'theme']
             run_on: ['.']
             clear-cache: false
             config: 'vendor/wunderio/code-quality/config/ecs.yml'
