@@ -40,7 +40,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
     $files = new FilesCollection(['test.php', 'file.php']);
     $processBuilder->method('createArgumentsForCommand')
       ->willReturn($arguments);
-    $arguments->expects($this->exactly(3))
+    $arguments->expects($this->exactly(4))
       ->method('add');
     $stub->method('getConfiguration')->willReturn([
       'standard' => 'php-compatibility.xm',

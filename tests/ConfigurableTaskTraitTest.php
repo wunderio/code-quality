@@ -10,7 +10,6 @@ declare(strict_types = 1);
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
-use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
 use GrumPHP\Task\Context\RunContext;
 use PHPUnit\Framework\TestCase;
@@ -62,6 +61,9 @@ final class ConfigurableTaskTraitTest extends TestCase {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
     $context = $this->createMock(GitPreCommitContext::class);
+    $context->expects($this->once())
+      ->method('getFiles')
+      ->willReturn(new FilesCollection([]));
 
     $files = $stub::getPaths($context, $this->getConfigDefaults(), FALSE);
     $this->assertInstanceOf(FilesCollection::class, $files);
@@ -95,23 +97,18 @@ final class ConfigurableTaskTraitTest extends TestCase {
   }
 
   /**
-   * Test get Files in run context with file separation.
+   * Test cleaning directory list from non-existing paths.
    *
-   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getContextFiles
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::cleanupDirs
    */
-  public function testFiltersContextFilesWithConfigurationSets(): void {
+  public function testRemoveNonExistingDirectories(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
-    $context = $this->createMock(ContextInterface::class);
-    $filesCollection = $this->createMock(FilesCollection::class);
 
-    $context->expects($this->once())->method('getFiles')->willReturn($filesCollection);
-    $filesCollection->expects($this->once())->method('extensions')->willReturn($filesCollection);
-    $filesCollection->expects($this->once())->method('paths')->willReturn($filesCollection);
-    $filesCollection->expects($this->once())->method('notPaths')->willReturn($filesCollection);
+    $dirs = [__DIR__, 'non_existing_dir/path'];
 
-    $files = $stub->getContextFiles($context, $this->getConfigDefaults());
-    $this->assertInstanceOf(FilesCollection::class, $files);
+    $stub::cleanupDirs($dirs);
+    $this->assertEquals([__DIR__], $dirs);
   }
 
   /**
@@ -139,6 +136,24 @@ final class ConfigurableTaskTraitTest extends TestCase {
       'extensions' => ['php'],
       'run_on' => ['.'],
     ]));
+  }
+
+  /**
+   * Test get empty files collection from config with no directories.
+   *
+   * @covers \Wunderio\GrumPHP\Task\ConfigurableTaskTrait::getFilesFromConfig
+   */
+  public function testReturnsEmptyFilesCollectionIfNoDirectoriesProvided(): void {
+    $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
+      ->getMockForTrait();
+
+    $result = $stub::getFilesFromConfig([
+      'ignore_patterns' => ['/vendor/'],
+      'extensions' => ['php'],
+      'run_on' => [],
+    ]);
+    $this->assertInstanceOf(FilesCollection::class, $result);
+    $this->assertTrue($result->isEmpty());
   }
 
   /**

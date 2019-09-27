@@ -100,8 +100,14 @@ trait ConfigurableTaskTrait {
   public static function getPaths(ContextInterface $context, array $config, bool $isFileSpecific) {
     // Deal with pre commit files first.
     if ($context instanceof GitPreCommitContext) {
-      return static::getContextFiles($context, $config);
+      return $context->getFiles()
+        ->extensions($config[ConfigurableTaskInterface::D_EXT])
+        ->paths($config[ConfigurableTaskInterface::D_RUN])
+        ->notPaths($config[ConfigurableTaskInterface::D_IGN]);
     }
+
+    // For next steps we need only valid directory paths.
+    static::cleanupDirs($config[ConfigurableTaskInterface::D_RUN]);
 
     // When not in git context and no separation requested - return directories.
     if (!$isFileSpecific) {
@@ -113,21 +119,17 @@ trait ConfigurableTaskTrait {
   }
 
   /**
-   * Get files from current context.
+   * Checks and unset directories that does not exist.
    *
-   * @param \GrumPHP\Task\Context\ContextInterface $context
-   *   Context.
-   * @param array $config
-   *   Configuration.
-   *
-   * @return \GrumPHP\Collection\FilesCollection
-   *   File collection.
+   * @param array $dirs
+   *   List of directories.
    */
-  public static function getContextFiles(ContextInterface $context, array $config): FilesCollection {
-    return $context->getFiles()
-      ->extensions($config[ConfigurableTaskInterface::D_EXT])
-      ->paths($config[ConfigurableTaskInterface::D_RUN])
-      ->notPaths($config[ConfigurableTaskInterface::D_IGN]);
+  public static function cleanupDirs(array &$dirs) {
+    foreach ($dirs as $index => $path) {
+      if (realpath($path) == FALSE) {
+        unset($dirs[$index]);
+      }
+    }
   }
 
   /**
@@ -150,9 +152,11 @@ trait ConfigurableTaskTrait {
    *   File collection.
    */
   public static function getFilesFromConfig(array $config): FilesCollection {
+    if (empty($config[ConfigurableTaskInterface::D_RUN])) {
+      return new FilesCollection([]);
+    }
     $files = static::getFileFinder();
-    $run_on = $config[ConfigurableTaskInterface::D_RUN] ?? ['.'];
-    foreach ($run_on as $dir) {
+    foreach ($config[ConfigurableTaskInterface::D_RUN] as $dir) {
       $files->in($dir);
     }
     $files = new FilesCollection(iterator_to_array($files->getIterator()));
@@ -175,11 +179,11 @@ trait ConfigurableTaskTrait {
    *   Files or task result.
    */
   public function getPathsOrResult(ContextInterface $context, array $config, ConfigurableTaskInterface $task) {
-    $files = static::getPaths($context, $config, $task->isFileSpecific());
-    if ($context instanceof GitPreCommitContext && \count($files) === 0) {
+    $paths = static::getPaths($context, $config, $task->isFileSpecific());
+    if (\count($paths) === 0) {
       return TaskResult::createSkipped($task, $context);
     }
-    return $files;
+    return $paths;
   }
 
   /**

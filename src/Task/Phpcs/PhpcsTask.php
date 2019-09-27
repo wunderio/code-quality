@@ -32,7 +32,7 @@ class PhpcsTask extends AbstractMultiPathProcessingTask {
     $arguments->addOptionalCommaSeparatedArgument('--sniffs=%s', $config['sniffs']);
     $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config['ignore_patterns']);
     $arguments->addOptionalCommaSeparatedArgument('--exclude=%s', $config['exclude']);
-    $arguments->add('--report-json');
+    $arguments->add('-s');
 
     foreach ($files as $file) {
       $arguments->add($file);
