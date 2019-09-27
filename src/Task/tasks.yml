@@ -173,6 +173,7 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
         - '/node_modules/'
         - '/core/'
         - '/libraries/'
+        - '/contrib/'
       allowed_types: ['array']
     extensions:
       defaults: ['yaml', 'yml']
@@ -204,6 +205,7 @@ Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
         - '/node_modules/'
         - '/core/'
         - '/libraries/'
+        - '/contrib/'
       allowed_types: ['array']
     extensions:
       defaults: ['json', 'lock']

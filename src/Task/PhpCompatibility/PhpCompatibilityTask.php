@@ -24,6 +24,7 @@ class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
     $arguments->addOptionalIntegerArgument('--parallel=%s', $config['parallel']);
     $arguments->addSeparatedArgumentArray('--runtime-set', ['testVersion', (string) $config['testVersion']]);
     $arguments->add('--standard=' . $config['standard']);
+    $arguments->add('-s');
 
     foreach ($files as $file) {
       $arguments->add($file);
