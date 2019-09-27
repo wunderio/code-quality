@@ -126,7 +126,7 @@ trait ConfigurableTaskTrait {
    */
   public static function cleanupDirs(array &$dirs) {
     foreach ($dirs as $index => $path) {
-      if (realpath($path) == FALSE) {
+      if (!(bool) realpath($path)) {
         unset($dirs[$index]);
       }
     }
