@@ -1,0 +1,6 @@
+parameters:
+	excludes_analyse:
+		- *Test.php
+		- *TestBase.php
+includes:
+	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
