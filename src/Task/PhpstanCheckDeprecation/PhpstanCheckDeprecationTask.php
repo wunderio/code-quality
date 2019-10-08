@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace Wunderio\GrumPHP\Task\PhpStan;
+namespace Wunderio\GrumPHP\Task\PhpstanCheckDeprecation;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 
 /**
- * Class PhpStanTask.
+ * Class PhpstanCheckDeprecationTask.
  *
  * @package Wunderio\GrumPHP\Task
  */
-class PhpStanTask extends AbstractMultiPathProcessingTask {
+class PhpstanCheckDeprecationTask extends AbstractMultiPathProcessingTask {
 
   /**
    * {@inheritdoc}

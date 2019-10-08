@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Tests covering PhpStanTask.
+ * Tests covering PhpstanCheckDeprecationTask.
  */
 
 declare(strict_types = 1);
@@ -13,21 +13,21 @@ use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
-use Wunderio\GrumPHP\Task\PhpStan\PhpStanTask;
+use Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask;
 
 /**
- * Class PhpStanTaskTest.
+ * Class PhpstanTaskTest.
  */
-final class PhpStanTaskTest extends TestCase {
+final class PhpstanCheckDeprecationTaskTest extends TestCase {
 
   /**
    * Test building arguments.
    *
-   * @covers \Wunderio\GrumPHP\Task\PhpStan\PhpStanTask::buildArguments
+   * @covers \Wunderio\GrumPHP\Task\Phpstan\PhpstanDrupalCheckTask::buildArguments
    */
   public function testBuildsProcessArguments(): void {
     $processBuilder = $this->createMock(ProcessBuilder::class);
-    $stub = $this->getMockBuilder(PhpStanTask::class)->setConstructorArgs([
+    $stub = $this->getMockBuilder(PhpstanDrupalCheckTask::class)->setConstructorArgs([
       $this->createMock(GrumPHP::class),
       $processBuilder,
       $this->createMock(ProcessFormatterInterface::class),
@@ -59,7 +59,7 @@ final class PhpStanTaskTest extends TestCase {
    */
   protected function getConfigurations(): array {
     $tasks = Yaml::parseFile(__DIR__ . '/../../src/Task/tasks.yml');
-    return $tasks[PhpStanTask::class]['options'];
+    return $tasks[PhpstanDrupalCheckTask::class]['options'];
   }
 
 }

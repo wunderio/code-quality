@@ -6,7 +6,7 @@ Check Drupal code against deprecation rules.
 ````yml
 parameters:
     tasks:
-        phpstan:
+        phpstan_check_deprecation:
             ignore_patterns: 
                 - '/vendor/'
                 - '/node_modules/'
@@ -18,7 +18,7 @@ parameters:
               defaults: ~
               allowed_types: ['string', 'null']
             configuration:
-              defaults: 'vendor/wunderio/code-quality/config/phpstan.neon'
+              defaults: 'phpstan.neon'
               allowed_types: ['string', 'null']
             memory_limit:
               defaults: ~
@@ -26,6 +26,6 @@ parameters:
             level:
               defaults: ~
               allowed_types: ['string', 'null']
-            extensions:
-                - Wunderio\GrumPHP\Task\PhpCompatibilityTask\PhpCompatibilityExtensionLoader
+    extensions:
+        - Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationExtensionLoader
 ````
