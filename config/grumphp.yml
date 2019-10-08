@@ -8,7 +8,7 @@ parameters:
     check_file_permissions: ~
     php_check_syntax: ~
     phpcs: ~
-    phpstan: ~
+    phpstan_check_deprecation: ~
     ecs: ~
     yaml_lint: ~
     json_lint: ~
@@ -18,6 +18,6 @@ parameters:
     - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
     - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
     - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader
-    - Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationExtensionLoader
     - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
