@@ -27,7 +27,7 @@ final class PhpstanCheckDeprecationTaskTest extends TestCase {
    */
   public function testBuildsProcessArguments(): void {
     $processBuilder = $this->createMock(ProcessBuilder::class);
-    $stub = $this->getMockBuilder(PhpstanDrupalCheckTask::class)->setConstructorArgs([
+    $stub = $this->getMockBuilder(PhpstanCheckDeprecationTask::class)->setConstructorArgs([
       $this->createMock(GrumPHP::class),
       $processBuilder,
       $this->createMock(ProcessFormatterInterface::class),
@@ -59,7 +59,7 @@ final class PhpstanCheckDeprecationTaskTest extends TestCase {
    */
   protected function getConfigurations(): array {
     $tasks = Yaml::parseFile(__DIR__ . '/../../src/Task/tasks.yml');
-    return $tasks[PhpstanDrupalCheckTask::class]['options'];
+    return $tasks[PhpstanCheckDeprecationTask::class]['options'];
   }
 
 }
