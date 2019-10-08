@@ -22,7 +22,7 @@ This repository currently has following checks:
 * Cognitive complexity and other ecs sniffs - [ecs](src/Task/Ecs/README.md)
 * Yaml syntax - [yaml_lint](src/Task/YamlLint/README.md)
 * Json syntax - [json_lint](src/Task/JsonLint/README.md)
-* Drupal deprecation checking -  [phpstan](src/Task/PhpStan/README.md)
+* Drupal deprecation checking -  [phpstan](src/Task/PhpstanCheckDeprecation/README.md)
 
 ## Pre-requisites
 
