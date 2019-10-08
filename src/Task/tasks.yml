@@ -161,7 +161,7 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     parallel:
       defaults: 20
       allowed_types: ['int']
-Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
+Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
   options:
     ignore_patterns:
       defaults:
@@ -180,7 +180,7 @@ Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
       defaults: ~
       allowed_types: ['string', 'null']
     configuration:
-      defaults: 'vendor/wunderio/code-quality/config/phpstan.neon'
+      defaults: 'phpstan.neon'
       allowed_types: ['string', 'null']
     memory_limit:
       defaults: ~
