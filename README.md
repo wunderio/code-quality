@@ -22,7 +22,7 @@ This repository currently has following checks:
 * Cognitive complexity and other ecs sniffs - [ecs](src/Task/Ecs/README.md)
 * Yaml syntax - [yaml_lint](src/Task/YamlLint/README.md)
 * Json syntax - [json_lint](src/Task/JsonLint/README.md)
-* Drupal deprecation checking -  [phpstan](src/Task/PhpstanCheckDeprecation/README.md)
+* Deprecation testing -  [phpstan_check_deprecation](src/Task/PhpstanCheckDeprecation/README.md)
 
 ## Pre-requisites
 
@@ -36,6 +36,7 @@ This needs to be done only once either while creating a project or enabling code
 ```
 composer require wunderio/code-quality --dev
 cp vendor/wunderio/code-quality/config/grumphp.yml ./grumphp.yml
+cp vendor/wunderio/code-quality/config/phpstan.neon ./phpstan.neon
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.

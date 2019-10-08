@@ -1,4 +1,4 @@
-# phpstan
+# phpstan_check_deprecation
 
 Check Drupal code against deprecation rules.
 
