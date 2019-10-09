@@ -161,6 +161,33 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     parallel:
       defaults: 20
       allowed_types: ['int']
+Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['.']
+      allowed_types: ['array']
+    autoload_file:
+      defaults: ~
+      allowed_types: ['string', 'null']
+    configuration:
+      defaults: 'phpstan.neon'
+      allowed_types: ['string', 'null']
+    memory_limit:
+      defaults: ~
+      allowed_types: ['string', 'null']
+    level:
+      defaults: ~
+      allowed_types: ['string', 'null']
 Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
   is_file_specific: true
   arguments:
