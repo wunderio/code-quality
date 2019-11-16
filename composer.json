@@ -31,6 +31,7 @@
     ],
     "bin": ["bin/check_perms"],
     "require": {
+        "symfony/polyfill-iconv": "^1",
         "phpro/grumphp": "^0.16.0",
         "drupal/coder": "^8",
         "phpcompatibility/php-compatibility": "^9.3",
