@@ -43,7 +43,6 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
         $processBuilder,
         $processFormatterInterface,
       ])
-      ->onlyMethods(['getPathsOrResult', 'run'])
       ->setMethodsExcept(['run'])
       ->getMockForAbstractClass();
     $context = $this->createMock(RunContext::class);
@@ -73,12 +72,6 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
         $this->createMock(GrumPHP::class),
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
-      ])
-      ->onlyMethods([
-        'getPathsOrResult',
-        'buildArguments',
-        'run',
-        'getTaskResult',
       ])
       ->setMethodsExcept(['run'])
       ->getMockForAbstractClass();
