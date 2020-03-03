@@ -107,6 +107,9 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
     parallel:
       defaults: 20
       allowed_types: ['int']
+    basepath:
+      defaults: '.'
+      allowed_types: ['string']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   arguments:
     - config
@@ -161,6 +164,9 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     parallel:
       defaults: 20
       allowed_types: ['int']
+    basepath:
+      defaults: '.'
+      allowed_types: ['string']
 Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
   options:
     ignore_patterns:

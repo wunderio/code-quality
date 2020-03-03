@@ -39,7 +39,7 @@ final class PhpcsTaskTest extends TestCase {
     $processBuilder->expects($this->once())
       ->method('createArgumentsForCommand')
       ->willReturn($arguments);
-    $arguments->expects($this->exactly(5))->method('add');
+    $arguments->expects($this->exactly(6))->method('add');
     $config = [];
     foreach ($this->getConfigurations() as $name => $option) {
       $config[$name] = $option['defaults'];

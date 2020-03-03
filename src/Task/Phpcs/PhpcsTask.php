@@ -20,6 +20,7 @@ class PhpcsTask extends AbstractMultiPathProcessingTask {
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
     $config = $this->getConfiguration();
+    $config['basepath'] = $config['basepath'] ?? '.';
     $arguments->addOptionalCommaSeparatedArgument('--standard=%s', (array) $config['standard']);
     $arguments->addOptionalArgument('--tab-width=%s', $config['tab_width']);
     $arguments->addOptionalArgument('--encoding=%s', $config['encoding']);
@@ -32,6 +33,7 @@ class PhpcsTask extends AbstractMultiPathProcessingTask {
     $arguments->addOptionalCommaSeparatedArgument('--sniffs=%s', $config['sniffs']);
     $arguments->addOptionalCommaSeparatedArgument('--ignore=%s', $config['ignore_patterns']);
     $arguments->addOptionalCommaSeparatedArgument('--exclude=%s', $config['exclude']);
+    $arguments->add('--basepath=' . $config['basepath']);
     $arguments->add('-s');
 
     foreach ($files as $file) {
