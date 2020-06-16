@@ -22,6 +22,7 @@ class PhpcsTask extends AbstractMultiPathProcessingTask {
     $config = $this->getConfiguration();
     $config['basepath'] = $config['basepath'] ?? '.';
     $arguments->addOptionalCommaSeparatedArgument('--standard=%s', (array) $config['standard']);
+    $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config['extensions']);
     $arguments->addOptionalArgument('--tab-width=%s', $config['tab_width']);
     $arguments->addOptionalArgument('--encoding=%s', $config['encoding']);
     $arguments->addOptionalArgument('--report=%s', $config['report']);
