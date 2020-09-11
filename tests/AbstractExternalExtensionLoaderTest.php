@@ -26,7 +26,11 @@ final class AbstractExternalExtensionLoaderTest extends TestCase {
   public function testSetsConfigurationFromYaml(): void {
     $customLoader = new CustomTestExtensionLoader();
     $this->assertEquals('custom_test', $customLoader->name);
-    $this->assertEquals(['config', 'process_builder', 'formatter.raw_process'], $customLoader->arguments);
+    $this->assertEquals([
+      'config',
+      'process_builder',
+      'formatter.raw_process',
+    ], $customLoader->arguments);
     $this->assertEquals('CustomTestTask', $customLoader->class);
   }
 
