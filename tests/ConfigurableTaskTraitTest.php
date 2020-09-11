@@ -239,7 +239,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
       ->getMockForTrait();
     $stub->configure();
-    $this->assertEquals(FALSE, $stub->isFileSpecific);
+    $this->assertEquals(TRUE, $stub->isFileSpecific);
     $this->assertIsArray($stub->configurableOptions);
     $this->assertIsArray($stub->configurableOptions);
     $this->assertStringContainsString('_trait_', $stub->name, 'Name should be configured from class name');
