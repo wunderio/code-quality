@@ -9,6 +9,8 @@ use GrumPHP\Task\Context\RunContext;
 /**
  * Trait ContextRunTrait.
  *
+ * Provides helper functions for run context.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 trait ContextRunTrait {
