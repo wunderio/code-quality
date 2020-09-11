@@ -1,7 +1,7 @@
 # Default configuration for tasks.
 default:
   name: default
-  is_file_specific: false
+  is_file_specific: true
   arguments:
     - config
     - process_builder
@@ -39,6 +39,7 @@ Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
       defaults: ['.']
       allowed_types: ['array']
 Wunderio\GrumPHP\Task\Ecs\EcsTask:
+  is_file_specific: true
   options:
     ignore_patterns:
       defaults:
@@ -85,6 +86,7 @@ Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
       defaults: 100
       allowed_types: ['int']
 Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
+  is_file_specific: true
   options:
     ignore_patterns:
       defaults:
@@ -112,6 +114,7 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
       defaults: '.'
       allowed_types: ['string']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
+  is_file_specific: true
   arguments:
     - config
     - process_builder
@@ -169,6 +172,7 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
       defaults: '.'
       allowed_types: ['string']
 Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
+  is_file_specific: true
   options:
     ignore_patterns:
       defaults:
