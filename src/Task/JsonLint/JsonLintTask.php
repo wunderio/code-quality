@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractLintTask;
 /**
  * Class JsonLintTask.
  *
+ * Builds json_lint task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class JsonLintTask extends AbstractLintTask {

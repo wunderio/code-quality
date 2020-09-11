@@ -13,6 +13,8 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Class AbstractExternalExtensionLoader.
  *
+ * External extension loader base.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractExternalExtensionLoader implements ExtensionInterface {

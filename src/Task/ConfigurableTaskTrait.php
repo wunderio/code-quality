@@ -13,6 +13,8 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Trait ConfigurableTaskTrait.
  *
+ * Helper for configurable tasks.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 trait ConfigurableTaskTrait {

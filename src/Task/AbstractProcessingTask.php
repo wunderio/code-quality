@@ -15,6 +15,8 @@ use Symfony\Component\Process\Process;
 /**
  * Class AbstractProcessingTask.
  *
+ * Abstract processing task base.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractProcessingTask extends AbstractExternalTask implements ConfigurableTaskInterface {

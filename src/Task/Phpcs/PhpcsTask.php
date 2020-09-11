@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class PhpCompatibilityTask.
  *
+ * Builds phpcs task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class PhpcsTask extends AbstractMultiPathProcessingTask {

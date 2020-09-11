@@ -9,6 +9,8 @@ use GrumPHP\Task\TaskInterface;
 /**
  * Interface ConfigurableTaskInterface.
  *
+ * Provides configurable task requirement interface.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 interface ConfigurableTaskInterface extends TaskInterface {

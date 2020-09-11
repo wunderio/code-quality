@@ -9,6 +9,8 @@ use GrumPHP\Linter\LinterInterface;
 /**
  * Interface LintTaskInterface.
  *
+ * Provides requirements for lint tasks.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 interface LintTaskInterface {

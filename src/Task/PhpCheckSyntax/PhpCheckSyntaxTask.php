@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask;
 /**
  * Class PhpCheckSyntaxTask.
  *
+ * Builds php_check_syntax task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class PhpCheckSyntaxTask extends AbstractSinglePathProcessingTask {

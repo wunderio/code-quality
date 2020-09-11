@@ -9,6 +9,8 @@ use GrumPHP\Collection\ProcessArgumentsCollection;
 /**
  * Interface MultiPathArgumentsBuilderInterface.
  *
+ * Provides multi-path arguments builder requirements.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 interface MultiPathArgumentsBuilderInterface {

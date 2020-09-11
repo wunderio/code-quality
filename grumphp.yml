@@ -5,9 +5,9 @@ parameters:
     succeeded: ~
   tasks:
     php_compatibility:
-      run_on: ['src', 'tests']
+      run_on: ['src']
     phpcs:
-      run_on: ['src', 'tests']
+      run_on: ['src']
     phpstan_check_deprecation:
       run_on: ['src']
       configuration: phpstan.neon
