@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Wunderio\GrumPHP\Task;
 
 use GrumPHP\Collection\FilesCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Exception\RuntimeException;
 use GrumPHP\Linter\LinterInterface;
 use GrumPHP\Runner\TaskResult;
@@ -26,13 +25,10 @@ abstract class AbstractLintTask extends AbstractLinterTask implements LintTaskIn
   /**
    * AbstractLintTask constructor.
    *
-   * @param \GrumPHP\Configuration\GrumPHP $grum_php
-   *   GrumpPHP.
    * @param \GrumPHP\Linter\LinterInterface $linter
-   *   Linter.
    */
-  public function __construct(GrumPHP $grum_php, LinterInterface $linter) {
-    parent::__construct($grum_php, $linter);
+  public function __construct(LinterInterface $linter) {
+    parent::__construct($linter);
     $this->configure();
   }
 
@@ -40,7 +36,7 @@ abstract class AbstractLintTask extends AbstractLinterTask implements LintTaskIn
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $paths = $this->getPathsOrResult($context, $this->getConfiguration(), $this);
+    $paths = $this->getPathsOrResult($context, $this->getConfig()->getOptions(), $this);
     if ($paths instanceof TaskResultInterface) {
       return $paths;
     }
