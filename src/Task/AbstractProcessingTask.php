@@ -4,12 +4,13 @@ declare(strict_types = 1);
 
 namespace Wunderio\GrumPHP\Task;
 
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Task\AbstractExternalTask;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use GrumPHP\Task\Context\ContextInterface;
+use GrumPHP\Task\TaskInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -25,15 +26,11 @@ abstract class AbstractProcessingTask extends AbstractExternalTask implements Co
   /**
    * AbstractProcessingTask constructor.
    *
-   * @param \GrumPHP\Configuration\GrumPHP $grum_php
-   *   Grumphp.
-   * @param \GrumPHP\Process\ProcessBuilder $process_builder
-   *   ProcessBuilder.
+   * @param \GrumPHP\Process\ProcessBuilder $processBuilder
    * @param \GrumPHP\Formatter\ProcessFormatterInterface $formatter
-   *   Formatter.
    */
-  public function __construct(GrumPHP $grum_php, ProcessBuilder $process_builder, ProcessFormatterInterface $formatter) {
-    parent::__construct($grum_php, $process_builder, $formatter);
+  public function __construct(ProcessBuilder $processBuilder, ProcessFormatterInterface $formatter) {
+    parent::__construct($processBuilder, $formatter);
     $this->configure();
   }
 
@@ -49,6 +46,8 @@ abstract class AbstractProcessingTask extends AbstractExternalTask implements Co
    *   Result.
    */
   public function getTaskResult(Process $process, ContextInterface $context): TaskResult {
+    $this->configure();
+
     if (!$process->isSuccessful()) {
       return TaskResult::createFailed($this, $context, $this->formatter->format($process));
     }
@@ -56,4 +55,16 @@ abstract class AbstractProcessingTask extends AbstractExternalTask implements Co
     return TaskResult::createPassed($this, $context);
   }
 
+  public function getConfig(): TaskConfigInterface
+  {
+    return $this->config;
+  }
+
+  public function withConfig(TaskConfigInterface $config): TaskInterface
+  {
+    $new = clone $this;
+    $new->config = $config;
+
+    return $new;
+  }
 }
