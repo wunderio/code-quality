@@ -17,6 +17,8 @@ use Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask;
 
 /**
  * Class PhpCompatibilityTaskTest.
+ *
+ * Tests covering PhpCompatibility task.
  */
 final class PhpCompatibilityTaskTest extends TestCase {
 

@@ -12,6 +12,8 @@ use GrumPHP\Task\Context\ContextInterface;
 /**
  * Class AbstractSinglePathProcessingTask.
  *
+ * Provides a base implementation for processing task with single path.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask implements SinglePathArgumentsBuilderInterface {

@@ -14,6 +14,8 @@ use Wunderio\GrumPHP\Task\JsonLint\JsonLintTask;
 
 /**
  * Class JsonLintTaskTest.
+ *
+ * Tests covering JsonLint task.
  */
 final class JsonLintTaskTest extends TestCase {
 

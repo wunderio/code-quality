@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class EcsTask.
  *
+ * Ecs task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class EcsTask extends AbstractMultiPathProcessingTask {

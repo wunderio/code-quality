@@ -16,6 +16,8 @@ use Symfony\Component\Process\Process;
 /**
  * Class AbstractProcessingTask.
  *
+ * Provides a base implementation for processing task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractProcessingTask extends AbstractExternalTask implements ConfigurableTaskInterface {
@@ -27,7 +29,9 @@ abstract class AbstractProcessingTask extends AbstractExternalTask implements Co
    * AbstractProcessingTask constructor.
    *
    * @param \GrumPHP\Process\ProcessBuilder $processBuilder
+   *   Process builder.
    * @param \GrumPHP\Formatter\ProcessFormatterInterface $formatter
+   *   Formatter.
    */
   public function __construct(ProcessBuilder $processBuilder, ProcessFormatterInterface $formatter) {
     parent::__construct($processBuilder, $formatter);
@@ -55,16 +59,21 @@ abstract class AbstractProcessingTask extends AbstractExternalTask implements Co
     return TaskResult::createPassed($this, $context);
   }
 
-  public function getConfig(): TaskConfigInterface
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfig(): TaskConfigInterface {
     return $this->config;
   }
 
-  public function withConfig(TaskConfigInterface $config): TaskInterface
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function withConfig(TaskConfigInterface $config): TaskInterface {
     $new = clone $this;
     $new->config = $config;
 
     return $new;
   }
+
 }

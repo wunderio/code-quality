@@ -15,6 +15,8 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Trait ConfigurableTaskTrait.
  *
+ * Trait for \GrumPHP\Task\TaskInterface.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 trait ConfigurableTaskTrait {
@@ -43,7 +45,7 @@ trait ConfigurableTaskTrait {
   /**
    * Configurable options.
    *
-  * @var TaskConfigInterface
+   * @var \GrumPHP\Task\Config\TaskConfigInterface
    */
   public $configuration;
 
@@ -69,8 +71,10 @@ trait ConfigurableTaskTrait {
     return $this->name;
   }
 
-  public function getConfig(): TaskConfigInterface
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfig(): TaskConfigInterface {
     return $this->config;
   }
 
@@ -99,8 +103,10 @@ trait ConfigurableTaskTrait {
     return $resolver;
   }
 
-  public function withConfig(TaskConfigInterface $config): TaskInterface
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function withConfig(TaskConfigInterface $config): TaskInterface {
     $new = clone $this;
     $new->config = $config;
 

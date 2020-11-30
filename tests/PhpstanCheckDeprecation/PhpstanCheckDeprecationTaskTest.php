@@ -17,6 +17,8 @@ use Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask;
 
 /**
  * Class PhpstanCheckDeprecationTaskTest.
+ *
+ * Tests covering PhpstanCheckDeprecation task.
  */
 final class PhpstanCheckDeprecationTaskTest extends TestCase {
 

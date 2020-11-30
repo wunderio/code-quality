@@ -14,6 +14,8 @@ use Wunderio\GrumPHP\Task\YamlLint\YamlLintTask;
 
 /**
  * Class YamlLintTaskTest.
+ *
+ * Tests covering YamlLint task.
  */
 final class YamlLintTaskTest extends TestCase {
 

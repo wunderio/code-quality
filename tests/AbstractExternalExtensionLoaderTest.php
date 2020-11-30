@@ -12,6 +12,8 @@ use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 
 /**
  * Class AbstractExternalExtensionLoaderTest.
+ *
+ * Tests covering AbstractExternalExtensionLoader class.
  */
 final class AbstractExternalExtensionLoaderTest extends TestCase {
 

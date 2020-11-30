@@ -19,6 +19,8 @@ use Wunderio\GrumPHP\Task\ConfigurableTaskTrait;
 
 /**
  * Class ConfigurableTaskTraitTest.
+ *
+ * Tests covering ConfigurableTaskTrait trait.
  */
 final class ConfigurableTaskTraitTest extends TestCase {
 

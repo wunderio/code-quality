@@ -16,6 +16,8 @@ use Wunderio\GrumPHP\Task\ContextRunTrait;
 
 /**
  * Class ContextRunTraitTest.
+ *
+ * Tests covering ContextRunTrait trait.
  */
 final class ContextRunTraitTest extends TestCase {
 

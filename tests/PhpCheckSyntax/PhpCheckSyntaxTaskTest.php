@@ -16,6 +16,8 @@ use Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask;
 
 /**
  * Class PhpCompatibilityTaskTest.
+ *
+ * Tests covering PhpCheckSyntax task.
  */
 final class PhpCheckSyntaxTaskTest extends TestCase {
 

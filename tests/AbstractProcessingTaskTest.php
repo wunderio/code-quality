@@ -17,6 +17,8 @@ use Wunderio\GrumPHP\Task\AbstractProcessingTask;
 
 /**
  * Class AbstractProcessingTaskTest.
+ *
+ * Tests covering AbstractProcessingTask class.
  */
 final class AbstractProcessingTaskTest extends TestCase {
 

@@ -10,6 +10,8 @@ use GrumPHP\Task\Context\ContextInterface;
 /**
  * Class AbstractMultiPathProcessingTask.
  *
+ * Provides a base implementation for processing task with multiple paths.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractMultiPathProcessingTask extends AbstractProcessingTask implements MultiPathArgumentsBuilderInterface {

@@ -21,6 +21,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 
 /**
  * Class AbstractMultiPathProcessingTaskTest.
+ *
+ * Tests covering AbstractMultiPathProcessingTask class.
  */
 final class AbstractMultiPathProcessingTaskTest extends TestCase {
 

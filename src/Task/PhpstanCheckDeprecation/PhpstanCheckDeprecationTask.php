@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class PhpstanCheckDeprecationTask.
  *
+ * PhpstanCheckDeprecation task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class PhpstanCheckDeprecationTask extends AbstractMultiPathProcessingTask {

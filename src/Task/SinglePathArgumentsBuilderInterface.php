@@ -9,6 +9,8 @@ use GrumPHP\Collection\ProcessArgumentsCollection;
 /**
  * Interface SinglePathArgumentsBuilderInterface.
  *
+ * Defines the interface for building Process arguments for single path.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 interface SinglePathArgumentsBuilderInterface {

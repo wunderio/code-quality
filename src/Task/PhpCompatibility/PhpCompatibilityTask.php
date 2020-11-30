@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class PhpCompatibilityTask.
  *
+ * PhpCompatibility task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
@@ -23,7 +25,13 @@ class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
     $config['basepath'] = $config['basepath'] ?? '.';
     $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config[self::D_EXT]);
     $arguments->addOptionalIntegerArgument('--parallel=%s', $config['parallel']);
-    $arguments->addSeparatedArgumentArray('--runtime-set', ['testVersion', (string) $config['testVersion']]);
+    $arguments->addSeparatedArgumentArray(
+      '--runtime-set',
+      [
+        'testVersion',
+        (string) $config['testVersion'],
+      ]
+    );
     $arguments->add('--standard=' . $config['standard']);
     $arguments->add('--basepath=' . $config['basepath']);
     $arguments->add('-s');

@@ -15,6 +15,8 @@ use GrumPHP\Task\Context\ContextInterface;
 /**
  * Class AbstractLintTask.
  *
+ * Provides a base implementation for lint tasks.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractLintTask extends AbstractLinterTask implements LintTaskInterface, ConfigurableTaskInterface {
@@ -26,6 +28,7 @@ abstract class AbstractLintTask extends AbstractLinterTask implements LintTaskIn
    * AbstractLintTask constructor.
    *
    * @param \GrumPHP\Linter\LinterInterface $linter
+   *   Linter.
    */
   public function __construct(LinterInterface $linter) {
     parent::__construct($linter);

@@ -17,6 +17,8 @@ use Wunderio\GrumPHP\Task\Ecs\EcsTask;
 
 /**
  * Class EcsTaskTest.
+ *
+ * Tests covering Ecs task.
  */
 final class EcsTaskTest extends TestCase {
 

@@ -20,6 +20,8 @@ use Wunderio\GrumPHP\Task\AbstractLintTask;
 
 /**
  * Class AbstractLintTaskTest.
+ *
+ * Tests covering AbstractLintTask class.
  */
 final class AbstractLintTaskTest extends TestCase {
 

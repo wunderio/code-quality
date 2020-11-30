@@ -16,6 +16,8 @@ use Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask;
 
 /**
  * Class CheckFilePermissionsTaskTest.
+ *
+ * Tests covering CheckFilePermissions task.
  */
 final class CheckFilePermissionsTaskTest extends TestCase {
 

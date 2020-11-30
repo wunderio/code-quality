@@ -22,6 +22,8 @@ use Wunderio\GrumPHP\Task\AbstractSinglePathProcessingTask;
 
 /**
  * Class AbstractSinglePathProcessingTaskTest.
+ *
+ * Tests covering AbstractSinglePathProcessingTask class.
  */
 final class AbstractSinglePathProcessingTaskTest extends TestCase {
 

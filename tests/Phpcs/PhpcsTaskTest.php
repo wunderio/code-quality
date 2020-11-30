@@ -17,6 +17,8 @@ use Wunderio\GrumPHP\Task\Phpcs\PhpcsTask;
 
 /**
  * Class PhpcsTaskTest.
+ *
+ * Tests covering Phpcs task.
  */
 final class PhpcsTaskTest extends TestCase {
 

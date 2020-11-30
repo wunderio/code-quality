@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractLintTask;
 /**
  * Class YamlLintTask.
  *
+ * YamlLint task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class YamlLintTask extends AbstractLintTask {
