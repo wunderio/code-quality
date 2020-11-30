@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResult;
@@ -65,12 +64,10 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
    * {@inheritdoc}
    */
   public function setUp(): void {
-    $this->grumPHP = $this->createMock(GrumPHP::class);
     $this->processBuilder = $this->createMock(ProcessBuilder::class);
     $this->processFormatterInterface = $this->createMock(ProcessFormatterInterface::class);
     $this->stub = $this->getMockBuilder(AbstractSinglePathProcessingTask::class)
       ->setConstructorArgs([
-        $this->grumPHP,
         $this->processBuilder,
         $this->processFormatterInterface,
       ])
@@ -143,7 +140,6 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
   public function testRunsPathListInParallel(): void {
     $task = $this->getMockBuilder(AbstractSinglePathProcessingTask::class)
       ->setConstructorArgs([
-        $this->grumPHP,
         $this->processBuilder,
         $this->processFormatterInterface,
       ])
@@ -176,7 +172,6 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
   public function testHandlesParallelProcess(): void {
     $task = $this->getMockBuilder(AbstractSinglePathProcessingTask::class)
       ->setConstructorArgs([
-        $this->grumPHP,
         $this->processBuilder,
         $this->processFormatterInterface,
       ])

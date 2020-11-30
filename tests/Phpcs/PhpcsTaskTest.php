@@ -8,15 +8,15 @@
 declare(strict_types = 1);
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use Wunderio\GrumPHP\Task\Phpcs\PhpcsTask;
 
 /**
- * Class PhpCompatibilityTaskTest.
+ * Class PhpcsTaskTest.
  */
 final class PhpcsTaskTest extends TestCase {
 
@@ -28,12 +28,12 @@ final class PhpcsTaskTest extends TestCase {
   public function testBuildsProcessArguments(): void {
     $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(PhpcsTask::class)->setConstructorArgs([
-      $this->createMock(GrumPHP::class),
       $processBuilder,
       $this->createMock(ProcessFormatterInterface::class),
     ])
       ->setMethodsExcept(['buildArguments'])->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
 
     $files = ['file1.php', 'file2.php', 'file3.php', 'dir1/'];
     $processBuilder->expects($this->once())
@@ -44,7 +44,8 @@ final class PhpcsTaskTest extends TestCase {
     foreach ($this->getConfigurations() as $name => $option) {
       $config[$name] = $option['defaults'];
     }
-    $stub->expects($this->once())->method('getConfiguration')->willReturn($config);
+    $stub->expects($this->once())->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn($config);
 
     $actual = $stub->buildArguments($files);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);

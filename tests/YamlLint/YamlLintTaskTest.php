@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use GrumPHP\Linter\Yaml\YamlLinter;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\YamlLint\YamlLintTask;
 
@@ -27,8 +28,10 @@ final class YamlLintTaskTest extends TestCase {
       ->setMethodsExcept(['configureLint'])
       ->getMock();
     $lint = $this->createMock(YamlLinter::class);
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
 
-    $stub->method('getConfiguration')->willReturn($this->getConfigDefaults());
+    $stub->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn($this->getConfigDefaults());
     $lint->expects($this->once())->method('setObjectSupport');
     $lint->expects($this->once())->method('setExceptionOnInvalidType');
     $lint->expects($this->once())->method('setParseCustomTags');

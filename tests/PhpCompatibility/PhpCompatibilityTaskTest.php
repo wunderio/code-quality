@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask;
 
@@ -29,20 +29,21 @@ final class PhpCompatibilityTaskTest extends TestCase {
     $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(PhpCompatibilityTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])
       ->setMethodsExcept(['buildArguments'])
       ->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
 
     $files = new FilesCollection(['test.php', 'file.php']);
     $processBuilder->method('createArgumentsForCommand')
       ->willReturn($arguments);
     $arguments->expects($this->exactly(5))
       ->method('add');
-    $stub->method('getConfiguration')->willReturn([
+    $stub->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn([
       'standard' => 'php-compatibility.xm',
       'testVersion' => '7.3',
       'extensions' => ['php'],

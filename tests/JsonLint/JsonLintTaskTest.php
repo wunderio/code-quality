@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use GrumPHP\Linter\Json\JsonLinter;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\JsonLint\JsonLintTask;
 
@@ -27,8 +28,10 @@ final class JsonLintTaskTest extends TestCase {
       ->setMethodsExcept(['configureLint'])
       ->getMock();
     $lint = $this->createMock(JsonLinter::class);
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
 
-    $stub->method('getConfiguration')->willReturn($this->getConfigDefaults());
+    $stub->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn($this->getConfigDefaults());
     $lint->expects($this->once())->method('setDetectKeyConflicts');
 
     $stub->configureLint($lint);

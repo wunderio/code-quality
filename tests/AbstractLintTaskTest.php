@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\LintErrorsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Linter\LinterInterface;
 use GrumPHP\Linter\LintError;
 use GrumPHP\Runner\TaskResult;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\TaskInterface;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +30,6 @@ final class AbstractLintTaskTest extends TestCase {
    */
   public function testSetsConfigurationFromYaml(): void {
     $customTask = new CustomLintTestTask(
-        $this->createMock(GrumPHP::class),
         $this->createMock(LinterInterface::class)
     );
     $this->assertEquals('custom_lint_test', $customTask->name);
@@ -45,7 +44,6 @@ final class AbstractLintTaskTest extends TestCase {
   public function testPassesTaskIfProcessSuccessful(): void {
     $stub = $this->getMockBuilder(AbstractLintTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $this->createMock(LinterInterface::class),
       ])
       ->setMethodsExcept(['run'])
@@ -71,7 +69,6 @@ final class AbstractLintTaskTest extends TestCase {
   public function testSkipsIfNoFilesFound(): void {
     $stub = $this->getMockBuilder(AbstractLintTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $this->createMock(LinterInterface::class),
       ])
       ->setMethodsExcept(['run'])
@@ -97,7 +94,6 @@ final class AbstractLintTaskTest extends TestCase {
     $lint = $this->createMock(LinterInterface::class);
     $stub = $this->getMockBuilder(AbstractLintTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $lint,
       ])
       ->setMethodsExcept(['runLint'])
@@ -119,17 +115,19 @@ final class AbstractLintTaskTest extends TestCase {
     $lint = $this->createMock(LinterInterface::class);
     $stub = $this->getMockBuilder(AbstractLintTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $lint,
       ])
       ->setMethodsExcept(['runLint'])
       ->getMockForAbstractClass();
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
+
     $files = new FilesCollection([new SplFileInfo(__FILE__)]);
     $lintError = new LintErrorsCollection([
       new LintError('Error', 'TestError', __FILE__, 1),
     ]);
 
-    $stub->method('getConfiguration')->willReturn(['ignore_patterns' => []]);
+    $stub->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn(['ignore_patterns' => []]);
     $lint->method('isInstalled')->willReturn(TRUE);
     $lint->expects($this->once())->method('lint')->willReturn($lintError);
 
@@ -146,15 +144,17 @@ final class AbstractLintTaskTest extends TestCase {
     $lint = $this->createMock(LinterInterface::class);
     $stub = $this->getMockBuilder(AbstractLintTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $lint,
       ])
       ->setMethodsExcept(['runLint'])
       ->getMockForAbstractClass();
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
+
     $files = new FilesCollection([new SplFileInfo(__FILE__)]);
     $lintError = new LintErrorsCollection([]);
 
-    $stub->method('getConfiguration')->willReturn(['ignore_patterns' => []]);
+    $stub->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn(['ignore_patterns' => []]);
     $lint->method('isInstalled')->willReturn(TRUE);
     $lint->expects($this->once())->method('lint')->willReturn($lintError);
 
