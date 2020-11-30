@@ -19,7 +19,7 @@ class PhpstanCheckDeprecationTask extends AbstractMultiPathProcessingTask {
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpstan');
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $arguments->add('analyse');
     $arguments->addOptionalArgument('--autoload-file=%s', $config['autoload_file']);
     $arguments->addOptionalArgument('--configuration=%s', $config['configuration']);

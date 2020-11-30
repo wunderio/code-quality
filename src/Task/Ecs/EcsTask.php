@@ -25,7 +25,7 @@ class EcsTask extends AbstractMultiPathProcessingTask {
       $arguments->add($file);
     }
 
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $arguments->addOptionalArgument('--config=%s', $config['config']);
     $arguments->addOptionalArgument('--level=%s', $config['level']);
     $arguments->addOptionalArgument('--clear-cache', $config['clear-cache']);

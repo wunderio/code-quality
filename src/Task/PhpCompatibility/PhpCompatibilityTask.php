@@ -19,7 +19,7 @@ class PhpCompatibilityTask extends AbstractMultiPathProcessingTask {
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $config['basepath'] = $config['basepath'] ?? '.';
     $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config[self::D_EXT]);
     $arguments->addOptionalIntegerArgument('--parallel=%s', $config['parallel']);

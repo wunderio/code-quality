@@ -18,7 +18,7 @@ class JsonLintTask extends AbstractLintTask {
    * {@inheritdoc}
    */
   public function configureLint(LinterInterface $linter): void {
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $linter->setDetectKeyConflicts($config['detect_key_conflicts']);
   }
 

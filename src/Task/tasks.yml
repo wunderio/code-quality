@@ -3,7 +3,6 @@ default:
   name: default
   is_file_specific: false
   arguments:
-    - config
     - process_builder
     - formatter.raw_process
   options:
@@ -113,7 +112,6 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
       allowed_types: ['string']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   arguments:
-    - config
     - process_builder
     - formatter.phpcs
   options:
@@ -198,7 +196,6 @@ Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
 Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
   is_file_specific: true
   arguments:
-    - config
     - linter.yamllint
   options:
     ignore_patterns:
@@ -230,7 +227,6 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
 Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
   is_file_specific: true
   arguments:
-    - config
     - linter.jsonlint
   options:
     ignore_patterns:

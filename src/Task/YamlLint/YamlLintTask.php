@@ -18,7 +18,7 @@ class YamlLintTask extends AbstractLintTask {
    * {@inheritdoc}
    */
   public function configureLint(LinterInterface $linter): void {
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $linter->setObjectSupport($config['object_support']);
     $linter->setExceptionOnInvalidType($config['exception_on_invalid_type']);
     $linter->setParseCustomTags($config['parse_custom_tags']);
