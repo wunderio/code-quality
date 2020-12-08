@@ -42,7 +42,7 @@
         "drupal/coder": "^8",
         "phpcompatibility/php-compatibility": "^9.3",
         "pheromone/phpcs-security-audit": "^2.0",
-        "wunderio/ecs-drupal": "dev-feature/symplify-ecs-83",
+        "wunderio/ecs-drupal": "^1.0",
         "symplify/coding-standard": "^8.3",
         "squizlabs/php_codesniffer": "^3.4",
         "dealerdirect/phpcodesniffer-composer-installer": "*",
