@@ -12,7 +12,7 @@ grumphp:
       run_on: ['src']
       configuration: phpstan.neon
     ecs:
-      config: ecs.yml
+      config: ecs.php
     yaml_lint: ~
     json_lint: ~
     phpunit: ~

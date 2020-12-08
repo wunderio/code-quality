@@ -56,7 +56,7 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
       defaults: false
       allowed_types: bool
     config:
-      defaults: 'vendor/wunderio/code-quality/config/ecs.yml'
+      defaults: 'vendor/wunderio/code-quality/config/ecs.php'
       allowed_types: ['string', 'null']
     no-progress-bar:
       defaults: true
@@ -185,7 +185,7 @@ Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
       defaults: ~
       allowed_types: ['string', 'null']
     configuration:
-      defaults: 'phpstan.neon'
+      defaults: 'vendor/wunderio/code-quality/config/phpstan.neon'
       allowed_types: ['string', 'null']
     memory_limit:
       defaults: ~
