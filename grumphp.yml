@@ -8,7 +8,7 @@ grumphp:
       run_on: ['src', 'tests']
     phpcs:
       run_on: ['src', 'tests']
-    phpstan_check_deprecation:
+    php_stan:
       run_on: ['src']
       configuration: phpstan.neon
     ecs:
@@ -23,6 +23,6 @@ grumphp:
     - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
     - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
     - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader
-    - Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
     - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader

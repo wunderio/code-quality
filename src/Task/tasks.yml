@@ -166,7 +166,7 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     basepath:
       defaults: '.'
       allowed_types: ['string']
-Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
+Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
   options:
     ignore_patterns:
       defaults:
