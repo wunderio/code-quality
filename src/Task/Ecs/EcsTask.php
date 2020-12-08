@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class EcsTask.
  *
+ * Ecs task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class EcsTask extends AbstractMultiPathProcessingTask {
@@ -25,7 +27,7 @@ class EcsTask extends AbstractMultiPathProcessingTask {
       $arguments->add($file);
     }
 
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $arguments->addOptionalArgument('--config=%s', $config['config']);
     $arguments->addOptionalArgument('--level=%s', $config['level']);
     $arguments->addOptionalArgument('--clear-cache', $config['clear-cache']);

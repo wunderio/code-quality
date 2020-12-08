@@ -8,7 +8,6 @@
 declare(strict_types = 1);
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResult;
@@ -22,6 +21,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 
 /**
  * Class AbstractMultiPathProcessingTaskTest.
+ *
+ * Tests covering AbstractMultiPathProcessingTask class.
  */
 final class AbstractMultiPathProcessingTaskTest extends TestCase {
 
@@ -31,7 +32,6 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
    * @covers \Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask::run
    */
   public function testSkipsTaskIfNoFilesFound(): void {
-    $grumPHP = $this->createMock(GrumPHP::class);
     $processBuilder = $this->getMockBuilder(ProcessBuilder::class)
       ->disableOriginalConstructor()
       ->onlyMethods(['buildProcess'])
@@ -39,7 +39,6 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
     $processFormatterInterface = $this->createMock(ProcessFormatterInterface::class);
     $stub = $this->getMockBuilder(AbstractMultiPathProcessingTask::class)
       ->setConstructorArgs([
-        $grumPHP,
         $processBuilder,
         $processFormatterInterface,
       ])
@@ -69,7 +68,6 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
       ->getMock();
     $stub = $this->getMockBuilder(AbstractMultiPathProcessingTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])

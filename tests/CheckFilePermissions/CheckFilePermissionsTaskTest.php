@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +16,8 @@ use Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask;
 
 /**
  * Class CheckFilePermissionsTaskTest.
+ *
+ * Tests covering CheckFilePermissions task.
  */
 final class CheckFilePermissionsTaskTest extends TestCase {
 
@@ -29,7 +30,6 @@ final class CheckFilePermissionsTaskTest extends TestCase {
     $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(CheckFilePermissionsTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])

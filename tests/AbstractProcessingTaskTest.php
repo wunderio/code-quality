@@ -7,7 +7,6 @@
 
 declare(strict_types = 1);
 
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResultInterface;
@@ -18,6 +17,8 @@ use Wunderio\GrumPHP\Task\AbstractProcessingTask;
 
 /**
  * Class AbstractProcessingTaskTest.
+ *
+ * Tests covering AbstractProcessingTask class.
  */
 final class AbstractProcessingTaskTest extends TestCase {
 
@@ -28,7 +29,6 @@ final class AbstractProcessingTaskTest extends TestCase {
    */
   public function testSetsConfigurationFromYaml(): void {
     $customTask = new CustomTestTask(
-        $this->createMock(GrumPHP::class),
         $this->createMock(ProcessBuilder::class),
         $this->createMock(ProcessFormatterInterface::class)
     );
@@ -46,7 +46,6 @@ final class AbstractProcessingTaskTest extends TestCase {
     $processFormatterInterface->expects($this->once())->method('format')->willReturn('Formatted Output.');
     $stub = $this->getMockBuilder(AbstractProcessingTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $this->createMock(ProcessBuilder::class),
         $processFormatterInterface,
       ])

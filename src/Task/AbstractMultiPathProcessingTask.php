@@ -10,6 +10,8 @@ use GrumPHP\Task\Context\ContextInterface;
 /**
  * Class AbstractMultiPathProcessingTask.
  *
+ * Provides a base implementation for processing task with multiple paths.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractMultiPathProcessingTask extends AbstractProcessingTask implements MultiPathArgumentsBuilderInterface {
@@ -18,7 +20,7 @@ abstract class AbstractMultiPathProcessingTask extends AbstractProcessingTask im
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $paths = $this->getPathsOrResult($context, $this->getConfiguration(), $this);
+    $paths = $this->getPathsOrResult($context, $this->getConfig()->getOptions(), $this);
     if ($paths instanceof TaskResultInterface) {
       return $paths;
     }

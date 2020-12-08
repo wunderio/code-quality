@@ -9,14 +9,16 @@ declare(strict_types = 1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
-use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\Ecs\EcsTask;
 
 /**
  * Class EcsTaskTest.
+ *
+ * Tests covering Ecs task.
  */
 final class EcsTaskTest extends TestCase {
 
@@ -29,13 +31,13 @@ final class EcsTaskTest extends TestCase {
     $processBuilder = $this->createMock(ProcessBuilder::class);
     $stub = $this->getMockBuilder(EcsTask::class)
       ->setConstructorArgs([
-        $this->createMock(GrumPHP::class),
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])
       ->setMethodsExcept(['buildArguments'])
       ->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
+    $taskConfig = $this->createMock(TaskConfigInterface::class);
 
     $files = new FilesCollection(['file.php']);
     $processBuilder->expects($this->once())->method('createArgumentsForCommand')->willReturn($arguments);
@@ -48,7 +50,8 @@ final class EcsTaskTest extends TestCase {
       'no-progress-bar' => TRUE,
       'level' => NULL,
     ];
-    $stub->method('getConfiguration')->willReturn($config);
+    $stub->method('getConfig')->willReturn($taskConfig);
+    $taskConfig->method('getOptions')->willReturn($config);
 
     $actual = $stub->buildArguments($files);
     $this->assertInstanceOf(ProcessArgumentsCollection::class, $actual);

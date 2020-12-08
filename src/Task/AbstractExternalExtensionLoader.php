@@ -6,12 +6,13 @@ namespace Wunderio\GrumPHP\Task;
 
 use GrumPHP\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class AbstractExternalExtensionLoader.
+ *
+ * Provides a base implementation for \GrumPHP\Extension\ExtensionInterface.
  *
  * @package Wunderio\GrumPHP\Task
  */
@@ -57,17 +58,14 @@ abstract class AbstractExternalExtensionLoader implements ExtensionInterface {
   /**
    * {@inheritdoc}
    */
-  public function load(ContainerBuilder $container): Definition {
+  public function load(ContainerBuilder $container): void {
     $task = $container->register('task.' . $this->name, $this->class);
-    $task->addTag('grumphp.task', ['config' => $this->name]);
-    if (empty($this->arguments)) {
-      return $task;
+    if (!empty($this->arguments)) {
+      foreach ($this->arguments as $argument) {
+        $task->addArgument(new Reference($argument));
+      }
     }
-    foreach ($this->arguments as $argument) {
-      $task->addArgument(new Reference($argument));
-    }
-
-    return $task;
+    $task->addTag('grumphp.task', ['task' => $this->name]);
   }
 
 }

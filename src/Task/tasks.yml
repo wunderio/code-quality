@@ -3,7 +3,6 @@ default:
   name: default
   is_file_specific: false
   arguments:
-    - config
     - process_builder
     - formatter.raw_process
   options:
@@ -57,7 +56,7 @@ Wunderio\GrumPHP\Task\Ecs\EcsTask:
       defaults: false
       allowed_types: bool
     config:
-      defaults: 'vendor/wunderio/code-quality/config/ecs.yml'
+      defaults: 'vendor/wunderio/code-quality/config/ecs.php'
       allowed_types: ['string', 'null']
     no-progress-bar:
       defaults: true
@@ -113,7 +112,6 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
       allowed_types: ['string']
 Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
   arguments:
-    - config
     - process_builder
     - formatter.phpcs
   options:
@@ -168,7 +166,7 @@ Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
     basepath:
       defaults: '.'
       allowed_types: ['string']
-Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
+Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
   options:
     ignore_patterns:
       defaults:
@@ -187,7 +185,7 @@ Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
       defaults: ~
       allowed_types: ['string', 'null']
     configuration:
-      defaults: 'phpstan.neon'
+      defaults: 'vendor/wunderio/code-quality/config/phpstan.neon'
       allowed_types: ['string', 'null']
     memory_limit:
       defaults: ~
@@ -198,7 +196,6 @@ Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationTask:
 Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
   is_file_specific: true
   arguments:
-    - config
     - linter.yamllint
   options:
     ignore_patterns:
@@ -230,7 +227,6 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
 Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
   is_file_specific: true
   arguments:
-    - config
     - linter.jsonlint
   options:
     ignore_patterns:

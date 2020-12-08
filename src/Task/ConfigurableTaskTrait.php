@@ -4,14 +4,18 @@ namespace Wunderio\GrumPHP\Task;
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Runner\TaskResult;
+use GrumPHP\Task\Config\TaskConfigInterface;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
+use GrumPHP\Task\TaskInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Trait ConfigurableTaskTrait.
+ *
+ * Trait for \GrumPHP\Task\TaskInterface.
  *
  * @package Wunderio\GrumPHP\Task
  */
@@ -41,7 +45,7 @@ trait ConfigurableTaskTrait {
   /**
    * Configurable options.
    *
-   * @var array[]
+   * @var \GrumPHP\Task\Config\TaskConfigInterface
    */
   public $configuration;
 
@@ -70,18 +74,43 @@ trait ConfigurableTaskTrait {
   /**
    * {@inheritdoc}
    */
-  public function getConfigurableOptions(): OptionsResolver {
+  public function getConfig(): TaskConfigInterface {
+    return $this->config;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getConfigurableOptions(): OptionsResolver {
+    // Get configurable options.
+    $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
+    $default_configuration = $tasks['default'];
+    unset($default_configuration['name']);
+    $configurations = $tasks[static::class] ?? $default_configuration;
+    $configurable_options = $configurations['options'] ?? $default_configuration['options'];
+
+    // Task config options.
     $resolver = new OptionsResolver();
     $defaults = [];
-    foreach ($this->configurableOptions as $option_name => $option) {
+    foreach ($configurable_options as $option_name => $option) {
       $defaults[$option_name] = $option['defaults'];
     }
     $resolver->setDefaults($defaults);
-    foreach ($this->configurableOptions as $option_name => $option) {
+    foreach ($configurable_options as $option_name => $option) {
       $resolver->addAllowedTypes($option_name, $option['allowed_types']);
     }
 
     return $resolver;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function withConfig(TaskConfigInterface $config): TaskInterface {
+    $new = clone $this;
+    $new->config = $config;
+
+    return $new;
   }
 
   /**

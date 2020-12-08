@@ -1,4 +1,4 @@
-# phpstan_check_deprecation
+# phpstan
 
 Check Drupal code against deprecation rules.
 
@@ -6,7 +6,7 @@ Check Drupal code against deprecation rules.
 ````yml
 parameters:
     tasks:
-        phpstan_check_deprecation:
+        php_stan:
             ignore_patterns: 
                 - '/vendor/'
                 - '/node_modules/'
@@ -27,5 +27,5 @@ parameters:
               defaults: ~
               allowed_types: ['string', 'null']
     extensions:
-        - Wunderio\GrumPHP\Task\PhpstanCheckDeprecation\PhpstanCheckDeprecationExtensionLoader
+        - Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
 ````

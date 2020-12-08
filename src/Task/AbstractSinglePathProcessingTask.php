@@ -12,6 +12,8 @@ use GrumPHP\Task\Context\ContextInterface;
 /**
  * Class AbstractSinglePathProcessingTask.
  *
+ * Provides a base implementation for processing task with single path.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask implements SinglePathArgumentsBuilderInterface {
@@ -20,7 +22,7 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $paths = $this->getPathsOrResult($context, $this->getConfiguration(), $this);
+    $paths = $this->getPathsOrResult($context, $this->getConfig()->getOptions(), $this);
     if ($paths instanceof TaskResultInterface) {
       return $paths;
     }
@@ -30,7 +32,7 @@ abstract class AbstractSinglePathProcessingTask extends AbstractProcessingTask i
     }
     $output = '';
     // Split files in to executable chunks.
-    $path_chunks = array_chunk($paths, $this->getConfiguration()['parallelism'] ?? 100);
+    $path_chunks = array_chunk($paths, $this->getConfig()->getOptions()['parallelism'] ?? 100);
     foreach ($path_chunks as $path_list) {
       $output .= $this->runInParallel($path_list);
     }

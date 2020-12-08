@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 /**
  * Class PhpCompatibilityTask.
  *
+ * Phpcs task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class PhpcsTask extends AbstractMultiPathProcessingTask {
@@ -19,7 +21,7 @@ class PhpcsTask extends AbstractMultiPathProcessingTask {
    */
   public function buildArguments(iterable $files): ProcessArgumentsCollection {
     $arguments = $this->processBuilder->createArgumentsForCommand('phpcs');
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $config['basepath'] = $config['basepath'] ?? '.';
     $arguments->addOptionalCommaSeparatedArgument('--standard=%s', (array) $config['standard']);
     $arguments->addOptionalCommaSeparatedArgument('--extensions=%s', (array) $config['extensions']);

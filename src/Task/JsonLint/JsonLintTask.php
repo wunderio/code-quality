@@ -10,6 +10,8 @@ use Wunderio\GrumPHP\Task\AbstractLintTask;
 /**
  * Class JsonLintTask.
  *
+ * JsonLint task.
+ *
  * @package Wunderio\GrumPHP\Task
  */
 class JsonLintTask extends AbstractLintTask {
@@ -18,7 +20,7 @@ class JsonLintTask extends AbstractLintTask {
    * {@inheritdoc}
    */
   public function configureLint(LinterInterface $linter): void {
-    $config = $this->getConfiguration();
+    $config = $this->getConfig()->getOptions();
     $linter->setDetectKeyConflicts($config['detect_key_conflicts']);
   }
 
