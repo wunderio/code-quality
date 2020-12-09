@@ -26,16 +26,14 @@
         },
         {
             "name": "Lauris Kuznecovs",
-            "email": "lauris.kuznecovs@wunder.ioo"
+            "email": "lauris.kuznecovs@wunder.io"
+        },
+        {
+            "name": "Pasi Kauraniemi",
+            "email": "pasi.kauraniemi@wunder.io"
         }
     ],
     "bin": ["bin/check_perms"],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/mitrpaka/ecs-drupal"
-        }
-    ],
     "require": {
         "symfony/polyfill-iconv": "^1",
         "phpro/grumphp": "^1",
