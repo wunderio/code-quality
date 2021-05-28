@@ -1,4 +1,4 @@
-grumphp:
+parameters:
   stop_on_failure: true
   ascii:
     failed: ~
@@ -8,11 +8,11 @@ grumphp:
       run_on: ['src', 'tests']
     phpcs:
       run_on: ['src', 'tests']
-    php_stan:
-      run_on: ['src']
-      configuration: phpstan.neon
+#    php_stan:
+#      run_on: ['src']
+#      configuration: phpstan.neon
     ecs:
-      config: ecs.php
+      config: ecs.yml
     yaml_lint: ~
     json_lint: ~
     phpunit: ~
