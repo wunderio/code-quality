@@ -17,6 +17,7 @@ grumphp:
     json_lint: ~
     phpunit: ~
     php_check_syntax: ~
+    psalm: ~
   extensions:
     - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
@@ -26,3 +27,4 @@ grumphp:
     - Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
     - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
+    - Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader

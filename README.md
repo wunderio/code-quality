@@ -8,7 +8,7 @@ code by using https://github.com/phpro/grumphp.
 **It checks only modified files or new files on git commit, but check on all configured
 paths can be executed running `vendor/bin/grumphp run`**
 
-This tool only extends [GrumPHP](https://github.com/phpro/grumphp). Please read 
+This tool only extends [GrumPHP](https://github.com/phpro/grumphp). Please read
 its [documentation](https://github.com/phpro/grumphp/blob/master/README.md#configuration) on how to configure tool itself.
 
 ## Checks performed
@@ -37,6 +37,7 @@ This needs to be done only once either while creating a project or enabling code
 composer require wunderio/code-quality --dev
 cp vendor/wunderio/code-quality/config/grumphp.yml ./grumphp.yml
 cp vendor/wunderio/code-quality/config/phpstan.neon ./phpstan.neon
+cp vendor/wunderio/code-quality/config/psalm.xml ./psalm.xml
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.
