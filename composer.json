@@ -44,8 +44,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "*",
         "mglaman/phpstan-drupal": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "vimeo/psalm": "^4",
-        "fenetikm/autoload-drupal": "dev-master#4503484"
+        "vimeo/psalm": "^4"
     },
     "autoload": {
         "psr-4": {
