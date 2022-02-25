@@ -185,7 +185,7 @@ Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
       defaults: ~
       allowed_types: ['string', 'null']
     configuration:
-      defaults: 'vendor/wunderio/code-quality/config/phpstan.neon'
+      defaults: 'phpstan.neon'
       allowed_types: ['string', 'null']
     memory_limit:
       defaults: ~
