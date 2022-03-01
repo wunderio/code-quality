@@ -11,8 +11,6 @@ grumphp:
     php_stan:
       run_on: ['src']
       configuration: phpstan.neon
-    ecs:
-      config: ecs.php
     yaml_lint: ~
     json_lint: ~
     phpunit: ~
