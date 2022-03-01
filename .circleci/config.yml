@@ -10,7 +10,7 @@ jobs:
       # Install composer dependencies.
       - run: >-
           export PATH="/home/circleci/.composer/vendor/bin:${PATH}" &&
-          composer install --ignore-platform-reqs
+          composer install
       # Run all checkers.
       - run: ./vendor/bin/grumphp run
       # Save project with coverage for next step to be analysed.
