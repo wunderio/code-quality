@@ -10,7 +10,6 @@ grumphp:
     php_check_syntax: ~
     phpcs: ~
     php_stan: ~
-    ecs: ~
     yaml_lint: ~
     json_lint: ~
   extensions:

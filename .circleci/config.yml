@@ -3,14 +3,14 @@ jobs:
   # Install all dependencies and run check tasks.
   build_and_test:
     docker:
-      - image: circleci/php:7.3.9-cli-node
+      - image: circleci/php:7.4-cli-node
     steps:
       # Check out source code.
       - checkout
       # Install composer dependencies.
       - run: >-
           export PATH="/home/circleci/.composer/vendor/bin:${PATH}" &&
-          composer install --ignore-platform-reqs
+          composer install
       # Run all checkers.
       - run: ./vendor/bin/grumphp run
       # Save project with coverage for next step to be analysed.
