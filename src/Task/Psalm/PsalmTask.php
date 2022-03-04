@@ -27,6 +27,7 @@ class PsalmTask extends AbstractMultiPathProcessingTask {
     $arguments->addOptionalArgument('--report=%s', $config['report']);
     $arguments->addOptionalArgument('--no-cache', $config['no_cache']);
     $arguments->addOptionalArgument('--threads=%d', $config['threads']);
+    $arguments->add('--find-unused-code');
     $arguments->addOptionalBooleanArgument('--show-info=%s', $config['show_info'], 'true', 'false');
 
     foreach ($files as $file) {
