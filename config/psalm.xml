@@ -7,6 +7,10 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     autoloader="vendor/wunderio/code-quality/drupal-autoloader.php"
 >
+    <issueHandlers>
+      <UndefinedInterfaceMethod errorLevel="suppress" />
+      <ImplicitToStringCast errorLevel="suppress" />
+    </issueHandlers>
 
     <fileExtensions>
       <extension name=".php" />
