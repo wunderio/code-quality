@@ -96,7 +96,8 @@ class WunderInlineCommentSniff extends InlineCommentSniff implements Sniff {
         // The only exception to inline doc blocks is the /** @var */
         // declaration. Allow that in any form.
         $varTag = $phpcsFile->findNext([T_DOC_COMMENT_TAG], ($stackPtr + 1), $tokens[$stackPtr]['comment_closer'], FALSE, '@var');
-        if ($varTag === FALSE) {
+        $psalmSuppressTag = $phpcsFile->findNext([T_DOC_COMMENT_TAG], ($stackPtr + 1), $tokens[$stackPtr]['comment_closer'], FALSE, '@psalm-suppress');
+        if ($varTag === FALSE && $psalmSuppressTag === FALSE) {
           $error = 'Inline doc block comments are not allowed; use "/* Comment */" or "// Comment" instead';
           $phpcsFile->addError($error, $stackPtr, 'DocBlock');
         }
