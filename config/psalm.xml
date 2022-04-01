@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="4"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    autoloader="vendor/wunderio/code-quality/drupal-autoloader.php"
+>
+    <projectFiles>
+      <ignoreFiles>
+        <directory name="web/modules/contrib" />
+        <directory name="web/themes/contrib" />
+        <directory name="web/core" />
+      </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+      <UndefinedInterfaceMethod errorLevel="suppress" />
+      <ImplicitToStringCast errorLevel="suppress" />
+    </issueHandlers>
+
+    <fileExtensions>
+      <extension name=".php" />
+      <extension name=".inc" />
+      <extension name=".module" />
+      <extension name=".install" />
+      <extension name=".theme" />
+    </fileExtensions>
+</psalm>

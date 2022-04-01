@@ -246,3 +246,38 @@ Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
     detect_key_conflicts:
       defaults: false
       allowed_types: ['bool']
+Wunderio\GrumPHP\Task\Psalm\PsalmTask:
+  options:
+    # We read psalm.xml from project root so file paths would not begin with ../../../../web/ in report.
+    config:
+      defaults: 'psalm.xml'
+      allowed_types: ['string']
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
+        - '/contrib/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['web/modules/custom', 'web/themes/custom']
+      allowed_types: ['array']
+    no_cache:
+      defaults: false
+      allowed_types: ['bool']
+    report:
+      defaults: ~
+      allowed_types: ['string', 'null' ]
+    output_format:
+      defaults: null
+      allowed_types: ['string', 'null' ]
+    threads:
+      defaults: 6
+      allowed_types: ['int']
+    show_info:
+      defaults: false
+      allowed_types: ['bool']
