@@ -45,7 +45,8 @@
         "mglaman/phpstan-drupal": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "vimeo/psalm": "^4",
-        "nette/finder": "^2.5"
+        "nette/finder": "^2.5",
+        "symfony/finder": "^4.4"
     },
     "autoload": {
         "psr-4": {
