@@ -92,9 +92,13 @@ Since GrumPHP is just a CLI tool, these commands can be triggered:
 
 The pre-commit hook will be automatically run upon executing `git commit`.
 
-The code scanning can be avoided by `git commit --no-verify` or `git commit -n`.
+The code scanning can be avoided by `git commit --no-verify` or `git commit -n` but is only meant for rare occasions.
 
 You can run the checks manually with: `./vendor/bin/grumphp run`
+
+To run specific task from the defined tasks in grumphp.yml, you can define it with `--tasks` parameter. Example:
+
+    ./vendor/bin/grumphp run --tasks=phpcs
 
 ## Usage in Continuous Integration
 You can easily use the code quality checkers on your CI (CircleCi/Jenkins/GitLab CI) by adding this line:
