@@ -7,14 +7,14 @@ Check if files are compatible with X version of PHP.
 parameters:
     tasks:
         php_compatibility:
-            ignore_patterns: 
+            ignore_patterns:
                 - '/vendor/'
                 - '/node_modules/'
                 - '/core/'
                 - '/libraries/'
             extensions: ['php', 'inc', 'module', 'install', 'theme']
             run_on: ['.']
-            testVersion: '7.3'
+            testVersion: '8.0'
             standard: 'PHPCompatibility'
             parallel: 20
     extensions:
