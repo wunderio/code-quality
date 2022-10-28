@@ -13,7 +13,9 @@ grumphp:
     yaml_lint: ~
     json_lint: ~
     psalm: ~
-    eslint: ~
+    eslint:
+      bin: 'node_modules/.bin/eslint'
+      config: 'web/core/.eslintrc.passing.json'
   extensions:
     - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
@@ -24,4 +26,3 @@ grumphp:
     - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
     - Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader
-    - Wunderio\GrumPHP\Task\ESLint\EslintExtensionLoader
