@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
+<ruleset name="WunderAll">
+    <description>Group together all Wunder rules for easier inclusion. Also in PHPStorm it's not possible to choose multiple rules.</description>
+
+    <rule ref="WunderDrupal" />
+    <rule ref="WunderSecurity" />
+</ruleset>
