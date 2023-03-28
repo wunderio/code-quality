@@ -1,0 +1,12 @@
+name: code-quality
+recipe: lamp
+config:
+  php: '8.0'
+  xdebug: true
+
+tooling:
+  phpunit:
+    service: appserver
+    description: Run Drupal PHPUnit tests. Run 'lando phpunit --help' for more information.
+    cmd:
+      - "/app/.lando/tooling-phpunit.sh"
