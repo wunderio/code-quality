@@ -3,7 +3,7 @@ jobs:
   # Install all dependencies and run check tasks.
   build_and_test:
     docker:
-      - image: circleci/php:8.0-cli-node
+      - image: cimg/php:8.1
     steps:
       # Check out source code.
       - checkout

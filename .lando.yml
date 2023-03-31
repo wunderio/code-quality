@@ -1,7 +1,7 @@
 name: code-quality
 recipe: lamp
 config:
-  php: '8.0'
+  php: '8.1'
   xdebug: true
 
 tooling:
