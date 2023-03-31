@@ -27,7 +27,7 @@ This repository currently has the following checks:
 ## Pre-requisites
 
 * Composer
-* PHP >= 7.1
+* PHP >= 7.3
 
 ## Installation
 
