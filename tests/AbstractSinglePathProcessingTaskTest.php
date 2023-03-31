@@ -189,7 +189,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
     $this->process
       ->expects($this->exactly(2))
       ->method('isRunning')
-      ->willReturnOnConsecutiveCalls([TRUE, FALSE]);
+      ->willReturnOnConsecutiveCalls(TRUE, FALSE);
     $this->process
       ->expects($this->once())
       ->method('isSuccessful')
