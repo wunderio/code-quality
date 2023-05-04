@@ -63,5 +63,12 @@
             "phpro/grumphp": true,
             "phpstan/extension-installer": true
         }
+    },
+    "extra": {
+        "phpstan/extension-installer": {
+            "ignore": [
+                "mglaman/phpstan-drupal"
+            ]
+        }
     }
 }
