@@ -271,10 +271,10 @@ Wunderio\GrumPHP\Task\Psalm\PsalmTask:
       allowed_types: ['bool']
     report:
       defaults: ~
-      allowed_types: ['string', 'null' ]
+      allowed_types: ['string', 'null']
     output_format:
       defaults: null
-      allowed_types: ['string', 'null' ]
+      allowed_types: ['string', 'null']
     threads:
       defaults: 6
       allowed_types: ['int']
