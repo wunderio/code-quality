@@ -11,7 +11,7 @@ use mglaman\PHPStanDrupal\Drupal\Extension;
 /**
  * Drupal autoloader base class for allowing Psalm to scan code.
  *
- * Code re-used from https://github.com/mglaman/phpstan-drupal/blob/main/src/Drupal/DrupalAutoloader.php.
+ * This was split into 2 classes to code complexity would not be too high.
  */
 class DrupalAutoloaderBase {
 
