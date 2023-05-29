@@ -47,7 +47,8 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "vimeo/psalm": "^4",
         "nette/finder": "^2.5",
-        "symfony/finder": "^4.4 || ^5.3 || ^6"
+        "symfony/finder": "^4.4 || ^5.3 || ^6",
+        "tomasvotruba/cognitive-complexity": "^0.1.1"
     },
     "autoload": {
         "psr-4": {
