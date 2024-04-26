@@ -1,0 +1,8 @@
+services:
+  Wunderio\GrumPHP\Task\Phpcs\PhpcsTask:
+    class: Wunderio\GrumPHP\Task\Phpcs\PhpcsTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.phpcs'
+    tags:
+      - {name: grumphp.task, task: phpcs}
