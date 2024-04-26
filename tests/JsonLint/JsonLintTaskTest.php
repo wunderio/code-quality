@@ -5,7 +5,7 @@
  * Tests covering JsonLintTask.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Linter\Json\JsonLinter;
 use GrumPHP\Task\Config\TaskConfigInterface;

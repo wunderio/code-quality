@@ -5,7 +5,7 @@
  * Tests covering AbstractExternalExtensionLoader.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
