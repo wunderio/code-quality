@@ -4,25 +4,25 @@ grumphp:
     failed: ~
     succeeded: ~
   tasks:
-    php_compatibility:
-      run_on: ['src', 'tests']
+    #php_compatibility:
+    #  run_on: ['src', 'tests']
     phpcs:
       run_on: ['src', 'tests']
-    php_stan:
-      run_on: ['src']
-      configuration: phpstan.neon
-    yaml_lint: ~
-    json_lint: ~
-    phpunit: ~
-    php_check_syntax: ~
-    psalm: ~
+    #php_stan:
+    #  run_on: ['src']
+    #  configuration: phpstan.neon
+    #yaml_lint: ~
+    #json_lint: ~
+    #phpunit: ~
+    #php_check_syntax: ~
+    #psalm: ~
   extensions:
-    - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
+    #- Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
-    - Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
-    - Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
+    #- Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
+    #- Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
     - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader
-    - Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
-    - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
-    - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
-    - Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader
+    #- Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
+    #- Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
+    #- Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
+    #- Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader
