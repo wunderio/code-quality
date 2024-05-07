@@ -4,8 +4,8 @@ grumphp:
     failed: ~
     succeeded: ~
   tasks:
-    #php_compatibility:
-    #  run_on: ['src', 'tests']
+    php_compatibility:
+      run_on: ['src', 'tests']
     phpcs:
       run_on: ['src', 'tests']
     #php_stan:
@@ -17,7 +17,7 @@ grumphp:
     #php_check_syntax: ~
     #psalm: ~
   extensions:
-    #- Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
     - Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxExtensionLoader
     #- Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
     #- Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
