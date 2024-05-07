@@ -1,0 +1,8 @@
+services:
+   Wunderio\GrumPHP\Task\PhpStan\PhpStanTask:
+    class: Wunderio\GrumPHP\Task\PhpStan\PhpStanTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - {name: grumphp.task, task: php_stan}

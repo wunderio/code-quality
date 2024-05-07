@@ -8,9 +8,9 @@ grumphp:
       run_on: ['src', 'tests']
     phpcs:
       run_on: ['src', 'tests']
-    #php_stan:
-    #  run_on: ['src']
-    #  configuration: phpstan.neon
+    php_stan:
+     run_on: ['src']
+     configuration: phpstan.neon
     yaml_lint: ~
     json_lint: ~
     #phpunit: ~
@@ -22,7 +22,7 @@ grumphp:
     #- Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsExtensionLoader
     #- Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
     - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader
-    #- Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
+    - Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
     - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
     #- Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader
