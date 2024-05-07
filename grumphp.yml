@@ -14,7 +14,7 @@ grumphp:
     yaml_lint: ~
     json_lint: ~
     #phpunit: ~
-    #php_check_syntax: ~
+    php_check_syntax: ~
     #psalm: ~
   extensions:
     - Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityExtensionLoader
