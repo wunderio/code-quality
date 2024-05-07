@@ -9,11 +9,11 @@ grumphp:
     phpcs:
       run_on: ['src', 'tests']
     php_stan:
-     run_on: ['src']
-     configuration: phpstan.neon
+      run_on: ['src']
+      configuration: phpstan.neon
     yaml_lint: ~
     json_lint: ~
-    #phpunit: ~
+    phpunit: ~
     php_check_syntax: ~
     #psalm: ~
   extensions:
