@@ -1,0 +1,8 @@
+services:
+   Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
+    class: Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - {name: grumphp.task, task: check_file_permissions}

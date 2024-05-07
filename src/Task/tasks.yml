@@ -29,7 +29,7 @@ Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
         - '/node_modules/'
         - '/core/'
         - '/libraries/'
-        - '/modules/contrib/'
+        - '/modules\/contrib/'
       allowed_types: ['array']
     extensions:
       defaults: ['sh']
