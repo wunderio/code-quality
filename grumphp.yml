@@ -11,7 +11,7 @@ grumphp:
     #php_stan:
     #  run_on: ['src']
     #  configuration: phpstan.neon
-    #yaml_lint: ~
+    yaml_lint: ~
     #json_lint: ~
     #phpunit: ~
     #php_check_syntax: ~
@@ -23,6 +23,6 @@ grumphp:
     #- Wunderio\GrumPHP\Task\Ecs\EcsExtensionLoader
     - Wunderio\GrumPHP\Task\Phpcs\PhpcsExtensionLoader
     #- Wunderio\GrumPHP\Task\PhpStan\PhpStanExtensionLoader
-    #- Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
+    - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     #- Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
     #- Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader

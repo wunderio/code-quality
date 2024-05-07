@@ -1,0 +1,7 @@
+services:
+   Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
+    class: Wunderio\GrumPHP\Task\YamlLint\YamlLintTask
+    arguments:
+      - '@linter.yamllint'
+    tags:
+      - {name: grumphp.task, task: yaml_lint}

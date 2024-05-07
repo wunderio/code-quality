@@ -1,4 +1,3 @@
-# my-extension.yaml
 services:
   Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
     class: Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask
