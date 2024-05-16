@@ -5,7 +5,7 @@
  * Tests covering AbstractProcessingTask.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;

@@ -5,7 +5,7 @@
  * Tests covering YamlLintTask.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Linter\Yaml\YamlLinter;
 use GrumPHP\Task\Config\TaskConfigInterface;

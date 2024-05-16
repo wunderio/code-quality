@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Wunderio\GrumPHP\Drupal;
 
-use DrupalFinder\DrupalFinder;
 use Drupal\Core\DependencyInjection\ContainerNotInitializedException;
+use DrupalFinder\DrupalFinder;
 use Drush\Drush;
+use mglaman\PHPStanDrupal\Drupal\Extension;
+use mglaman\PHPStanDrupal\Drupal\ExtensionDiscovery;
 use Nette\Utils\Finder;
 use PHPUnit\Framework\Test;
 use Symfony\Component\Yaml\Yaml;
-use mglaman\PHPStanDrupal\Drupal\Extension;
-use mglaman\PHPStanDrupal\Drupal\ExtensionDiscovery;
 
 /**
  * Drupal autoloader for allowing Psalm to scan code.

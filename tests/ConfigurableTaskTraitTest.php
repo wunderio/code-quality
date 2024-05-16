@@ -5,7 +5,7 @@
  * Tests covering ConfigurableTaskTrait.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Runner\TaskResult;
@@ -48,7 +48,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
       ->getMockForTrait();
     $stub->configure();
     $resolver = $stub->getConfigurableOptions();
-    $options = array_flip($resolver->getDefinedOptions());
+    $options = array_flip(array_keys($resolver->resolve([])));
     $this->assertArrayHasKey('ignore_patterns', $options);
     $this->assertArrayHasKey('extensions', $options);
     $this->assertArrayHasKey('run_on', $options);

@@ -1,0 +1,7 @@
+services:
+   Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
+    class: Wunderio\GrumPHP\Task\JsonLint\JsonLintTask
+    arguments:
+      - '@linter.jsonlint'
+    tags:
+      - {name: grumphp.task, task: json_lint}

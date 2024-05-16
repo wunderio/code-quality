@@ -5,7 +5,7 @@
  * Tests covering PhpCheckSyntaxTask.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Formatter\ProcessFormatterInterface;

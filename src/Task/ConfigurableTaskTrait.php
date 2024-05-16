@@ -4,6 +4,7 @@ namespace Wunderio\GrumPHP\Task;
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Runner\TaskResult;
+use GrumPHP\Task\Config\ConfigOptionsResolver;
 use GrumPHP\Task\Config\TaskConfigInterface;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Task\Context\GitPreCommitContext;
@@ -81,7 +82,7 @@ trait ConfigurableTaskTrait {
   /**
    * {@inheritdoc}
    */
-  public static function getConfigurableOptions(): OptionsResolver {
+  public static function getConfigurableOptions(): ConfigOptionsResolver {
     // Get configurable options.
     $tasks = Yaml::parseFile(__DIR__ . '/tasks.yml');
     $default_configuration = $tasks['default'];
@@ -100,7 +101,7 @@ trait ConfigurableTaskTrait {
       $resolver->addAllowedTypes($option_name, $option['allowed_types']);
     }
 
-    return $resolver;
+    return ConfigOptionsResolver::fromOptionsResolver($resolver);
   }
 
   /**

@@ -5,7 +5,7 @@
  * Tests covering AbstractExternalExtensionLoader.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
@@ -18,15 +18,16 @@ use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
 final class AbstractExternalExtensionLoaderTest extends TestCase {
 
   /**
-   * Test class constructor.
+   * Test imports method.
    *
-   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::__construct
+   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::import()
    */
-  public function testSetsConfigurationFromYaml(): void {
+  public function testImports(): void {
     $customLoader = new CustomTestExtensionLoader();
-    $this->assertEquals('custom_test', $customLoader->name);
-    $this->assertEquals(['process_builder', 'formatter.raw_process'], $customLoader->arguments);
-    $this->assertEquals('CustomTestTask', $customLoader->class);
+    $imports = $customLoader->imports();
+
+    $expected_path = dirname(__DIR__) . '/src/Task/CustomTest/services.yaml';
+    $this->assertEquals([$expected_path], iterator_to_array($imports));
   }
 
 }

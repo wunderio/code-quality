@@ -1,0 +1,8 @@
+services:
+  Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask:
+    class: Wunderio\GrumPHP\Task\PhpCheckSyntax\PhpCheckSyntaxTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - {name: grumphp.task, task: php_check_syntax}
