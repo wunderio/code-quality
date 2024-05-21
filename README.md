@@ -17,7 +17,7 @@ This repository currently has the following checks:
 
 * Shell script exec bits - [check_file_permissions](src/Task/CheckFilePermissions/README.md)
 * PHP Drupal CS and PHP Code security  - [phpcs](src/Task/Phpcs/README.md)
-* PHP 8.0 Compatibility - [php_compatibility](src/Task/PhpCompatibility/README.md)
+* PHP 8.1 Compatibility - [php_compatibility](src/Task/PhpCompatibility/README.md)
 * PHP syntax - [php_check_syntax](src/Task/PhpCheckSyntax/README.md)
 * Cognitive complexity and other ecs sniffs - [ecs](src/Task/Ecs/README.md)
 * Yaml syntax - [yaml_lint](src/Task/YamlLint/README.md)
@@ -27,7 +27,7 @@ This repository currently has the following checks:
 ## Pre-requisites
 
 * Composer
-* PHP >= 7.3
+* PHP >= 8.1
 
 ## Installation
 

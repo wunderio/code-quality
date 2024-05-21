@@ -99,7 +99,7 @@ Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
       defaults: ['.']
       allowed_types: ['array']
     testVersion:
-      defaults: '8.0'
+      defaults: '8.1'
       allowed_types: ['string']
     standard:
       defaults: 'PHPCompatibility'

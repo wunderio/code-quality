@@ -47,7 +47,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
     $stub->method('getConfig')->willReturn($taskConfig);
     $taskConfig->method('getOptions')->willReturn([
       'standard' => 'php-compatibility.xm',
-      'testVersion' => '8.0',
+      'testVersion' => '8.1',
       'extensions' => ['php'],
       'run_on' => ['.'],
       'ignore_patterns' => ['/vendor/'],
