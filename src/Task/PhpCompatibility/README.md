@@ -14,7 +14,7 @@ parameters:
                 - '/libraries/'
             extensions: ['php', 'inc', 'module', 'install', 'theme']
             run_on: ['.']
-            testVersion: '8.0'
+            testVersion: '8.1'
             standard: 'PHPCompatibility'
             parallel: 20
     extensions:
