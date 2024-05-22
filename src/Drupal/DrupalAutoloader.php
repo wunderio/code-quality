@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Wunderio\GrumPHP\Drupal;
 
-use DrupalFinder\DrupalFinder;
+use DrupalFinder\DrupalFinderComposerRuntime;
 use Drush\Drush;
 use Nette\Utils\Finder;
 use PHPUnit\Framework\Test;
@@ -26,8 +26,7 @@ class DrupalAutoloader extends DrupalAutoloaderBase {
    *   Path to Drupal root.
    */
   public function register(string $drupalRoot): void {
-    $finder = new DrupalFinder();
-    $finder->locateRoot($drupalRoot);
+    $finder = new DrupalFinderComposerRuntime();
 
     $drupalRoot = $finder->getDrupalRoot();
     $drupalVendorRoot = $finder->getVendorDir();
