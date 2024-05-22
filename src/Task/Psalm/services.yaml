@@ -1,0 +1,8 @@
+services:
+   Wunderio\GrumPHP\Task\Psalm\PsalmTask:
+    class: Wunderio\GrumPHP\Task\Psalm\PsalmTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - {name: grumphp.task, task: psalm}

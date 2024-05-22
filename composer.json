@@ -36,7 +36,7 @@
     "bin": ["bin/check_perms"],
     "require": {
         "symfony/polyfill-iconv": "^1",
-        "phpro/grumphp": "^1",
+        "phpro/grumphp": "^2.5",
         "drupal/coder": "^8",
         "phpcompatibility/php-compatibility": "^9.3",
         "pheromone/phpcs-security-audit": "^2.0",
@@ -45,9 +45,7 @@
         "mglaman/phpstan-drupal": "^1.1",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "vimeo/psalm": "^4",
         "nette/finder": "^2.5",
-        "symfony/finder": "^4.4 || ^5.3 || ^6",
         "tomasvotruba/cognitive-complexity": "^0.1.1",
         "webflo/drupal-finder": "^1.3"
     },

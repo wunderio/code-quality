@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Wunderio\GrumPHP\Drupal;
 
 use Drupal\Core\DependencyInjection\ContainerNotInitializedException;
-use Nette\Utils\Finder;
 use mglaman\PHPStanDrupal\Drupal\Extension;
+use Nette\Utils\Finder;
 
 /**
  * Drupal autoloader base class for allowing Psalm to scan code.

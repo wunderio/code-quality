@@ -5,7 +5,7 @@
  * Tests covering CheckFilePermissionsTask.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;

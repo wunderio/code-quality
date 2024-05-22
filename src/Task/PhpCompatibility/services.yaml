@@ -1,0 +1,8 @@
+services:
+   Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask:
+    class: Wunderio\GrumPHP\Task\PhpCompatibility\PhpCompatibilityTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - {name: grumphp.task, task: php_compatibility}

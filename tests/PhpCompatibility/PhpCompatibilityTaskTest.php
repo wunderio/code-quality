@@ -5,7 +5,7 @@
  * Tests covering PhpCompatibilityTask.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\ProcessArgumentsCollection;
@@ -47,7 +47,7 @@ final class PhpCompatibilityTaskTest extends TestCase {
     $stub->method('getConfig')->willReturn($taskConfig);
     $taskConfig->method('getOptions')->willReturn([
       'standard' => 'php-compatibility.xm',
-      'testVersion' => '8.0',
+      'testVersion' => '8.1',
       'extensions' => ['php'],
       'run_on' => ['.'],
       'ignore_patterns' => ['/vendor/'],
