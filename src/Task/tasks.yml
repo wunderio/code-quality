@@ -210,7 +210,7 @@ Wunderio\GrumPHP\Task\YamlLint\YamlLintTask:
       defaults: ['yaml', 'yml']
       allowed_types: ['array']
     run_on:
-      defaults: ['.']
+      defaults: ['web/modules/custom', 'web/themes/custom']
       allowed_types: ['array']
     object_support:
       defaults: false
@@ -241,7 +241,7 @@ Wunderio\GrumPHP\Task\JsonLint\JsonLintTask:
       defaults: ['json', 'lock']
       allowed_types: ['array']
     run_on:
-      defaults: ['.']
+      defaults: ['web/modules/custom', 'web/themes/custom']
       allowed_types: ['array']
     detect_key_conflicts:
       defaults: false
