@@ -35,7 +35,7 @@ Wunderio\GrumPHP\Task\CheckFilePermissions\CheckFilePermissionsTask:
       defaults: ['sh']
       allowed_types: ['array']
     run_on:
-      defaults: ['.']
+      defaults: ['web/modules/custom', 'web/themes/custom', 'scripts']
       allowed_types: ['array']
 Wunderio\GrumPHP\Task\Ecs\EcsTask:
   options:
