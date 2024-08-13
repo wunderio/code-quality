@@ -33,7 +33,7 @@
             "email": "pasi.kauraniemi@wunder.io"
         }
     ],
-    "bin": ["bin/check_perms"],
+    "bin": ["bin/check_perms", "bin/phpcs-docker"],
     "require": {
         "symfony/polyfill-iconv": "^1",
         "phpro/grumphp": "^2.5",
