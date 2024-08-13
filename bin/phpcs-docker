@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Run PHP_CodeSniffer inside Docker container using the PHP 8.2 CLI image.
+# The container will automatically be removed after execution (--rm).
+# Mount the current working directory ($(pwd)) to the /app directory inside
+# the container (-v $(pwd):/app).
+# Set the working directory inside the container to /app (-w /app).
+# Execute the PHP CodeSniffer command (./vendor/bin/phpcs) with the WunderAll
+# standard inside the container.
+# Pass any additional arguments ($*) from the script to the phpcs command.
+
+# @todo add "--rm" between -i and -v to remove the container after execution? Without rm it seems a bit faster when benchmarking.
+docker run -i -v $(pwd):/app -w /app php:8.2-cli ./vendor/bin/phpcs --standard=WunderAll $*
