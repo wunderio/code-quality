@@ -106,3 +106,19 @@ You can easily use the code quality checkers on your CI (CircleCi/Jenkins/GitLab
 ```
 ./vendor/bin/grumphp run --no-ansi --no-interaction
 ```
+
+## IDE Integration
+
+To use PHPCS from your IDE, you can point it to the following script:
+
+```
+vendor/wunderio/code-quality/bin/phpcs-docker
+```
+
+This script runs PHP_CodeSniffer inside a Docker container using the PHP 8.2
+CLI image. It mounts the current working directory to the /app directory inside
+the container and executes the PHPCS command with the WunderAll standard.
+
+For Visual Studio Code you'd also need this plugin
+https://marketplace.visualstudio.com/items?itemName=shevaua.phpcs
+
