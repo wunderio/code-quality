@@ -118,7 +118,11 @@ sudo apt install php-cli php-tokenizer
 ```
 
 #### macOS
-[Placeholder for macOS installation instructions]
+1. Install Homebrew if you don't have it installed already (see instructions on https://brew.sh/)
+2. Install PHP with Homebrew
+```
+brew install php
+```
 
 ### Configuration
 
