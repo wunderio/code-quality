@@ -111,6 +111,8 @@ You can easily use the code quality checkers on your CI (CircleCi/Jenkins/GitLab
 
 ### Prerequisites
 
+Minimally [Qude Quality 2.2.1](https://github.com/wunderio/code-quality/releases/tag/2.2.1) is needed because it contains the WunderAll ruleset that groups all Wunder rulesets.
+
 #### Ubuntu
 To install the necessary PHP components without Apache:
 ```
