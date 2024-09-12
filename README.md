@@ -106,3 +106,59 @@ You can easily use the code quality checkers on your CI (CircleCi/Jenkins/GitLab
 ```
 ./vendor/bin/grumphp run --no-ansi --no-interaction
 ```
+
+## IDE Integration (optional)
+
+### Prerequisites
+
+Minimally [Code Quality 2.2.1](https://github.com/wunderio/code-quality/releases/tag/2.2.1) is needed because it contains the WunderAll ruleset that groups all Wunder rulesets.
+
+#### Ubuntu
+To install the necessary PHP components without Apache:
+```
+sudo apt install php-cli php-tokenizer
+```
+
+#### macOS
+1. Install Homebrew if you don't have it installed already (see instructions on https://brew.sh/)
+2. Install PHP with Homebrew
+```
+brew install php
+```
+
+### Configuration
+
+#### Visual Studio Code
+
+1. Install the [Drupal extension](https://marketplace.visualstudio.com/items?itemName=Stanislav.vscode-drupal).
+2. Open the Drupal extension configuration.
+3. Find "Drupal > Phpcs: Args" and "Drupal > Phpcbf: Args".
+4. Click "Edit in settings.json" and add:
+
+```json
+{
+    "drupal.phpcs.args": [
+        "--standard=WunderAll"
+    ],
+    "drupal.phpcbf.args": [
+        "--standard=WunderAll"
+    ]
+}
+```
+
+PHPCS usage Example in Visual Studio Code:
+![PHPCS Usage Example in VSC](https://user-images.githubusercontent.com/11972062/221161739-cabcd4b5-800d-4d5b-8071-9324bf2bcc08.gif)
+
+#### PhpStorm
+
+Open settings and look for PHP_Codesniffer. Make sure these settings are the same:
+![PhpStorm settings PHPCS 1/2](https://www.upload.ee/image/16969201/2024-08-14_15-59.png)
+
+Check the paths and validate:
+![PhpStorm settings PHPCS 2/2](https://www.upload.ee/image/16969203/2024-08-14_16-01.png)
+
+Warnings are underlined and you can choose to fix them by right clicking:
+![How to fix 1/2](https://www.upload.ee/image/16969207/2024-08-14_16-03.png)
+
+Choose the "PHP Code Beautifier and Fixer: fix the whole file"
+![How to fix 2/2](https://www.upload.ee/image/16969210/2024-08-14_16-04.png)
