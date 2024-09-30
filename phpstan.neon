@@ -7,3 +7,6 @@ parameters:
 		- '#Plugin definitions cannot be altered.#'
 		- '#Missing cache backend declaration for performance.#'
 		- '#Plugin manager has cache backend specified but does not declare cache tags.#'
+	cognitive_complexity:
+		class: 50
+		function: 15
