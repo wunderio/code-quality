@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 use GrumPHP\Collection\FilesCollection;
 use GrumPHP\Collection\LintErrorsCollection;
-use GrumPHP\Linter\LinterInterface;
 use GrumPHP\Linter\LintError;
+use GrumPHP\Linter\LinterInterface;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Task\Config\TaskConfigInterface;
 use GrumPHP\Task\Context\ContextInterface;
