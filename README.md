@@ -38,6 +38,8 @@ composer require wunderio/code-quality --dev
 cp vendor/wunderio/code-quality/config/grumphp.yml ./grumphp.yml
 cp vendor/wunderio/code-quality/config/phpstan.neon ./phpstan.neon
 cp vendor/wunderio/code-quality/config/psalm.xml ./psalm.xml
+npm init # If you don't have package.json does not exist yet in your project.
+npm i eslint@^8.9.0 eslint-config-airbnb@^19.0.4 eslint-config-prettier@^8.4.0 eslint-plugin-import@^2.25.4 eslint-plugin-jquery@^1.5.1 eslint-plugin-jsx-a11y@^6.5.1 eslint-plugin-prettier@^4.0.0 eslint-plugin-react@^7.28.0 eslint-plugin-yml@^0.14.0 prettier@^2.5.1
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.
