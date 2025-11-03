@@ -153,25 +153,28 @@ PHPCS usage Example in Visual Studio Code:
 
 #### PhpStorm
 
-Open settings and look for PHP_Codesniffer. Make sure these settings are the same:
+1. Open settings and look for PHP_Codesniffer. Make sure these settings are the same:
 ![PhpStorm settings PHPCS 1/2](https://www.upload.ee/image/16969201/2024-08-14_15-59.png)
 
-Check the paths and validate:
+2. Check the paths and validate:
 ![PhpStorm settings PHPCS 2/2](https://www.upload.ee/image/16969203/2024-08-14_16-01.png)
 
-Warnings are underlined and you can choose to fix them by right clicking:
+3. Warnings are underlined and you can choose to fix them by right clicking:
 ![How to fix 1/2](https://www.upload.ee/image/16969207/2024-08-14_16-03.png)
 
-Choose the "PHP Code Beautifier and Fixer: fix the whole file"
+4. Choose the "PHP Code Beautifier and Fixer: fix the whole file"
 ![How to fix 2/2](https://www.upload.ee/image/16969210/2024-08-14_16-04.png)
 
 #### Cursor
 
-Search for phpcs under extension and install "PHP Sniffer" from the list.
+1. Search for phpcs under extension and install "PHP Sniffer" from the list.
 ![Install PHP Sniffer](https://www.upload.ee/image/18763945/01-install-php-sniffer.png)
 
-Open settings of "PHP Sniffer"
+2. Open settings of "PHP Sniffer"
 ![Open settings of PHP Sniffer](https://www.upload.ee/image/18763949/02-settings-php-sniffer.png)
 
-Configure "PHP Sniffer"
+3. Configure "PHP Sniffer"
 ![Configure PHP Sniffer](https://www.upload.ee/image/18763951/03-configure-php-sniffer.png)
+
+4. Fix code by right-clicking in editor and choosing "Format Document"
+![Fix your code](https://www.upload.ee/image/18763989/Screen_Recording_2025-11-03_at_20.04.44.gif)
