@@ -123,7 +123,9 @@ sudo apt install php-cli php-tokenizer
 1. Install Homebrew if you don't have it installed already (see instructions on https://brew.sh/)
 2. Install PHP with Homebrew
 ```
-brew install php
+brew install php@8.3
+brew unlink php # Just in case you had already some other PHP version installed.
+brew link php@8.3
 ```
 
 ### Configuration
@@ -162,3 +164,14 @@ Warnings are underlined and you can choose to fix them by right clicking:
 
 Choose the "PHP Code Beautifier and Fixer: fix the whole file"
 ![How to fix 2/2](https://www.upload.ee/image/16969210/2024-08-14_16-04.png)
+
+#### Cursor
+
+Search for phpcs under extension and install "PHP Sniffer" from the list.
+![Install PHP Sniffer](https://www.upload.ee/image/18763945/01-install-php-sniffer.png)
+
+Open settings of "PHP Sniffer"
+![Open settings of PHP Sniffer](https://www.upload.ee/image/18763949/02-settings-php-sniffer.png)
+
+Configure "PHP Sniffer"
+![Configure PHP Sniffer](https://www.upload.ee/image/18763951/03-configure-php-sniffer.png)
