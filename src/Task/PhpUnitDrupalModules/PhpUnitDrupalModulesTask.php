@@ -53,11 +53,11 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     if ($modulesWithoutTests) {
       fwrite(
         STDOUT,
-        "phpunit_drupal_modules: affected modules without tests:\n" .
+        "\nphpunit_drupal_modules: NOTE: affected modules without tests:\n" .
         implode("\n", array_map(static function (string $modulePath): string {
           return '  - ' . $modulePath;
         }, $modulesWithoutTests)) .
-        "\n"
+        "\n\n"
       );
     }
 
@@ -74,7 +74,7 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       implode("\n", array_map(static function (string $modulePath): string {
         return '  - ' . $modulePath;
       }, $modulesWithTests)) .
-      "\n"
+      "\n\n"
     );
 
     $process = $this->processBuilder->buildProcess($this->buildArguments($modulesWithTests));
