@@ -65,6 +65,11 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       $arguments->add($config['config_file']);
     }
 
+    if (!empty($config['testsuite'])) {
+      $arguments->add('--testsuite');
+      $arguments->add($config['testsuite']);
+    }
+
     foreach ($modules as $modulePath) {
       $arguments->add($modulePath);
     }

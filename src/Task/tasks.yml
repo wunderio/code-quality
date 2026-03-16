@@ -302,3 +302,6 @@ Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask:
     config_file:
       defaults: ~
       allowed_types: ['string', 'null']
+    testsuite:
+      defaults: ~
+      allowed_types: ['string', 'null']
