@@ -281,3 +281,21 @@ Wunderio\GrumPHP\Task\Psalm\PsalmTask:
     show_info:
       defaults: false
       allowed_types: ['bool']
+
+Wunderio\GrumPHP\Task\PhpUnitModules\PhpUnitModulesTask:
+  is_file_specific: true
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
+        - '/contrib/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['web/modules/custom']
+      allowed_types: ['array']
