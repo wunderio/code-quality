@@ -22,6 +22,7 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
    */
   public function run(ContextInterface $context): TaskResultInterface {
     $paths = $this->getPathsOrResult($context, $this->getConfig()->getOptions(), $this);
+
     if ($paths instanceof TaskResultInterface) {
       return $paths;
     }
@@ -29,7 +30,6 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     $modules = [];
     foreach ($paths as $file) {
       $path = (string) $file;
-
       // Only consider custom Drupal modules. Contrib modules are intentionally ignored.
       if (!str_starts_with($path, 'web/modules/custom/')) {
         continue;
@@ -56,8 +56,7 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
    */
   public function buildArguments(iterable $modules): ProcessArgumentsCollection {
     // Use the local DDEV phpunit wrapper.
-    $arguments = $this->processBuilder->createArgumentsForCommand('ddev');
-    $arguments->add('phpunit');
+    $arguments = $this->processBuilder->createArgumentsForCommand('phpunit');
 
     foreach ($modules as $modulePath) {
       $arguments->add($modulePath);
