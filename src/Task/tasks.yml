@@ -282,7 +282,7 @@ Wunderio\GrumPHP\Task\Psalm\PsalmTask:
       defaults: false
       allowed_types: ['bool']
 
-Wunderio\GrumPHP\Task\PhpUnitModules\PhpUnitModulesTask:
+Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask:
   is_file_specific: true
   options:
     ignore_patterns:

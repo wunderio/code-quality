@@ -1,0 +1,9 @@
+services:
+  Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask:
+    class: Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - { name: grumphp.task, task: phpunit_drupal_modules }
+

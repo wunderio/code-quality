@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Wunderio\GrumPHP\Task\PhpUnitModules;
+namespace Wunderio\GrumPHP\Task\PhpUnitDrupalModules;
 
 use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Runner\TaskResult;
@@ -11,11 +11,11 @@ use GrumPHP\Task\Context\ContextInterface;
 use Wunderio\GrumPHP\Task\AbstractMultiPathProcessingTask;
 
 /**
- * Class PhpUnitModulesTask.
+ * Class PhpUnitDrupalModulesTask.
  *
- * Runs phpunit only for modules affected by the current context.
+ * Runs phpunit only for affected Drupal custom modules.
  */
-class PhpUnitModulesTask extends AbstractMultiPathProcessingTask {
+class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
 
   /**
    * {@inheritdoc}
@@ -30,7 +30,7 @@ class PhpUnitModulesTask extends AbstractMultiPathProcessingTask {
     foreach ($paths as $file) {
       $path = (string) $file;
 
-      // Only consider custom modules. Contrib modules are intentionally ignored.
+      // Only consider custom Drupal modules. Contrib modules are intentionally ignored.
       if (!str_starts_with($path, 'web/modules/custom/')) {
         continue;
       }
