@@ -45,6 +45,16 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       return TaskResult::createSkipped($this, $context);
     }
 
+    // Provide a short hint about which modules will be tested.
+    // This mirrors GrumPHP's own task output style without being too noisy.
+    fwrite(
+      STDOUT,
+      sprintf(
+        "phpunit_drupal_modules: running tests for modules: %s\n",
+        implode(', ', array_values($modules))
+      )
+    );
+
     $process = $this->processBuilder->buildProcess($this->buildArguments($modules));
     $process->run();
 
