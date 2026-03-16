@@ -40,8 +40,16 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       }
     }
 
-    // No affected modules -> nothing to run.
-    if (!$modules) {
+    // Further restrict to modules that actually have a tests directory.
+    $modulesWithTests = [];
+    foreach ($modules as $modulePath) {
+      if (is_dir($modulePath . '/tests')) {
+        $modulesWithTests[] = $modulePath;
+      }
+    }
+
+    // No affected modules with tests -> nothing to run.
+    if (!$modulesWithTests) {
       return TaskResult::createSkipped($this, $context);
     }
 
@@ -49,13 +57,14 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     // This mirrors GrumPHP's own task output style without being too noisy.
     fwrite(
       STDOUT,
-      sprintf(
-        "phpunit_drupal_modules: running tests for modules: %s\n",
-        implode(', ', array_values($modules))
-      )
+      "phpunit_drupal_modules: running tests for modules:\n" .
+      implode("\n", array_map(static function (string $modulePath): string {
+        return '  - ' . $modulePath;
+      }, $modulesWithTests)) .
+      "\n"
     );
 
-    $process = $this->processBuilder->buildProcess($this->buildArguments($modules));
+    $process = $this->processBuilder->buildProcess($this->buildArguments($modulesWithTests));
     $process->run();
 
     return $this->getTaskResult($process, $context);
