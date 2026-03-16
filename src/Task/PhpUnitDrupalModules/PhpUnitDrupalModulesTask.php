@@ -55,8 +55,15 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
    * {@inheritdoc}
    */
   public function buildArguments(iterable $modules): ProcessArgumentsCollection {
-    // Use the local DDEV phpunit wrapper.
+    $config = $this->getConfig()->getOptions();
+
     $arguments = $this->processBuilder->createArgumentsForCommand('phpunit');
+
+    if (!empty($config['config_file'])) {
+      // Mirror GrumPHP's core phpunit task: allow passing a custom config file.
+      $arguments->add('-c');
+      $arguments->add($config['config_file']);
+    }
 
     foreach ($modules as $modulePath) {
       $arguments->add($modulePath);

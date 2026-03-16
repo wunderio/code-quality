@@ -299,3 +299,6 @@ Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask:
     run_on:
       defaults: ['web/modules/custom']
       allowed_types: ['array']
+    config_file:
+      defaults: ~
+      allowed_types: ['string', 'null']
