@@ -48,6 +48,19 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       }
     }
 
+    // If there are affected modules without tests, let the user know.
+    $modulesWithoutTests = array_values(array_diff($modules, $modulesWithTests));
+    if ($modulesWithoutTests) {
+      fwrite(
+        STDOUT,
+        "phpunit_drupal_modules: affected modules without tests:\n" .
+        implode("\n", array_map(static function (string $modulePath): string {
+          return '  - ' . $modulePath;
+        }, $modulesWithoutTests)) .
+        "\n"
+      );
+    }
+
     // No affected modules with tests -> nothing to run.
     if (!$modulesWithTests) {
       return TaskResult::createSkipped($this, $context);
