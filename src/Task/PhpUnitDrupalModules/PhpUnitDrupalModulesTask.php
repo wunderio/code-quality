@@ -128,4 +128,3 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
   }
 
 }
-
