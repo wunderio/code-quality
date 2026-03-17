@@ -39,12 +39,22 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       return TaskResult::createSkipped($this, $context);
     }
 
+    // Run phpunit once per affected module so that each module's directory
+    // is honoured even when a testsuite is used in the configuration file.
     $this->printModulesWithTests($modulesWithTests);
 
-    $process = $this->processBuilder->buildProcess($this->buildArguments($modulesWithTests));
-    $process->run();
+    foreach ($modulesWithTests as $modulePath) {
+      $process = $this->processBuilder->buildProcess($this->buildArguments([$modulePath]));
+      $process->run();
 
-    return $this->getTaskResult($process, $context);
+      $result = $this->getTaskResult($process, $context);
+      if (!$result->isPassed()) {
+        // Stop on first failure/error to keep feedback fast and clear.
+        return $result;
+      }
+    }
+
+    return TaskResult::createPassed($this, $context);
   }
 
   /**
