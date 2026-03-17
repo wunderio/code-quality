@@ -10,4 +10,3 @@ use Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader;
  * Registers the PhpUnitDrupalModules task in GrumPHP.
  */
 class PhpUnitDrupalModulesExtensionLoader extends AbstractExternalExtensionLoader {}
-
