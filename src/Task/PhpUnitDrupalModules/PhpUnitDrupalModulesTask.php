@@ -60,7 +60,8 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
       fwrite(
         STDOUT,
         sprintf(
-          "phpunit_drupal_modules: finished module %d/%d: %s [%s]\n\n",
+          "%s: finished module %d/%d: %s [%s]\n\n",
+          $this->getName(),
           $index + 1,
           $moduleCount,
           $modulePath,
@@ -169,9 +170,11 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
 
     fwrite(
       STDOUT,
-      "\nphpunit_drupal_modules: NOTE: affected modules without tests:\n" .
-      implode("\n", $lines) .
-      "\n\n"
+      sprintf(
+        "\n%s: NOTE: affected modules without tests:\n%s\n\n",
+        $this->getName(),
+        implode("\n", $lines)
+      )
     );
   }
 
@@ -189,9 +192,11 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
 
     fwrite(
       STDOUT,
-      "phpunit_drupal_modules: running tests for modules:\n" .
-      implode("\n", $lines) .
-      "\n\n"
+      sprintf(
+        "%s: running tests for modules:\n%s\n\n",
+        $this->getName(),
+        implode("\n", $lines)
+      )
     );
   }
 
