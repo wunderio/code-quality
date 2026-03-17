@@ -21,22 +21,34 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
    * {@inheritdoc}
    */
   public function run(ContextInterface $context): TaskResultInterface {
-    $paths = $this->getPathsOrResult($context, $this->getConfig()->getOptions(), $this);
+    $config = $this->getConfig()->getOptions();
+    $paths = $this->getPathsOrResult($context, $config, $this);
 
     if ($paths instanceof TaskResultInterface) {
       return $paths;
     }
 
+    // Determine which directory roots should be treated as Drupal module roots.
+    // Defaults to web/modules/custom for backward compatibility, but can be
+    // configured via the run_on option in tasks.yml.
+    $moduleRoots = $config['run_on'] ?? ['web/modules/custom'];
+    $moduleRoots = array_values(array_map(static function (string $root): string {
+      return rtrim($root, '/');
+    }, $moduleRoots));
+
     $modules = [];
     foreach ($paths as $file) {
       $path = (string) $file;
-      // Only consider custom Drupal modules. Contrib modules are intentionally ignored.
-      if (!str_starts_with($path, 'web/modules/custom/')) {
-        continue;
-      }
+      foreach ($moduleRoots as $root) {
+        $rootWithSlash = $root . '/';
 
-      if (preg_match('#^(web/modules/custom/[^/]+)#', $path, $matches)) {
-        $modules[$matches[1]] = $matches[1];
+        if (!str_starts_with($path, $rootWithSlash)) {
+          continue;
+        }
+
+        if (preg_match('#^(' . preg_quote($root, '#') . '/[^/]+)#', $path, $matches)) {
+          $modules[$matches[1]] = $matches[1];
+        }
       }
     }
 
