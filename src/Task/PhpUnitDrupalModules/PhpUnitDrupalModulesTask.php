@@ -32,9 +32,11 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     // Defaults to web/modules/custom for backward compatibility, but can be
     // configured via the run_on option in tasks.yml.
     $moduleRoots = $config['run_on'] ?? ['web/modules/custom'];
-    $moduleRoots = array_values(array_map(static function (string $root): string {
-      return rtrim($root, '/');
-    }, $moduleRoots));
+    $normalisedRoots = [];
+    foreach ($moduleRoots as $root) {
+      $normalisedRoots[] = rtrim((string) $root, '/');
+    }
+    $moduleRoots = array_values($normalisedRoots);
 
     $modules = [];
     foreach ($paths as $file) {
@@ -63,12 +65,14 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     // If there are affected modules without tests, let the user know.
     $modulesWithoutTests = array_values(array_diff($modules, $modulesWithTests));
     if ($modulesWithoutTests) {
+      $lines = [];
+      foreach ($modulesWithoutTests as $modulePath) {
+        $lines[] = '  - ' . $modulePath;
+      }
       fwrite(
         STDOUT,
         "\nphpunit_drupal_modules: NOTE: affected modules without tests:\n" .
-        implode("\n", array_map(static function (string $modulePath): string {
-          return '  - ' . $modulePath;
-        }, $modulesWithoutTests)) .
+        implode("\n", $lines) .
         "\n\n"
       );
     }
@@ -80,12 +84,14 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
 
     // Provide a short hint about which modules will be tested.
     // This mirrors GrumPHP's own task output style without being too noisy.
+    $lines = [];
+    foreach ($modulesWithTests as $modulePath) {
+      $lines[] = '  - ' . $modulePath;
+    }
     fwrite(
       STDOUT,
       "phpunit_drupal_modules: running tests for modules:\n" .
-      implode("\n", array_map(static function (string $modulePath): string {
-        return '  - ' . $modulePath;
-      }, $modulesWithTests)) .
+      implode("\n", $lines) .
       "\n\n"
     );
 
