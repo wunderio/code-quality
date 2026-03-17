@@ -110,7 +110,7 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
    * @return string[]
    *   Module paths keyed by path for uniqueness.
    */
-  private function collectModulesFromPaths(iterable $paths, array $moduleRoots): array {
+  protected function collectModulesFromPaths(iterable $paths, array $moduleRoots): array {
     $modules = [];
     foreach ($paths as $file) {
       $path = (string) $file;
@@ -139,7 +139,7 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
    * @return array{0: string[], 1: string[]}
    *   First array contains modules with tests, second without.
    */
-  private function splitModulesByTests(array $modules): array {
+  protected function splitModulesByTests(array $modules): array {
     $modulesWithTests = [];
     foreach ($modules as $modulePath) {
       if (is_dir($modulePath . '/tests')) {

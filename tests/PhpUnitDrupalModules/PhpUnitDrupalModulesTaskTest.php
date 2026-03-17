@@ -174,13 +174,13 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
   }
 
   /**
-   * Integration-style test to verify module detection and tests split end-to-end.
+   * Integration test for module detection and tests split end-to-end.
    *
-   * This test uses a real temporary directory structure and the actual implementations
-   * of collectModulesFromPaths() and splitModulesByTests().
+   * This test uses a real temporary directory structure and the actual
+   * implementations of collectModulesFromPaths() and splitModulesByTests().
    */
   public function testCollectAndSplitModulesEndToEndWithRealPaths(): void {
-    $tempRoot = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'phpunit_drupal_modules_' . uniqid('', true);
+    $tempRoot = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'phpunit_drupal_modules_' . uniqid('', TRUE);
 
     $moduleWithTests = $tempRoot . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'foo';
     $moduleWithoutTests = $tempRoot . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'bar';
@@ -193,7 +193,7 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
 
     try {
       foreach ($directories as $dir) {
-        if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+        if (!is_dir($dir) && !mkdir($dir, 0777, TRUE) && !is_dir($dir)) {
           $this->fail(sprintf('Failed to create directory: %s', $dir));
         }
       }
@@ -213,15 +213,24 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
       $processBuilder = $this->createMock(ProcessBuilder::class);
       $formatter = $this->createMock(ProcessFormatterInterface::class);
 
-      // Use an anonymous class to expose the protected/private methods without mocking them.
+      // Use an anonymous class to expose the protected/private methods
+      // without mocking them.
       $task = new class($processBuilder, $formatter) extends PhpUnitDrupalModulesTask {
+
+        /**
+         * Proxy to collectModulesFromPaths() for testing.
+         */
         public function exposeCollectModulesFromPaths(\Traversable $paths): array {
           return $this->collectModulesFromPaths($paths);
         }
 
+        /**
+         * Proxy to splitModulesByTests() for testing.
+         */
         public function exposeSplitModulesByTests(array $modules): array {
           return $this->splitModulesByTests($modules);
         }
+
       };
 
       $modules = $task->exposeCollectModulesFromPaths($paths);
@@ -233,15 +242,23 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
 
       [$withTests, $withoutTests] = $task->exposeSplitModulesByTests($modules);
 
-      $this->assertContains($moduleWithTests, $withTests, 'Module with tests/ directory should be in with-tests list.');
-      $this->assertContains($moduleWithoutTests, $withoutTests, 'Module without tests/ directory should be in without-tests list.');
+      $this->assertContains(
+        $moduleWithTests,
+        $withTests,
+        'Module with tests directory should be in with-tests list.'
+      );
+      $this->assertContains(
+        $moduleWithoutTests,
+        $withoutTests,
+        'Module without tests directory should be in without-tests list.'
+      );
     }
     finally {
       // Clean up the temporary directory structure.
       if (is_dir($tempRoot)) {
         $remove = function (string $dir) use (&$remove): void {
           $items = scandir($dir);
-          if ($items === false) {
+          if ($items === FALSE) {
             return;
           }
           foreach ($items as $item) {
