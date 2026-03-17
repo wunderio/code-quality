@@ -305,3 +305,6 @@ Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask:
     testsuite:
       defaults: ~
       allowed_types: ['string', 'null']
+    timeout:
+      defaults: ~
+      allowed_types: ['int', 'null']

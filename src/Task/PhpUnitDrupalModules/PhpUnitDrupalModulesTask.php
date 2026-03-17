@@ -44,9 +44,15 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     $this->printModulesWithTests($modulesWithTests);
 
     $moduleCount = count($modulesWithTests);
+    $timeout = $config['timeout'] ?? NULL;
 
     foreach ($modulesWithTests as $index => $modulePath) {
       $process = $this->processBuilder->buildProcess($this->buildArguments([$modulePath]));
+
+      if ($timeout !== NULL) {
+        $process->setTimeout($timeout);
+      }
+
       $process->run();
 
       $result = $this->getTaskResult($process, $context);
