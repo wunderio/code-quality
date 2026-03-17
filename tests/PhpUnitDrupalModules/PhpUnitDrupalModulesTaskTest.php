@@ -171,7 +171,7 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
 
     $result = $task->run($context);
     $this->assertInstanceOf(TaskResultInterface::class, $result);
-    $this->assertFalse($result->isPassed());
+    $this->assertSame(TaskResult::SKIPPED, $result->getResultCode());
   }
 
   /**
