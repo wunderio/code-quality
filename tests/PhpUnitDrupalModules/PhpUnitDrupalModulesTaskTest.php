@@ -11,6 +11,7 @@ use GrumPHP\Collection\ProcessArgumentsCollection;
 use GrumPHP\Formatter\ProcessFormatterInterface;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResultInterface;
+use GrumPHP\Runner\TaskResult;
 use GrumPHP\Task\Config\TaskConfigInterface;
 use GrumPHP\Task\Context\ContextInterface;
 use Symfony\Component\Process\Process;
@@ -219,9 +220,17 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
 
         /**
          * Proxy to collectModulesFromPaths() for testing.
+         *
+         * @param \Traversable $paths
+         *   Changed paths.
+         * @param string[] $moduleRoots
+         *   Module root directories.
+         *
+         * @return string[]
+         *   Module paths keyed by path for uniqueness.
          */
-        public function exposeCollectModulesFromPaths(\Traversable $paths): array {
-          return $this->collectModulesFromPaths($paths);
+        public function exposeCollectModulesFromPaths(\Traversable $paths, array $moduleRoots): array {
+          return $this->collectModulesFromPaths($paths, $moduleRoots);
         }
 
         /**
@@ -233,7 +242,9 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
 
       };
 
-      $modules = $task->exposeCollectModulesFromPaths($paths);
+      $modules = $task->exposeCollectModulesFromPaths($paths, [
+        $tempRoot . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'custom',
+      ]);
 
       // Ensure both module roots were detected.
       $this->assertIsArray($modules);
@@ -341,8 +352,8 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
       ->willReturn($this->createMock(Process::class));
 
     // Simulate first module passing, second failing.
-    $passingResult = $this->createConfiguredMock(TaskResultInterface::class, ['isPassed' => TRUE]);
-    $failingResult = $this->createConfiguredMock(TaskResultInterface::class, ['isPassed' => FALSE]);
+    $passingResult = $this->createConfiguredMock(TaskResult::class, ['isPassed' => TRUE]);
+    $failingResult = $this->createConfiguredMock(TaskResult::class, ['isPassed' => FALSE]);
 
     $task->expects($this->exactly(2))
       ->method('getTaskResult')
