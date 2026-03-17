@@ -281,3 +281,31 @@ Wunderio\GrumPHP\Task\Psalm\PsalmTask:
     show_info:
       defaults: false
       allowed_types: ['bool']
+
+Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask:
+  name: phpunit_drupal_modules
+  is_file_specific: true
+  options:
+    ignore_patterns:
+      defaults:
+        - '/vendor/'
+        - '/node_modules/'
+        - '/core/'
+        - '/libraries/'
+        - '/contrib/'
+      allowed_types: ['array']
+    extensions:
+      defaults: ['php', 'inc', 'module', 'install', 'theme']
+      allowed_types: ['array']
+    run_on:
+      defaults: ['web/modules/custom']
+      allowed_types: ['array']
+    config_file:
+      defaults: ~
+      allowed_types: ['string', 'null']
+    testsuite:
+      defaults: ~
+      allowed_types: ['string', 'null']
+    timeout:
+      defaults: ~
+      allowed_types: ['int', 'null']
