@@ -174,6 +174,96 @@ final class PhpUnitDrupalModulesTaskTest extends TestCase {
   }
 
   /**
+   * Integration-style test to verify module detection and tests split end-to-end.
+   *
+   * This test uses a real temporary directory structure and the actual implementations
+   * of collectModulesFromPaths() and splitModulesByTests().
+   */
+  public function testCollectAndSplitModulesEndToEndWithRealPaths(): void {
+    $tempRoot = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'phpunit_drupal_modules_' . uniqid('', true);
+
+    $moduleWithTests = $tempRoot . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'foo';
+    $moduleWithoutTests = $tempRoot . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'bar';
+
+    $directories = [
+      $moduleWithTests . DIRECTORY_SEPARATOR . 'src',
+      $moduleWithTests . DIRECTORY_SEPARATOR . 'tests',
+      $moduleWithoutTests . DIRECTORY_SEPARATOR . 'src',
+    ];
+
+    try {
+      foreach ($directories as $dir) {
+        if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+          $this->fail(sprintf('Failed to create directory: %s', $dir));
+        }
+      }
+
+      // Create dummy PHP files to simulate changed source files.
+      $fooSrcFile = $moduleWithTests . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Foo.php';
+      $barSrcFile = $moduleWithoutTests . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Bar.php';
+
+      file_put_contents($fooSrcFile, "<?php\n");
+      file_put_contents($barSrcFile, "<?php\n");
+
+      $paths = new \ArrayObject([
+        $fooSrcFile,
+        $barSrcFile,
+      ]);
+
+      $processBuilder = $this->createMock(ProcessBuilder::class);
+      $formatter = $this->createMock(ProcessFormatterInterface::class);
+
+      // Use an anonymous class to expose the protected/private methods without mocking them.
+      $task = new class($processBuilder, $formatter) extends PhpUnitDrupalModulesTask {
+        public function exposeCollectModulesFromPaths(\Traversable $paths): array {
+          return $this->collectModulesFromPaths($paths);
+        }
+
+        public function exposeSplitModulesByTests(array $modules): array {
+          return $this->splitModulesByTests($modules);
+        }
+      };
+
+      $modules = $task->exposeCollectModulesFromPaths($paths);
+
+      // Ensure both module roots were detected.
+      $this->assertIsArray($modules);
+      $this->assertArrayHasKey($moduleWithTests, $modules);
+      $this->assertArrayHasKey($moduleWithoutTests, $modules);
+
+      [$withTests, $withoutTests] = $task->exposeSplitModulesByTests($modules);
+
+      $this->assertContains($moduleWithTests, $withTests, 'Module with tests/ directory should be in with-tests list.');
+      $this->assertContains($moduleWithoutTests, $withoutTests, 'Module without tests/ directory should be in without-tests list.');
+    }
+    finally {
+      // Clean up the temporary directory structure.
+      if (is_dir($tempRoot)) {
+        $remove = function (string $dir) use (&$remove): void {
+          $items = scandir($dir);
+          if ($items === false) {
+            return;
+          }
+          foreach ($items as $item) {
+            if ($item === '.' || $item === '..') {
+              continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $item;
+            if (is_dir($path)) {
+              $remove($path);
+            }
+            else {
+              @unlink($path);
+            }
+          }
+          @rmdir($dir);
+        };
+        $remove($tempRoot);
+      }
+    }
+  }
+
+  /**
    * Ensure run() executes phpunit once per module and stops on first failure.
    *
    * @covers \Wunderio\GrumPHP\Task\PhpUnitDrupalModules\PhpUnitDrupalModulesTask::run
