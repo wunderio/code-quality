@@ -43,11 +43,25 @@ class PhpUnitDrupalModulesTask extends AbstractMultiPathProcessingTask {
     // is honoured even when a testsuite is used in the configuration file.
     $this->printModulesWithTests($modulesWithTests);
 
-    foreach ($modulesWithTests as $modulePath) {
+    $moduleCount = count($modulesWithTests);
+
+    foreach ($modulesWithTests as $index => $modulePath) {
       $process = $this->processBuilder->buildProcess($this->buildArguments([$modulePath]));
       $process->run();
 
       $result = $this->getTaskResult($process, $context);
+
+      fwrite(
+        STDOUT,
+        sprintf(
+          "phpunit_drupal_modules: finished module %d/%d: %s [%s]\n\n",
+          $index + 1,
+          $moduleCount,
+          $modulePath,
+          $result->isPassed() ? 'OK' : 'FAILED'
+        )
+      );
+
       if (!$result->isPassed()) {
         // Stop on first failure/error to keep feedback fast and clear.
         return $result;
