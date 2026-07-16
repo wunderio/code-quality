@@ -27,7 +27,7 @@ This repository currently has the following checks:
 ## Pre-requisites
 
 * Composer
-* PHP >= 8.1
+* PHP >= 8.4
 
 ## Installation
 
@@ -41,6 +41,29 @@ cp vendor/wunderio/code-quality/config/psalm.xml ./psalm.xml
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.
+
+## Local development
+
+This repository uses [DDEV](https://ddev.com/) for local development.
+
+```sh
+ddev start
+ddev composer install
+```
+
+Run the test suite:
+
+```sh
+ddev exec vendor/bin/phpunit
+```
+
+Run the full GrumPHP suite against this repository's own code (needed to generate the
+code coverage report consumed by SonarQube in CI):
+
+```sh
+ddev xdebug on
+ddev exec "XDEBUG_MODE=coverage vendor/bin/grumphp run"
+```
 
 ## Customization
 

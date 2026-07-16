@@ -11,3 +11,17 @@ coverage.xml
 
 # Other
 .DS_Store
+
+# DDEV
+.ddev/.dbimageBuild
+.ddev/.webimageBuild
+.ddev/db-build
+.ddev/web-build
+.ddev/.global_commands
+.ddev/.ddev-docker-compose-base.yaml*
+.ddev/.ddev-docker-compose-full.yaml*
+.ddev/.homeadditions
+.ddev/.sshimageBuild
+.ddev/apache
+.ddev/import-db
+.ddev/xhprof
