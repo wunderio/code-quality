@@ -1,6 +1,6 @@
 # Code Quality
 
-[![CircleCI](https://circleci.com/gh/wunderio/code-quality.svg?style=svg)](https://circleci.com/gh/wunderio/code-quality)
+[![CI](https://github.com/wunderio/code-quality/actions/workflows/ci.yml/badge.svg)](https://github.com/wunderio/code-quality/actions/workflows/ci.yml)
 
 This composer package will provide some basic code quality checks before committing
 code by using https://github.com/phpro/grumphp.
