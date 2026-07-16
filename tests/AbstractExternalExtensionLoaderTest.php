@@ -20,7 +20,7 @@ final class AbstractExternalExtensionLoaderTest extends TestCase {
   /**
    * Test imports method.
    *
-   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::import()
+   * @covers \Wunderio\GrumPHP\Task\AbstractExternalExtensionLoader::imports
    */
   public function testImports(): void {
     $customLoader = new CustomTestExtensionLoader();
