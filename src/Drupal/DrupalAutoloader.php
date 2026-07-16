@@ -8,8 +8,8 @@ use DrupalFinder\DrupalFinderComposerRuntime;
 use Drush\Drush;
 use mglaman\PHPStanDrupal\Drupal\Extension;
 use mglaman\PHPStanDrupal\Drupal\ExtensionDiscovery;
-use Nette\Utils\Finder;
 use PHPUnit\Framework\Test;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -90,7 +90,7 @@ class DrupalAutoloader extends DrupalAutoloaderBase {
         }
         $drushDir = dirname($reflect->getFileName(), $levels);
         /** @var \SplFileInfo $file */
-        foreach (Finder::findFiles('*.inc')->in($drushDir . '/includes') as $file) {
+        foreach (Finder::create()->files()->name('*.inc')->in($drushDir . '/includes') as $file) {
           // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
           require_once $file->getPathname();
         }

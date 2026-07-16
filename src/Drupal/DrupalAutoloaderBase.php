@@ -6,7 +6,7 @@ namespace Wunderio\GrumPHP\Drupal;
 
 use Drupal\Core\DependencyInjection\ContainerNotInitializedException;
 use mglaman\PHPStanDrupal\Drupal\Extension;
-use Nette\Utils\Finder;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Drupal autoloader base class for allowing Psalm to scan code.
@@ -83,7 +83,7 @@ class DrupalAutoloaderBase {
    */
   protected function loadLegacyIncludes(): void {
     /** @var \SplFileInfo $file */
-    foreach (Finder::findFiles('*.inc')->in($this->drupalRoot . '/core/includes') as $file) {
+    foreach (Finder::create()->files()->name('*.inc')->in($this->drupalRoot . '/core/includes') as $file) {
       // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
       require_once $file->getPathname();
     }
