@@ -33,7 +33,7 @@ final class PhpStanTaskTest extends TestCase {
       $processBuilder,
       $this->createMock(ProcessFormatterInterface::class),
     ])
-      ->setMethodsExcept(['buildArguments'])->getMock();
+      ->onlyMethods(['getConfig'])->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
     $taskConfig = $this->createMock(TaskConfigInterface::class);
 

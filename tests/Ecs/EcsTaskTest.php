@@ -34,7 +34,7 @@ final class EcsTaskTest extends TestCase {
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])
-      ->setMethodsExcept(['buildArguments'])
+      ->onlyMethods(['getConfig'])
       ->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
     $taskConfig = $this->createMock(TaskConfigInterface::class);

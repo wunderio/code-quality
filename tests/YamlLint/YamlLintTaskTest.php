@@ -27,7 +27,7 @@ final class YamlLintTaskTest extends TestCase {
   public function testBuildsProcessArgumentsFromPath(): void {
     $stub = $this->getMockBuilder(YamlLintTask::class)
       ->disableOriginalConstructor()
-      ->setMethodsExcept(['configureLint'])
+      ->onlyMethods(['getConfig'])
       ->getMock();
     $lint = $this->createMock(YamlLinter::class);
     $taskConfig = $this->createMock(TaskConfigInterface::class);

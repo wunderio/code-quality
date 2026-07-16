@@ -73,7 +73,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
         $this->processBuilder,
         $this->processFormatterInterface,
       ])
-      ->setMethodsExcept(['run'])
+      ->onlyMethods(['getPathsOrResult', 'runInParallel'])
       ->getMockForAbstractClass();
     $this->process = $this->createMock(Process::class);
   }
@@ -145,7 +145,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
         $this->processBuilder,
         $this->processFormatterInterface,
       ])
-      ->setMethodsExcept(['runInParallel'])
+      ->onlyMethods(['buildArgumentsFromPath', 'handleProcesses'])
       ->getMockForAbstractClass();
     $output_text = 'Test error output';
     $task->expects($this->exactly(3))
@@ -177,7 +177,7 @@ final class AbstractSinglePathProcessingTaskTest extends TestCase {
         $this->processBuilder,
         $this->processFormatterInterface,
       ])
-      ->setMethodsExcept(['handleProcesses'])
+      ->onlyMethods(['buildArgumentsFromPath'])
       ->getMockForAbstractClass();
     $message = 'Test error';
     $output = '';

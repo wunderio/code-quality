@@ -42,7 +42,7 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
         $processBuilder,
         $processFormatterInterface,
       ])
-      ->setMethodsExcept(['run'])
+      ->onlyMethods(['getPathsOrResult', 'buildArguments', 'getTaskResult'])
       ->getMockForAbstractClass();
     $context = $this->createMock(RunContext::class);
 
@@ -71,7 +71,7 @@ final class AbstractMultiPathProcessingTaskTest extends TestCase {
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])
-      ->setMethodsExcept(['run'])
+      ->onlyMethods(['getPathsOrResult', 'buildArguments', 'getTaskResult'])
       ->getMockForAbstractClass();
     $message = 'Test message...';
 

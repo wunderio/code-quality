@@ -31,7 +31,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
    */
   public function testGetsTaskName(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
-      ->setMethodsExcept(['getName'])
+      ->onlyMethods([])
       ->getMockForTrait();
     $stub->name = 'test_name';
     $this->assertEquals($stub->getName(), $stub->name);
@@ -44,7 +44,7 @@ final class ConfigurableTaskTraitTest extends TestCase {
    */
   public function testGetsConfigurableOptions(): void {
     $stub = $this->getMockBuilder(ConfigurableTaskTrait::class)
-      ->setMethodsExcept(['getConfigurableOptions', 'configure'])
+      ->onlyMethods([])
       ->getMockForTrait();
     $stub->configure();
     $resolver = $stub->getConfigurableOptions();

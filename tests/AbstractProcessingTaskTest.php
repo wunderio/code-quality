@@ -49,7 +49,7 @@ final class AbstractProcessingTaskTest extends TestCase {
         $this->createMock(ProcessBuilder::class),
         $processFormatterInterface,
       ])
-      ->setMethodsExcept(['getTaskResult'])
+      ->onlyMethods(['run'])
       ->getMockForAbstractClass();
     $process = $this->createMock(Process::class);
 
@@ -67,7 +67,7 @@ final class AbstractProcessingTaskTest extends TestCase {
   public function testPassesTaskIfProcessSuccessful(): void {
     $stub = $this->getMockBuilder(AbstractProcessingTask::class)
       ->disableOriginalConstructor()
-      ->setMethodsExcept(['getTaskResult'])
+      ->onlyMethods(['run'])
       ->getMockForAbstractClass();
 
     $process = $this->createMock(Process::class);

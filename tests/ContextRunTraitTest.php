@@ -28,7 +28,7 @@ final class ContextRunTraitTest extends TestCase {
    */
   public function testRunsInGitAndRunContexts(): void {
     $stub = $this->getMockBuilder(ContextRunTrait::class)
-      ->setMethodsExcept(['canRunInContext'])
+      ->onlyMethods([])
       ->getMockForTrait();
     $this->assertTrue($stub->canRunInContext(new RunContext(new FilesCollection())));
     $this->assertTrue($stub->canRunInContext(new GitPreCommitContext(new FilesCollection())));
