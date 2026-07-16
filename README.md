@@ -57,12 +57,11 @@ Run the test suite:
 ddev exec vendor/bin/phpunit
 ```
 
-Run the full GrumPHP suite against this repository's own code (needed to generate the
-code coverage report consumed by SonarQube in CI):
+Run the full GrumPHP suite against this repository's own code (the same check that
+runs in CI):
 
 ```sh
-ddev xdebug on
-ddev exec "XDEBUG_MODE=coverage vendor/bin/grumphp run"
+ddev exec vendor/bin/grumphp run
 ```
 
 ## Customization
