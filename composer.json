@@ -35,7 +35,7 @@
     ],
     "bin": ["bin/check_perms"],
     "require": {
-        "php": "^8.4",
+        "php": "^8.3",
         "symfony/polyfill-iconv": "^1.37",
         "phpro/grumphp": "^2.22",
         "drupal/coder": "^8.3",
@@ -45,7 +45,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": ">=1.2.1",
         "mglaman/phpstan-drupal": "^2.1 || ^2.0.9",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-deprecation-rules": "^1.2 || ^2.0",
         "tomasvotruba/cognitive-complexity": "^1.2",
         "webflo/drupal-finder": "^1.3"
     },
