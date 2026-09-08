@@ -33,7 +33,7 @@ final class CheckFilePermissionsTaskTest extends TestCase {
         $processBuilder,
         $this->createMock(ProcessFormatterInterface::class),
       ])
-      ->setMethodsExcept(['buildArguments'])
+      ->onlyMethods([])
       ->getMock();
     $arguments = $this->createMock(ProcessArgumentsCollection::class);
 

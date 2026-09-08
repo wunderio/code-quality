@@ -48,7 +48,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->setConstructorArgs([
         $this->createMock(LinterInterface::class),
       ])
-      ->setMethodsExcept(['run'])
+      ->onlyMethods(['getPathsOrResult', 'configureLint', 'runLint'])
       ->getMockForAbstractClass();
     $context = $this->createMock(ContextInterface::class);
     $files = new FilesCollection(['file.php']);
@@ -73,7 +73,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->setConstructorArgs([
         $this->createMock(LinterInterface::class),
       ])
-      ->setMethodsExcept(['run'])
+      ->onlyMethods(['getPathsOrResult', 'configureLint', 'runLint'])
       ->getMockForAbstractClass();
     $context = $this->createMock(ContextInterface::class);
     $stub->expects($this->once())
@@ -98,7 +98,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->setConstructorArgs([
         $lint,
       ])
-      ->setMethodsExcept(['runLint'])
+      ->onlyMethods(['configureLint', 'getConfig'])
       ->getMockForAbstractClass();
     $files = new FilesCollection([]);
 
@@ -119,7 +119,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->setConstructorArgs([
         $lint,
       ])
-      ->setMethodsExcept(['runLint'])
+      ->onlyMethods(['configureLint', 'getConfig'])
       ->getMockForAbstractClass();
     $taskConfig = $this->createMock(TaskConfigInterface::class);
 
@@ -148,7 +148,7 @@ final class AbstractLintTaskTest extends TestCase {
       ->setConstructorArgs([
         $lint,
       ])
-      ->setMethodsExcept(['runLint'])
+      ->onlyMethods(['configureLint', 'getConfig'])
       ->getMockForAbstractClass();
     $taskConfig = $this->createMock(TaskConfigInterface::class);
 

@@ -26,3 +26,5 @@ grumphp:
     - Wunderio\GrumPHP\Task\YamlLint\YamlLintExtensionLoader
     - Wunderio\GrumPHP\Task\JsonLint\JsonLintExtensionLoader
     #- Wunderio\GrumPHP\Task\Psalm\PsalmExtensionLoader
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: ddev php

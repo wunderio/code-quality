@@ -1,0 +1,8 @@
+name: code-quality
+type: php
+docroot: ""
+php_version: "8.4"
+webserver_type: nginx-fpm
+xdebug_enabled: false
+composer_root: ""
+web_environment: []

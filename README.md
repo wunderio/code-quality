@@ -1,6 +1,6 @@
 # Code Quality
 
-[![CircleCI](https://circleci.com/gh/wunderio/code-quality.svg?style=svg)](https://circleci.com/gh/wunderio/code-quality)
+[![CI](https://github.com/wunderio/code-quality/actions/workflows/ci.yml/badge.svg)](https://github.com/wunderio/code-quality/actions/workflows/ci.yml)
 
 This composer package will provide some basic code quality checks before committing
 code by using https://github.com/phpro/grumphp.
@@ -27,7 +27,7 @@ This repository currently has the following checks:
 ## Pre-requisites
 
 * Composer
-* PHP >= 8.1
+* PHP >= 8.4
 
 ## Installation
 
@@ -41,6 +41,28 @@ cp vendor/wunderio/code-quality/config/psalm.xml ./psalm.xml
 ```
 
 The commit hook for GrumPHP is automatically installed on composer require.
+
+## Local development
+
+This repository uses [DDEV](https://ddev.com/) for local development.
+
+```sh
+ddev start
+ddev composer install
+```
+
+Run the test suite:
+
+```sh
+ddev exec vendor/bin/phpunit
+```
+
+Run the full GrumPHP suite against this repository's own code (the same check that
+runs in CI):
+
+```sh
+ddev exec vendor/bin/grumphp run
+```
 
 ## Customization
 

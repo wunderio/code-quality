@@ -27,7 +27,7 @@ final class JsonLintTaskTest extends TestCase {
   public function testBuildsProcessArgumentsFromPath(): void {
     $stub = $this->getMockBuilder(JsonLintTask::class)
       ->disableOriginalConstructor()
-      ->setMethodsExcept(['configureLint'])
+      ->onlyMethods(['getConfig'])
       ->getMock();
     $lint = $this->createMock(JsonLinter::class);
     $taskConfig = $this->createMock(TaskConfigInterface::class);
